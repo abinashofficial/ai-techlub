@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import AOS from "aos";
 import GLightbox from "glightbox";
 import testimg1 from "../assets/img/hero-bg-light.webp" 
-import testimg2 from "../assets/img/hero-services-img.webp"
 
 
 const Hero: React.FC = () => {

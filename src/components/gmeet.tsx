@@ -160,33 +160,33 @@ const [bookedSlots, setBookedSlots] = useState<string[]>([]);
     tokenClient?.requestAccessToken();
   };
 
-  const handleSignOut = () => {
-    window.google.accounts.oauth2.revoke(tokenClient.access_token, () => {
-      setSignedIn(false);
-      toast.info("Signed out.");
-    });
-  };
+  // const handleSignOut = () => {
+  //   window.google.accounts.oauth2.revoke(tokenClient.access_token, () => {
+  //     setSignedIn(false);
+  //     toast.info("Signed out.");
+  //   });
+  // };
 
-  const listEvents = async () => {
-    if (!signedIn) return toast.warn("Please sign in first.");
+  // const listEvents = async () => {
+  //   if (!signedIn) return toast.warn("Please sign in first.");
 
-    try {
-      const now = new Date().toISOString();
-      const response = await window.gapi.client.calendar.events.list({
-        calendarId: "primary",
-        timeMin: now,
-        singleEvents: true,
-        orderBy: "startTime",
-      });
+  //   try {
+  //     const now = new Date().toISOString();
+  //     const response = await window.gapi.client.calendar.events.list({
+  //       calendarId: "primary",
+  //       timeMin: now,
+  //       singleEvents: true,
+  //       orderBy: "startTime",
+  //     });
 
-      const events = response.result.items || [];
-      console.log("Events:", events);
-      toast.success(`${events.length} events found`);
-    } catch (err) {
-      console.error("Error listing events:", err);
-      toast.error("Failed to list events");
-    }
-  };
+  //     const events = response.result.items || [];
+  //     console.log("Events:", events);
+  //     toast.success(`${events.length} events found`);
+  //   } catch (err) {
+  //     console.error("Error listing events:", err);
+  //     toast.error("Failed to list events");
+  //   }
+  // };
 
 
 

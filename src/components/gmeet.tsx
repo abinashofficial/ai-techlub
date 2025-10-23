@@ -1,14 +1,26 @@
-import { gapi } from "gapi-script";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-// // const CLIENT_ID = "542517918505-svmc1d3vh5r4g636mfp7j4d401mhdj7f.apps.googleusercontent.com";
-import { useEffect, useState } from "react";
+
+declare global {
+  interface Window {
+    gapi: any;
+    google: any;
+  }
+
+  const gapi: any;
+  const google: any;
+}
+
+const CLIENT_ID = "631378468215-2suurs5co5noedgj3fifihdn26a6gfqn.apps.googleusercontent.com";
+const API_KEY = "AIzaSyA89RVDizQX0znz0Qt27Vb_K15SUXL0274";
+const SCOPES =
+  "https://www.googleapis.com/auth/calendar.events.readonly https://www.googleapis.com/auth/calendar.events";
+const DISCOVERY_DOC =
+  "https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest";
 
 
-const CLIENT_ID = "252613924014-pajsq4m0ntcvr099amb4175nik39sj4h.apps.googleusercontent.com";
-const SCOPES = "https://www.googleapis.com/auth/calendar.events.readonly https://www.googleapis.com/auth/calendar.events";
-const DISCOVERY_DOCS = ["https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest"];
+
 
 // timeSlots predefined
 const timeSlots = [
@@ -23,11 +35,6 @@ const timeSlots = [
   "05:00 PM - 06:00 PM",
 ];
 
-declare global {
-  interface Window {
-    gapi: any;
-  }
-}
 
 // Convert "09:00 AM" → "09:00"
 const convertTo24Hour = (time: string): string => {
@@ -77,20 +84,19 @@ const isSlotActive = (date: string, slot: string): boolean => {
   return startDateTime.getTime() > now.getTime();
 };
 
-export default function ScheduleGmeet() {
-    const [title, setTitle] = useState("Demo Meeting");
+export default function GoogleCalendarDemo() {
+  const [gapiLoaded, setGapiLoaded] = useState(false);
+  const [tokenClient, setTokenClient] = useState<any>(null);
+  const [signedIn, setSignedIn] = useState(false);
+
+      const [title, setTitle] = useState("Demo Meeting");
 const [bookedSlots, setBookedSlots] = useState<string[]>([]);
   const [startDate, setDate] = useState<string>("");
   const [selectedSlot, setSelectedSlot] = useState<string>("");
-  const [signedIn, setSignedIn] = useState(false);
   const [loading, setLoading] = useState(true);
   const CALENDAR_ID = "prisonbirdstech@gmail.com"; // your public calendar ID
     const [attendees] = useState("prisonbirdstech@gmail.com");
-
-const API_KEY = "AIzaSyDpw6VSlJBqfJ09wY2bvYwK4O1ufu3HmCk"; // from Google Cloud console
-  const navigate = useNavigate();
-
-    const [startTime, setStartTime] = useState(() => {
+        const [startTime, setStartTime] = useState(() => {
     const d = new Date();
     d.setMinutes(d.getMinutes() + 15);
     return d.toISOString().slice(0, 16);
@@ -101,27 +107,92 @@ const API_KEY = "AIzaSyDpw6VSlJBqfJ09wY2bvYwK4O1ufu3HmCk"; // from Google Cloud 
     return d.toISOString().slice(0, 16);
   });
 
-
-  // ✅ load Google API
+  // ✅ Load gapi script dynamically and wait
   useEffect(() => {
-    gapi.load("client:auth2", () => {
-      gapi.client.init({
-        clientId: CLIENT_ID,
-        discoveryDocs: DISCOVERY_DOCS,
-        scope: SCOPES,
-      }).then(() => {
-        const auth = gapi.auth2.getAuthInstance();
-        setSignedIn(auth.isSignedIn.get());
-        setLoading(false);
+    const loadScript = (src: string): Promise<void> => {
+      return new Promise((resolve, reject) => {
+        const script = document.createElement("script");
+        script.src = src;
+        script.async = true;
+        script.defer = true;
+        script.onload = () => resolve();
+        script.onerror = () => reject();
+        document.body.appendChild(script);
       });
+    };
+
+    const initGapi = async () => {
+      await loadScript("https://apis.google.com/js/api.js");
+      window.gapi.load("client", async () => {
+        await window.gapi.client.init({
+          apiKey: API_KEY,
+          discoveryDocs: [DISCOVERY_DOC],
+        });
+        setGapiLoaded(true);
+      });
+    };
+
+    // Also load GIS library
+    loadScript("https://accounts.google.com/gsi/client").then(() => {
+      initGapi();
     });
   }, []);
 
-  const signIn = () => gapi.auth2.getAuthInstance().signIn();
+  // ✅ Initialize OAuth token client
+  useEffect(() => {
+    if (!gapiLoaded) return;
 
-  // ✅ Fetch booked events for the selected date
+    const client = window.google.accounts.oauth2.initTokenClient({
+      client_id: CLIENT_ID,
+      scope: SCOPES,
+      callback: (resp: any) => {
+        if (resp && resp.access_token) {
+          setSignedIn(true);
+          toast.success("Google Calendar connected!");
+        }
+      },
+    });
 
-const fetchBookedSlots = async (date: string) => {
+    setTokenClient(client);
+  }, [gapiLoaded]);
+
+  const handleSignIn = () => {
+    tokenClient?.requestAccessToken();
+  };
+
+  const handleSignOut = () => {
+    window.google.accounts.oauth2.revoke(tokenClient.access_token, () => {
+      setSignedIn(false);
+      toast.info("Signed out.");
+    });
+  };
+
+  const listEvents = async () => {
+    if (!signedIn) return toast.warn("Please sign in first.");
+
+    try {
+      const now = new Date().toISOString();
+      const response = await window.gapi.client.calendar.events.list({
+        calendarId: "primary",
+        timeMin: now,
+        singleEvents: true,
+        orderBy: "startTime",
+      });
+
+      const events = response.result.items || [];
+      console.log("Events:", events);
+      toast.success(`${events.length} events found`);
+    } catch (err) {
+      console.error("Error listing events:", err);
+      toast.error("Failed to list events");
+    }
+  };
+
+
+
+
+
+  const fetchBookedSlots = async (date: string) => {
   if (!date) return;
 
   const startOfDay = new Date(`${date}T00:00:00+05:30`).toISOString();
@@ -240,33 +311,20 @@ const updateTimesFromSlot = (date: string, slot: string) => {
   setStartTime(`${date}T${start24}:00`); // append seconds
   setEndTime(`${date}T${end24}:00`);
 };
+
+
   return (
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
+    <div style={{ padding: 20 }}>
+      <h2>Schedule Demo</h2>
 
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              flexDirection: "column",
-              padding: 20,
-              justifyContent: "center",
-              width:"100%",
-            }}
-          >
-<h2 style={{
-  marginBottom:"30px",
-}}>Schedule Demo</h2>
-
-      {!signedIn && <button onClick={signIn}>Sign in with Google</button>}
-
-      {signedIn && (
+      {!signedIn ? (
+        <button style={{
+                          background:"#388DA8",
+        borderRadius:"10px",
+        }} onClick={handleSignIn}>Sign in with Google</button>
+      ) : (
         <>
+ <>
                     <form onSubmit={createMeet}>
                    
 
@@ -356,20 +414,17 @@ style={{
 
                     }}
                   >
-                    {loading ? "Booking..." : "Book Demo"}
+                  Book Demo
                   </button>
                   <i className="bi bi-arrow-right"></i>
                 </div>
                    </form>
         </>
+
+        </>
       )}
 
-
-
-
-      </div>
-                  <ToastContainer />
-
+      <ToastContainer />
     </div>
   );
 }

@@ -3,8 +3,8 @@ import AOS from "aos";
 import tab1 from "../assets/img/tabs-1.jpg"
 import tab2 from "../assets/img/tabs-2.jpg"
 import tab3 from "../assets/img/tabs-3.jpg"
-import feautures1 from "../assets/img/features-1.jpg"
-import feautures2 from "../assets/img/features-2.jpg"
+// import feautures1 from "../assets/img/features-1.jpg"
+// import feautures2 from "../assets/img/features-2.jpg"
 // import feautures3 from "../assets/img/features-3.jpg"
 
 

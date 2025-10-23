@@ -11,7 +11,7 @@ const Contact: React.FC = () => {
     message: "",
   });
 
-  const [status, setStatus] = useState<"idle" | "loading" | "error" | "success">("idle");
+  // const [status, setStatus] = useState<"idle" | "loading" | "error" | "success">("idle");
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -19,7 +19,7 @@ const Contact: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setStatus("loading");
+    // setStatus("loading");
 
     try {
       // Replace with your backend API endpoint
@@ -31,11 +31,11 @@ const Contact: React.FC = () => {
 
       if (!response.ok) throw new Error("Failed to send message");
 
-      setStatus("success");
+      // setStatus("success");
       setFormData({ name: "", email: "", subject: "", message: "" });
     } catch (error) {
       console.error(error);
-      setStatus("error");
+      // setStatus("error");
     }
   };
 

@@ -1,4 +1,4 @@
-import React ,{useState} from "react";
+import React  from "react";
 // import company1 from "../assets/img/about-company-1.jpg"
 // import company2 from "../assets/img/about-company-2.jpg"
 // import company3 from "../assets/img/about-company-3.jpg"
@@ -6,16 +6,16 @@ import Gmeet from "./gmeet"
 
 
 const About: React.FC = () => {
-    const [startDate, setDate] = useState<string>("");
+    // const [startDate, setDate] = useState<string>("");
 
   
-const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    subject: "",
-    message: "",
-    date:"",
-  });
+// const [formData, setFormData] = useState({
+//     name: "",
+//     email: "",
+//     subject: "",
+//     message: "",
+//     date:"",
+//   });
 
 
 

@@ -46,7 +46,7 @@ const About: React.FC = () => {
               <li><i className="bi bi-check-circle"></i> <span>Ensure seamless performance and reliability with 24/7 expert support.</span></li>
               
             </ul>
-              <a href="#" className="read-more"><span>Get Started</span><i className="bi bi-arrow-right"></i></a>
+              {/* <a href="#" className="read-more"><span>Get Started</span><i className="bi bi-arrow-right"></i></a> */}
                 
                 
 

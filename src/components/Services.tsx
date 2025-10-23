@@ -9,8 +9,7 @@ const Services: React.FC = () => {
       <div className="container section-title" data-aos="fade-up">
         <h2>Services</h2>
         <p>
-          Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit
-        </p>
+We offer a comprehensive range of solutions designed to help your business thrive in the digital age. Each service is tailored to deliver measurable results, streamline operations, and enhance customer experiences.        </p>
       </div>
       {/* End Section Title */}
 
@@ -24,8 +23,7 @@ const Services: React.FC = () => {
               <div>
                 <h3>Web Development</h3>
                 <p>
-                  Provident nihil minus qui consequatur non omnis maiores. Eos accusantium minus dolores iure perferendis tempore et consequatur.
-                </p>
+We create responsive, modern, and scalable websites that reflect your brand and drive engagement. Our solutions are tailored to meet your business goals while providing seamless user experiences.                </p>
                 <a href="#" className="read-more stretched-link">
                   Learn More <i className="bi bi-arrow-right"></i>
                 </a>
@@ -40,8 +38,7 @@ const Services: React.FC = () => {
               <div>
                 <h3>Cloud Application</h3>
                 <p>
-                  Ut autem aut autem non a. Sint sint sit facilis nam iusto sint. Libero corrupti neque eum hic non ut nesciunt dolorem.
-                </p>
+Leverage the power of the cloud with our secure and scalable applications. Our solutions ensure seamless performance, accessibility, and flexibility, helping your business operate efficiently from anywhere.                </p>
                 <a href="#" className="read-more stretched-link">
                   Learn More <i className="bi bi-arrow-right"></i>
                 </a>
@@ -56,8 +53,7 @@ const Services: React.FC = () => {
               <div>
                 <h3>Digital Marketing</h3>
                 <p>
-                  Ut excepturi voluptatem nisi sed. Quidem fuga consequatur. Minus ea aut. Vel qui id voluptas adipisci eos earum corrupti.
-                </p>
+Drive engagement and growth with our data-driven marketing strategies. From SEO and social media campaigns to content marketing, we help your brand reach the right audience and achieve measurable results.                </p>
                 <a href="#" className="read-more stretched-link">
                   Learn More <i className="bi bi-arrow-right"></i>
                 </a>
@@ -72,8 +68,7 @@ const Services: React.FC = () => {
               <div>
                 <h3>Enterprise Resource Platform</h3>
                 <p>
-                  Non et temporibus minus omnis sed dolor esse consequatur. Cupiditate sed error ea fuga sit provident adipisci neque.
-                </p>
+Streamline your business operations with our custom ERP solutions. From finance to inventory and HR management, our platforms optimize workflows, improve efficiency, and support data-driven decision-making.                </p>
                 <a href="#" className="read-more stretched-link">
                   Learn More <i className="bi bi-arrow-right"></i>
                 </a>
@@ -88,8 +83,7 @@ const Services: React.FC = () => {
               <div>
                 <h3>Booking Platform</h3>
                 <p>
-                  Cumque et suscipit saepe. Est maiores autem enim facilis ut aut ipsam corporis aut. Sed animi at autem alias eius labore.
-                </p>
+Simplify scheduling and reservations with our intuitive booking platform. Designed for efficiency and user-friendliness, it helps your business manage appointments seamlessly while enhancing customer experience.                </p>
                 <a href="#" className="read-more stretched-link">
                   Learn More <i className="bi bi-arrow-right"></i>
                 </a>
@@ -104,8 +98,7 @@ const Services: React.FC = () => {
               <div>
                 <h3>Technical Support</h3>
                 <p>
-                  Hic molestias ea quibusdam eos. Fugiat enim doloremque aut neque non et debitis iure. Corrupti recusandae ducimus enim.
-                </p>
+Ensure uninterrupted operations with our reliable 24/7 technical support. Our expert team quickly resolves issues, optimizes performance, and keeps your business running smoothly.                </p>
                 <a href="#" className="read-more stretched-link">
                   Learn More <i className="bi bi-arrow-right"></i>
                 </a>

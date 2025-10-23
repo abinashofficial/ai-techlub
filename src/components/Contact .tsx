@@ -43,7 +43,7 @@ const Contact: React.FC = () => {
     <section id="contact" className="contact section">
       <div className="container section-title" data-aos="fade-up">
         <h2>Contact</h2>
-        <p>Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit</p>
+        <p>We’d love to hear from you! Whether you have questions, need support, or want to explore a partnership, our team is here to help.</p>
       </div>
 
       <div className="container" data-aos="fade-up" data-aos-delay="100">
@@ -56,7 +56,7 @@ const Contact: React.FC = () => {
             >
               <i className="bi bi-geo-alt"></i>
               <h3>Address</h3>
-              <p>A108 Adam Street, New York, NY 535022</p>
+              <p>W5VJ+953, 2nd St, Veeramani Nagar, Kovilambakkam, Chennai, Tamil Nadu 600129</p>
             </div>
           </div>
 
@@ -68,7 +68,7 @@ const Contact: React.FC = () => {
             >
               <i className="bi bi-telephone"></i>
               <h3>Call Us</h3>
-              <p>+1 5589 55488 55</p>
+              <p>+91 9940463927</p>
             </div>
           </div>
 
@@ -80,7 +80,7 @@ const Contact: React.FC = () => {
             >
               <i className="bi bi-envelope"></i>
               <h3>Email Us</h3>
-              <p>info@example.com</p>
+              <p>prisonbirds@gmail.com</p>
             </div>
           </div>
         </div>
@@ -88,7 +88,7 @@ const Contact: React.FC = () => {
         <div className="row gy-4 mt-1">
           <div className="col-lg-6" data-aos="fade-up" data-aos-delay="300">
             <iframe
-              src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d48389.78314118045!2d-74.006138!3d40.710059!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c25a22a3bda30d%3A0xb89d1fe6bc499443!2sDowntown%20Conference%20Center!5e0!3m2!1sen!2sus!4v1676961268712!5m2!1sen!2sus"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7776.879309634316!2d80.18063289999999!3d12.943694799999994!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a525e7d952ffe51%3A0xfdb285b0e7928738!2sW5VJ%2B953%2C%202nd%20St%2C%20Veeramani%20Nagar%2C%20Kovilambakkam%2C%20Chennai%2C%20Tamil%20Nadu%20600129!5e0!3m2!1sen!2sin!4v1760887547125!5m2!1sen!2sin"
               style={{ border: 0, width: "100%", height: "400px" }}
               allowFullScreen
               loading="lazy"
@@ -149,9 +149,9 @@ const Contact: React.FC = () => {
                 </div>
 
                 <div className="col-md-12 text-center">
-                  {status === "loading" && <div className="loading">Loading</div>}
+                  {/* {status === "loading" && <div className="loading">Loading</div>}
                   {status === "error" && <div className="error-message">Failed to send message.</div>}
-                  {status === "success" && <div className="sent-message">Your message has been sent. Thank you!</div>}
+                  {status === "success" && <div className="sent-message">Your message has been sent. Thank you!</div>} */}
 
                   <button type="submit">Send Message</button>
                 </div>

@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import "bootstrap-icons/font/bootstrap-icons.css";
+// import "./faq.css"; // Optional for animation
 
 interface FaqItem {
   question: string;
@@ -19,7 +21,7 @@ const faqData: FaqItem[] = [
   {
     question: "Dolor sit amet consectetur adipiscing elit pellentesque?",
     answer:
-      "Eleifend mi in nulla posuere sollicitudin aliquam ultrices sagittis orci. Faucibus pulvinar elementum integer enim. Sem nulla pharetra diam sit amet nisl suscipit. Rutrum tellus pellentesque eu tincidunt. Lectus urna duis convallis convallis tellus. Urna molestie at elementum eu facilisis sed odio morbi quis",
+      "Eleifend mi in nulla posuere sollicitudin aliquam ultrices sagittis orci. Faucibus pulvinar elementum integer enim. Sem nulla pharetra diam sit amet nisl suscipit. Rutrum tellus pellentesque eu tincidunt. Lectus urna duis convallis convallis tellus. Urna molestie at elementum eu facilisis sed odio morbi quis.",
   },
   {
     question: "Ac odio tempor orci dapibus. Aliquam eleifend mi in nulla?",
@@ -29,7 +31,7 @@ const faqData: FaqItem[] = [
   {
     question: "Tempus quam pellentesque nec nam aliquam sem et tortor?",
     answer:
-      "Molestie a iaculis at erat pellentesque adipiscing commodo. Dignissim suspendisse in est ante in. Nunc vel risus commodo viverra maecenas accumsan. Sit amet nisl suscipit adipiscing bibendum est. Purus gravida quis blandit turpis cursus in",
+      "Molestie a iaculis at erat pellentesque adipiscing commodo. Dignissim suspendisse in est ante in. Nunc vel risus commodo viverra maecenas accumsan. Sit amet nisl suscipit adipiscing bibendum est. Purus gravida quis blandit turpis cursus in.",
   },
   {
     question: "Perspiciatis quod quo quos nulla quo illum ullam?",
@@ -39,10 +41,10 @@ const faqData: FaqItem[] = [
 ];
 
 const Faq: React.FC = () => {
-  const [activeIndex, setActiveIndex] = useState<number>(0); // First FAQ active by default
+  const [activeIndex, setActiveIndex] = useState<number>(-1); // all collapsed by default
 
   const toggleFaq = (index: number) => {
-    setActiveIndex(activeIndex === index ? -1 : index); // Close if already active
+    setActiveIndex((prev) => (prev === index ? -1 : index)); // toggle open/close
   };
 
   return (
@@ -55,27 +57,37 @@ const Faq: React.FC = () => {
         <div className="row justify-content-center">
           <div className="col-lg-10" data-aos="fade-up" data-aos-delay="100">
             <div className="faq-container">
-              {faqData.map((item, index) => (
-                <div
-                  key={index}
-                  className={`faq-item ${activeIndex === index ? "faq-active" : ""}`}
-                >
-                  <h3 onClick={() => toggleFaq(index)} style={{ cursor: "pointer" }}>
-                    {item.question}
-                  </h3>
+              {faqData.map((item, index) => {
+                const isActive = activeIndex === index;
+                return (
                   <div
-                    className="faq-content"
-                    style={{ display: activeIndex === index ? "block" : "none" }}
+                    key={index}
+                    className={`faq-item ${isActive ? "faq-active" : ""}`}
+                    onClick={() => toggleFaq(index)}
+                    style={{ cursor: "pointer" }}
                   >
-                    <p>{item.answer}</p>
+                    <h3>{item.question}</h3>
+
+                    {/* Show answer */}
+                    <div
+                      className="faq-content"
+                      style={{
+                        maxHeight: isActive ? "500px" : "0",
+                        overflow: "hidden",
+                        transition: "max-height 0.4s ease",
+                      }}
+                    >
+                      {isActive && <p>{item.answer}</p>}
+                    </div>
+
+                    <i
+                      className={`faq-toggle bi ${
+                        isActive ? "bi-chevron-down" : "bi-chevron-right"
+                      }`}
+                    ></i>
                   </div>
-                  <i
-                    className={`faq-toggle bi ${
-                      activeIndex === index ? "bi-chevron-down" : "bi-chevron-right"
-                    }`}
-                  ></i>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </div>
         </div>

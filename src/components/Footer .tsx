@@ -15,13 +15,13 @@ const Footer: React.FC = () => {
               <span className="sitename">AI-techlub</span>
             </a>
             <div className="footer-contact pt-3">
-              <p>A108 Adam Street</p>
-              <p>New York, NY 535022</p>
+              <p>W5VJ+953, 2nd St, Veeramani Nagar,</p>
+              <p>  Kovilambakkam, Chennai, Tamil Nadu 600129</p>
               <p className="mt-3">
-                <strong>Phone:</strong> <span>+1 5589 55488 55</span>
+                <strong>Phone:</strong> <span>+91 9940463927</span>
               </p>
               <p>
-                <strong>Email:</strong> <span>info@example.com</span>
+                <strong>Email:</strong> <span>prisonbirdsteh@gmail.com</span>
               </p>
             </div>
             <div className="social-links d-flex mt-4">
@@ -83,7 +83,7 @@ const Footer: React.FC = () => {
         </p>
       </div>
     </footer>
-      <a href="#" id="scroll-top" className="scroll-top d-flex align-items-center justify-content-center"><i className="bi bi-arrow-up-short"></i></a>
+      {/* <a href="#" id="scroll-top" className="scroll-top d-flex align-items-center justify-content-center"><i className="bi bi-arrow-up-short"></i></a> */}
 
         </div>
 

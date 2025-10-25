@@ -9,6 +9,7 @@ import Contact from '../components/Contact ';
 import Footer from '../components/Footer ';
 import Faq from '../components/Faq';
 import Testimonials from '../components/Testimonials';
+import ClientsSection from '../components/Clients'
 
 
 
@@ -24,6 +25,7 @@ function Landing() {
 
       <Hero />
       <About />
+      <ClientsSection/>
       <Features />
       <Services />
       <Pricing />

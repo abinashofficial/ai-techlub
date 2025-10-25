@@ -31,14 +31,14 @@ const testimonials = [
     stars: 5,
     text: "I’m truly impressed with the professionalism and efficiency of the team. Their dedication and innovative approach made a real difference in streamlining my work process. Highly recommended!",
     img: testimg1,
-    name: "Krishna Dhas",
+    name: "John Larson",
     title: "Anesthesiologistner",
   },
     {
     stars: 5,
     text: "Their team understood my business needs perfectly and delivered results that exceeded expectations. I truly appreciate their professionalism and commitment to quality.",
     img: testimg5,
-    name: "Selvaraj",
+    name: "Matt Brandon",
     title: "Constructor & Builder",
   },
 

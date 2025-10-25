@@ -80,7 +80,7 @@ const Contact: React.FC = () => {
             >
               <i className="bi bi-envelope"></i>
               <h3>Email Us</h3>
-              <p>prisonbirds@gmail.com</p>
+              <p>aitechlub@gmail.com</p>
             </div>
           </div>
         </div>

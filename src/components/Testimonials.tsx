@@ -4,7 +4,7 @@ import "swiper/css";
 import "swiper/css/pagination";
 import { Pagination, Autoplay } from 'swiper/modules';
 import testimg1 from "../assets/img/testimonials/testimonials-1.jpg"
-import testimg2 from "../assets/img/testimonials/testimonials-2.jpg"
+// import testimg2 from "../assets/img/testimonials/testimonials-2.jpg"
 import testimg3 from "../assets/img/testimonials/testimonials-3.jpg"
 import testimg4 from "../assets/img/testimonials/testimonials-4.jpg"
 import testimg5 from "../assets/img/testimonials/testimonials-5.jpg"
@@ -20,41 +20,43 @@ import 'swiper/css/pagination';
 
 
 const testimonials = [
-  {
+  // {
+  //   stars: 5,
+  //   text: "AI-Techlub’s innovative approach and dedicated support have been instrumental in growing our business. Their expertise and commitment made every project smooth, effective, and impactful.",
+  //   img: testimg1,
+  //   name: "Saul Goodman",
+  //   title: "Ceo & Founder",
+  // },
+    {
     stars: 5,
-    text: "Proin iaculis purus consequat sem cure digni ssim donec porttitora entum suscipit rhoncus. Accusantium quam, ultricies eget id, aliquam eget nibh et. Maecen aliquam, risus at semper.",
+    text: "I’m truly impressed with the professionalism and efficiency of the team. Their dedication and innovative approach made a real difference in streamlining my work process. Highly recommended!",
     img: testimg1,
-    name: "Saul Goodman",
-    title: "Ceo & Founder",
+    name: "Krishna Dhas",
+    title: "Anesthesiologistner",
   },
+    {
+    stars: 5,
+    text: "Their team understood my business needs perfectly and delivered results that exceeded expectations. I truly appreciate their professionalism and commitment to quality.",
+    img: testimg5,
+    name: "Selvaraj",
+    title: "Constructor & Builder",
+  },
+
   {
     stars: 5,
-    text: "Export tempor illum tamen malis malis eram quae irure esse labore quem cillum quid cillum eram malis quorum velit fore eram velit sunt aliqua noster fugiat irure amet legam anim culpa.",
-    img: testimg2,
-    name: "Sara Wilsson",
-    title: "Designer",
-  },
-  {
-    stars: 5,
-    text: "Enim nisi quem export duis labore cillum quae magna enim sint quorum nulla quem veniam duis minim tempor labore quem eram duis noster aute amet eram fore quis sint minim.",
+    text: "AI-techclub delivered exactly what I needed with professionalism and efficiency. Their team’s expertise and attention to detail made the entire process seamless and reliable. Highly recommended!",
     img: testimg3,
     name: "Jena Karlis",
-    title: "Store Owner",
+    title: "Advocate",
   },
   {
     stars: 5,
-    text: "Fugiat enim eram quae cillum dolore dolor amet nulla culpa multos export minim fugiat minim velit minim dolor enim duis veniam ipsum anim magna sunt elit fore quem dolore labore illum veniam.",
+    text: "AI-Techlub provided exceptional support and innovative solutions that helped me achieve my goals efficiently. Their professionalism and expertise made the entire experience seamless and rewarding.",
     img: testimg4,
-    name: "Matt Brandon",
+    name: "Unni Krishnan",
     title: "Freelancer",
   },
-  {
-    stars: 5,
-    text: "Quis quorum aliqua sint quem legam fore sunt eram irure aliqua veniam tempor noster veniam enim culpa labore duis sunt culpa nulla illum cillum fugiat legam esse veniam culpa fore nisi cillum quid.",
-    img: testimg5,
-    name: "John Larson",
-    title: "Entrepreneur",
-  },
+
 ];
 
 const Testimonials: React.FC = () => {
@@ -62,7 +64,7 @@ const Testimonials: React.FC = () => {
     <section id="testimonials" className="testimonials section light-background">
       <div className="container section-title" data-aos="fade-up">
         <h2>Testimonials</h2>
-        <p>Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit</p>
+        <p>Hear from our satisfied clients who have experienced growth and success through our innovative solutions. Their feedback inspires us to keep delivering excellence.</p>
       </div>
 
       <div className="container" data-aos="fade-up" data-aos-delay="100">

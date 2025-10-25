@@ -9,34 +9,34 @@ interface FaqItem {
 
 const faqData: FaqItem[] = [
   {
-    question: "Non consectetur a erat nam at lectus urna duis?",
+    question: "What are the benefits of using your cloud application solutions?",
     answer:
-      "Feugiat pretium nibh ipsum consequat. Tempus iaculis urna id volutpat lacus laoreet non curabitur gravida. Venenatis lectus magna fringilla urna porttitor rhoncus dolor purus non.",
+      "Our cloud applications offer high scalability, security, and accessibility—allowing your business to operate efficiently from anywhere.",
   },
   {
-    question: "Feugiat scelerisque varius morbi enim nunc faucibus?",
+    question: "Can you redesign or update an existing website?",
     answer:
-      "Dolor sit amet consectetur adipiscing elit pellentesque habitant morbi. Id interdum velit laoreet id donec ultrices. Fringilla phasellus faucibus scelerisque eleifend donec pretium. Est pellentesque elit ullamcorper dignissim. Mauris ultrices eros in cursus turpis massa tincidunt dui.",
+      "Yes, we can revamp your existing website to modern standards while improving its performance, UI/UX, and SEO ranking.",
   },
   {
-    question: "Dolor sit amet consectetur adipiscing elit pellentesque?",
+    question: "What modules can be included in a custom ERP system?",
     answer:
-      "Eleifend mi in nulla posuere sollicitudin aliquam ultrices sagittis orci. Faucibus pulvinar elementum integer enim. Sem nulla pharetra diam sit amet nisl suscipit. Rutrum tellus pellentesque eu tincidunt. Lectus urna duis convallis convallis tellus. Urna molestie at elementum eu facilisis sed odio morbi quis.",
+      "Modules include finance, HR, inventory, supply chain, and project management—customized to your business needs.",
   },
   {
-    question: "Ac odio tempor orci dapibus. Aliquam eleifend mi in nulla?",
+    question: "What industries can use your booking platform?",
     answer:
-      "Dolor sit amet consectetur adipiscing elit pellentesque habitant morbi. Id interdum velit laoreet id donec ultrices. Fringilla phasellus faucibus scelerisque eleifend donec pretium. Est pellentesque elit ullamcorper dignissim. Mauris ultrices eros in cursus turpis massa tincidunt dui.",
+      "Our booking platform suits industries like healthcare, beauty, fitness, hospitality, and professional services.",
   },
   {
-    question: "Tempus quam pellentesque nec nam aliquam sem et tortor?",
+    question: "What digital marketing services do you offer?",
     answer:
-      "Molestie a iaculis at erat pellentesque adipiscing commodo. Dignissim suspendisse in est ante in. Nunc vel risus commodo viverra maecenas accumsan. Sit amet nisl suscipit adipiscing bibendum est. Purus gravida quis blandit turpis cursus in.",
+      "We offer SEO, social media marketing, content marketing, and paid ad campaigns to increase your visibility and engagement.",
   },
   {
-    question: "Perspiciatis quod quo quos nulla quo illum ullam?",
+    question: "What kind of technical support do you provide?",
     answer:
-      "Enim ea facilis quaerat voluptas quidem et dolorem. Quis et consequatur non sed in suscipit sequi. Distinctio ipsam dolore et.",
+      "We offer 24/7 monitoring, troubleshooting, and performance optimization to ensure smooth operations.",
   },
 ];
 

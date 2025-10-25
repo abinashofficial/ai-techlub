@@ -21,7 +21,7 @@ const Footer: React.FC = () => {
                 <strong>Phone:</strong> <span>+91 9940463927</span>
               </p>
               <p>
-                <strong>Email:</strong> <span>prisonbirdsteh@gmail.com</span>
+                <strong>Email:</strong> <span>aitechlub@gmail.com</span>
               </p>
             </div>
             <div className="social-links d-flex mt-4">

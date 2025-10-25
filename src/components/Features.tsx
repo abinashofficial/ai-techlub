@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import AOS from "aos";
-import tab1 from "../assets/img/tabs-1.jpg"
-import tab2 from "../assets/img/tabs-2.jpg"
-import tab3 from "../assets/img/tabs-3.jpg"
+// import tab1 from "../assets/img/tabs-1.jpg"
+// import tab2 from "../assets/img/tabs-2.jpg"
+// import tab3 from "../assets/img/tabs-3.jpg"
 // import feautures1 from "../assets/img/features-1.jpg"
 // import feautures2 from "../assets/img/features-2.jpg"
 // import feautures3 from "../assets/img/features-3.jpg"
@@ -75,8 +75,7 @@ const Features: React.FC = () => {
                     <div>
                       <h4 className="d-none d-lg-block">Reliable Support & Insights</h4>
                       <p>
-                        Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
-                        deserunt mollit anim id est laborum Debitis nulla est maxime voluptas dolor aut
+                        Get dependable support and actionable insights to keep your business running smoothly. Our team ensures timely solutions, helping you stay focused on growth and innovation.
                       </p>
                     </div>
                   </a>
@@ -88,16 +87,16 @@ const Features: React.FC = () => {
             <div className="col-lg-6">
               <div className="tab-content" data-aos="fade-up" data-aos-delay="200">
                 <div className="tab-pane fade active show" id="features-tab-1">
-                  <img src={tab1} alt="Tab 1" className="img-fluid" />
+                  <img src="https://res.cloudinary.com/dababspdo/image/upload/v1761371066/ChatGPT_Image_Oct_25_2025_10_33_24_AM_o3rabz.png" alt="Tab 1" className="img-fluid" />
                 </div>
 
-                <div className="tab-pane fade" id="features-tab-2">
+                {/* <div className="tab-pane fade" id="features-tab-2">
                   <img src={tab2} alt="Tab 2" className="img-fluid" />
-                </div>
+                </div> */}
 
-                <div className="tab-pane fade" id="features-tab-3">
+                {/* <div className="tab-pane fade" id="features-tab-3">
                   <img src={tab3} alt="Tab 3" className="img-fluid" />
-                </div>
+                </div> */}
               </div>
             </div>
           </div>

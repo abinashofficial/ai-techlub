@@ -28,14 +28,13 @@ const Header: React.FC = () => {
 
               <li><a href="#">Cloud Web Application</a></li>
               <li><a href="#">Smart Booking</a></li>
-                            <li><a href="#">courses</a></li>
+                            {/* <li><a href="#">courses</a></li> */}
                                           <li className="dropdown"><a href="#"><span>ERP</span> <i className="bi bi-chevron-down toggle-dropdown"></i></a>
                 <ul>
-                  <li><a href="#">Attendance Tracking</a></li>
-                  <li><a href="#">Check In / Check Out</a></li>
-                  <li><a href="#">Payroll</a></li>
+                  <li>
+                    <a href="https://payroll-ruby-xi.vercel.app/">Payroll Management</a></li>
                   <li><a href="#">Visitors Management</a></li>
-                  <li><a href="#">Packaging Management</a></li>
+                  <li><a href="https://erp-management-mu.vercel.app/">Packaging Management</a></li>
                 </ul>
               </li>
 

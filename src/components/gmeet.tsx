@@ -1,6 +1,7 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { locateContext } from "../App";
 
 declare global {
   interface Window {
@@ -88,6 +89,7 @@ export default function GoogleCalendarDemo() {
   const [gapiLoaded, setGapiLoaded] = useState(false);
   const [tokenClient, setTokenClient] = useState<any>(null);
   const [signedIn, setSignedIn] = useState(false);
+  const { setUser } = useContext(locateContext);
 
       const [title, setTitle] = useState("Demo Meeting");
 const [bookedSlots, setBookedSlots] = useState<string[]>([]);
@@ -138,23 +140,65 @@ const [bookedSlots, setBookedSlots] = useState<string[]>([]);
     });
   }, []);
 
-  // ✅ Initialize OAuth token client
-  useEffect(() => {
-    if (!gapiLoaded) return;
+  // // ✅ Initialize OAuth token client
+  // useEffect(() => {
+  //   if (!gapiLoaded) return;
 
-    const client = window.google.accounts.oauth2.initTokenClient({
-      client_id: CLIENT_ID,
-      scope: SCOPES,
-      callback: (resp: any) => {
-        if (resp && resp.access_token) {
-          setSignedIn(true);
-          toast.success("Google Calendar connected!");
+  //   const client = window.google.accounts.oauth2.initTokenClient({
+  //     client_id: CLIENT_ID,
+  //     scope: SCOPES,
+  //     callback: (resp: any) => {
+  //       if (resp && resp.access_token) {
+  //         setSignedIn(true);
+  //         toast.success("Google Calendar connected!");
+  //       }
+  //     },
+  //   });
+
+  //   setTokenClient(client);
+  // }, [gapiLoaded]);
+
+  // Example useEffect with fetching user info
+useEffect(() => {
+  if (!gapiLoaded) return;
+
+  const client = window.google.accounts.oauth2.initTokenClient({
+    client_id: CLIENT_ID,
+    scope: SCOPES, // e.g., "https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email"
+    callback: async (resp: any) => {
+      if (resp && resp.access_token) {
+        setSignedIn(true);
+        toast.success("Google Calendar connected!");
+
+        try {
+          // Fetch user info
+          const userRes = await fetch(
+            "https://www.googleapis.com/oauth2/v3/userinfo",
+            {
+              headers: {
+                Authorization: `Bearer ${resp.access_token}`,
+              },
+            }
+          );
+          const userData = await userRes.json();
+          console.log("Google User Data:", userData);
+
+          // Example: set in context
+          setUser({
+            name: userData.name,
+            email: userData.email,
+            imageUrl: userData.picture,
+          });
+        } catch (err) {
+          console.error("Error fetching user info", err);
         }
-      },
-    });
+      }
+    },
+  });
 
-    setTokenClient(client);
-  }, [gapiLoaded]);
+  setTokenClient(client);
+}, [gapiLoaded]);
+
 
   const handleSignIn = () => {
     tokenClient?.requestAccessToken();

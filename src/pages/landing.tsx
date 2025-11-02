@@ -10,6 +10,7 @@ import Footer from '../components/Footer ';
 import Faq from '../components/Faq';
 import Testimonials from '../components/Testimonials';
 import ClientsSection from '../components/Clients'
+import GoogleReviews from "../components/googlereviews";
 
 
 
@@ -25,6 +26,7 @@ function Landing() {
 
       <Hero />
       <About />
+      <GoogleReviews/>
       <ClientsSection/>
       <Features />
       <Services />

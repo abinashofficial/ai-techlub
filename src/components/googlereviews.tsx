@@ -2,6 +2,9 @@ import  { useMemo, useState, useEffect, useContext } from "react";
   import type { ChangeEvent, FormEvent } from "react";
 import { locateContext } from "../App";
 import { IoMdClose } from "react-icons/io";
+import { BsChatLeftQuote } from "react-icons/bs";
+import { BsChatRightQuote } from "react-icons/bs";
+
 
 
   import { FcGoogle } from "react-icons/fc";
@@ -188,7 +191,9 @@ import { IoMdClose } from "react-icons/io";
             };
           });
 
-          setGetReviews(parsed);
+          // setGetReviews(parsed);
+             // ✅ Reverse order here
+      setGetReviews(parsed.reverse());
         } catch (err) {
           console.error(err);
         } finally {
@@ -511,7 +516,12 @@ const ReviewCard: React.FC<ReviewCardProps> = ({ review }) => {
 
   return (
     <div className="review-box">
-      <div className="flex items-center gap-4">
+      <div style={{
+        display:"flex",
+        flexDirection:"column",
+        justifyContent:"center",
+        alignItems:"center",
+      }}>
         <img
           src={review.avatar}
           alt={review.name}
@@ -537,11 +547,28 @@ const ReviewCard: React.FC<ReviewCardProps> = ({ review }) => {
         style={{
           display: "flex",
           justifyContent: "center",
-          alignItems: "center",
+          // alignItems: "center",
           margin: "10px",
+          width:"60%",
         }}
-      >
-        <p className="mt-3 text-gray-700">{review.comment}</p>
+      >       
+      <div>
+         <  BsChatRightQuote style={{
+          marginBottom:"15px",
+          color:"black",
+         }}/>{" "}
+
+{review.comment} {" "}
+        <BsChatLeftQuote style={{
+          marginBottom:"15px",
+                    color:"black",
+
+         }} />
+
+
+      </div>
+
+        {/* <p className="mt-3 text-gray-700"></p> */}
       </div>
     </div>
   );

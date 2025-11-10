@@ -1,10 +1,22 @@
 import React from "react";
+import type {FormEvent } from "react";
+
 import "bootstrap-icons/font/bootstrap-icons.css";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
+
 
 
 const Footer: React.FC = () => {
+    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault(); // prevent page reload
+    toast.success("Your subscription request has been sent.");
+    e.currentTarget.reset(); // optional: clear input
+  };
   return (
     <div >
+      <ToastContainer />
 
     <footer id="footer" className="footer position-relative light-background">
       <div className="container footer-top">
@@ -62,14 +74,11 @@ const Footer: React.FC = () => {
           <div className="col-lg-4 col-md-12 footer-newsletter">
             <h4>Our Newsletter</h4>
             <p>Subscribe to our newsletter and receive the latest news about our products and services!</p>
-            <form action="../forms/newsletter.php" method="post" className="php-email-form">
+            <form onSubmit={handleSubmit}>
               <div className="newsletter-form">
                 <input type="email" name="email" placeholder="Your Email" required />
                 <input type="submit" value="Subscribe" />
               </div>
-              <div className="loading">Loading</div>
-              <div className="error-message"></div>
-              <div className="sent-message">Your subscription request has been sent. Thank you!</div>
             </form>
           </div>
         </div>

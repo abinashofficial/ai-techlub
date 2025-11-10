@@ -32,7 +32,7 @@ function Landing() {
       <Services />
       <Pricing />
       <Faq/>
-      <Testimonials/>
+      {/* <Testimonials/> */}
       <Contact />
       <Footer />
 

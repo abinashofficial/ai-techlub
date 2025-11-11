@@ -1,55 +1,49 @@
-
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Landing from "./pages/landing";
 import { useUIEffects } from "./hooks/useUIEffects";
-import {TawkToChat} from "./hooks/talktochat"
-import ScheduleGmeet from "./components/gmeet"
-import "./App.css"
+import { TawkToChat } from "./hooks/talktochat";
+import ScheduleGmeet from "./components/gmeet";
+import "./App.css";
 import React, { createContext, useState } from "react";
-import TermsOfService from "./pages/termsofservice"
-import PrivacyPolicy from "./pages/privacypolicy"
-
-
+import TermsOfService from "./pages/termsofservice";
+import PrivacyPolicy from "./pages/privacypolicy";
 
 export const locateContext = createContext<any>({});
+
 interface User {
   name: string;
   email: string;
   imageUrl: string;
 }
 
-const App: React.FC = () =>  {
-    const [user, setUser] = useState<User>({
+const App: React.FC = () => {
+  const [user, setUser] = useState<User>({
     name: "",
     email: "",
     imageUrl: "",
   });
-useUIEffects();
-TawkToChat()
+
+  useUIEffects();
+
   return (
-          <BrowserRouter>
-                <locateContext.Provider
-          value={{
-            user:user,
-            setUser:setUser,
-          }}>
+    <BrowserRouter>
+      <locateContext.Provider
+        value={{
+          user,
+          setUser,
+        }}
+      >
+        <Routes>
+          <Route path="/" element={<Landing />} />
+          <Route path="/gmeet" element={<ScheduleGmeet />} />
+          <Route path="/terms-of-service" element={<TermsOfService />} />
+          <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+        </Routes>
 
-
-
-
-              <Routes>
-            <Route path="/" element={<Landing />} /> 
-                        <Route path="/gmeet" element={<ScheduleGmeet />} /> 
-            <Route path="/terms-of-service" element={<TermsOfService />} />
-            <Route path="/privacy-policy" element={<PrivacyPolicy />} />
-
-
-
-                </Routes>
-                          </locateContext.Provider>
-
-      </BrowserRouter>
-
+        {/* 👇 Mount Tawk.to chat widget */}
+        <TawkToChat />
+      </locateContext.Provider>
+    </BrowserRouter>
   );
 };
 

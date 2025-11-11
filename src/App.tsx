@@ -6,6 +6,8 @@ import {TawkToChat} from "./hooks/talktochat"
 import ScheduleGmeet from "./components/gmeet"
 import "./App.css"
 import React, { createContext, useState } from "react";
+import TermsOfService from "./pages/termsofservice"
+import PrivacyPolicy from "./pages/privacypolicy"
 
 
 
@@ -38,6 +40,9 @@ TawkToChat()
               <Routes>
             <Route path="/" element={<Landing />} /> 
                         <Route path="/gmeet" element={<ScheduleGmeet />} /> 
+            <Route path="/terms-of-service" element={<TermsOfService />} />
+            <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+
 
 
                 </Routes>

@@ -1,5 +1,5 @@
 import { useEffect, useState, useContext } from "react";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { locateContext } from "../App";
 
@@ -89,6 +89,8 @@ export default function GoogleCalendarDemo() {
   const [gapiLoaded, setGapiLoaded] = useState(false);
   const [tokenClient, setTokenClient] = useState<any>(null);
   const [signedIn, setSignedIn] = useState(false);
+    const [book, setBook] = useState(false);
+
   const { setUser } = useContext(locateContext);
 
       const [title, setTitle] = useState("Demo Meeting");
@@ -168,6 +170,7 @@ useEffect(() => {
     callback: async (resp: any) => {
       if (resp && resp.access_token) {
         setSignedIn(true);
+              setBook(true);
         toast.success("Google Calendar connected!");
 
         try {
@@ -201,7 +204,11 @@ useEffect(() => {
 
 
   const handleSignIn = () => {
+    if (!signedIn){
     tokenClient?.requestAccessToken();
+    }else{
+      setBook(true);
+    }
   };
 
   // const handleSignOut = () => {
@@ -283,14 +290,8 @@ useEffect(() => {
 
 
   const createMeet = async () => {
-        setLoading(true);
+        setLoading(false);
 
-    if (!startDate || !selectedSlot) {
-      toast.warn("Please select a date and time slot before booking!");
-      setLoading(false);
-
-      return;
-    }
 
 
     try {
@@ -300,7 +301,7 @@ useEffect(() => {
 
       if (new Date(endISO) <= new Date(startISO)) {
         toast.error("End time must be after start time!");
-      setLoading(false);
+      setLoading(true);
 
         return;
       }
@@ -326,6 +327,10 @@ useEffect(() => {
         sendUpdates: "all",
       });
 
+            setLoading(true);
+            setBook(false);
+            setDate("");
+setSelectedSlot("");
       toast.success("Demo booked successfully!");
       console.log("Meet link:", res.result.hangoutLink);
 
@@ -337,11 +342,11 @@ useEffect(() => {
       toast.error("Failed to create meeting.");
     } finally {
             setTimeout(() => {
-      setLoading(false);
+      setLoading(true);
       }, 3000);
     }
   };
-    const isButtonDisabled = !startDate || !selectedSlot || loading;
+    // const isButtonDisabled = !startDate || !selectedSlot || !loading;
 const updateTimesFromSlot = (date: string, slot: string) => {
   if (!date || !slot) return;
 
@@ -361,15 +366,53 @@ const updateTimesFromSlot = (date: string, slot: string) => {
     <div style={{ padding: 20 }}>
       <h2>Schedule Demo</h2>
 
-      {!signedIn ? (
-        <button style={{
-                          background:"#388DA8",
-        borderRadius:"10px",
-        }} onClick={handleSignIn}>Sign in with Google</button>
+      {!book ? (
+        // <button style={{
+        //                   background:"#388DA8",
+        // borderRadius:"10px",
+        // }} onClick={handleSignIn}>
+        //   <div>
+        //     {signedIn ? "Book Demo" : "Sign in with Google"}
+        //   </div>
+          
+        //   </button>
+
+                <div
+                                  
+                style={{ marginTop: "50px" ,
+             background:"#388DA8",
+                color:"white",
+                borderRadius:"10px",
+                display:"flex",
+                alignItems:"center",
+                justifyContent:"center",
+
+
+                }}
+                onClick={handleSignIn}
+                >
+                  <button
+                  
+  //  disabled={isButtonDisabled}
+                    style={{
+                      // cursor: isButtonDisabled ? "not-allowed" : "pointer",
+                      cursor: "pointer",
+                background:"#388DA8",
+                color:"white",
+                                borderRadius:"10px"
+
+                    }}
+                  >
+                  Book Demo
+                  </button>
+                  <i className="bi bi-arrow-right"></i>
+                </div>
+
       ) : (
+
         <>
- <>
-                    <form onSubmit={createMeet}>
+                {loading ? (
+<form onSubmit={createMeet}>
                    
 
                         <div className="input-group">
@@ -409,6 +452,8 @@ style={{
             <select
               value={selectedSlot}
               onChange={(e) => handleSlotChange(e.target.value)}
+                                          required
+
               disabled={!startDate}
               style={{
   cursor:"pointer",
@@ -436,7 +481,9 @@ style={{
           </div>
 
                 {/* Book Button */}
-                <div style={{ marginTop: "50px" ,
+                <div
+                                  
+                style={{ marginTop: "50px" ,
              background:"#388DA8",
                 color:"white",
                 borderRadius:"10px",
@@ -449,9 +496,10 @@ style={{
                   <button
                   
  type="submit"                  
-   disabled={isButtonDisabled}
+  //  disabled={isButtonDisabled}
                     style={{
-                      cursor: isButtonDisabled ? "not-allowed" : "pointer",
+                      // cursor: isButtonDisabled ? "not-allowed" : "pointer",
+                      cursor: "pointer",
                 background:"#388DA8",
                 color:"white",
                                 borderRadius:"10px"
@@ -463,12 +511,16 @@ style={{
                   <i className="bi bi-arrow-right"></i>
                 </div>
                    </form>
+        ):(
+<div className="spinner">
+</div>
+        )}
+                    
         </>
 
-        </>
       )}
 
-      <ToastContainer />
+      {/* <ToastContainer /> */}
     </div>
   );
 }

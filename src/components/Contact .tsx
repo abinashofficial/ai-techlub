@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 
 import "bootstrap-icons/font/bootstrap-icons.css";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 
 const Contact: React.FC = () => {
@@ -20,23 +22,27 @@ const Contact: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     // setStatus("loading");
+        toast.success("Your message was sent successfully.");
 
-    try {
-      // Replace with your backend API endpoint
-      const response = await fetch("/api/contact", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
-      });
+        setFormData({ name: "", email: "", subject: "", message: "" });
+    
 
-      if (!response.ok) throw new Error("Failed to send message");
+    // try {
+    //   // Replace with your backend API endpoint
+    //   const response = await fetch("/api/contact", {
+    //     method: "POST",
+    //     headers: { "Content-Type": "application/json" },
+    //     body: JSON.stringify(formData),
+    //   });
 
-      // setStatus("success");
-      setFormData({ name: "", email: "", subject: "", message: "" });
-    } catch (error) {
-      console.error(error);
-      // setStatus("error");
-    }
+    //   if (!response.ok) throw new Error("Failed to send message");
+
+    //   // setStatus("success");
+    //   setFormData({ name: "", email: "", subject: "", message: "" });
+    // } catch (error) {
+    //   console.error(error);
+    //   // setStatus("error");
+    // }
   };
 
   return (

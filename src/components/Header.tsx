@@ -1,8 +1,17 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 // import {  FaEarlybirds, FaHome, FaBlog, FaServicestack, FaSignOutAlt, FaUser } from 'react-icons/fa';
 
 
 const Header: React.FC = () => {
+        const [terms, setTerms] = useState<Boolean>(true);
+                  useEffect(() => {
+            // Set a timer to hide the message after 15 seconds
+            const timer = setTimeout(() => setTerms(false), 5000);
+        
+            // Cleanup the timer when the component unmounts
+            return () => clearTimeout(timer);
+          }, []);
+
   return (
   <header id="header" className="header d-flex align-items-center fixed-top">
     
@@ -23,13 +32,13 @@ const Header: React.FC = () => {
           <li><a href="#features">Features</a></li>
           <li><a href="#services">Services</a></li>
           <li><a href="#pricing">Pricing</a></li>
-          <li className="dropdown"><a href="#"><span>Products</span> <i className="bi bi-chevron-down toggle-dropdown"></i></a>
+          <li className="dropdown"><a href="#"><span className="toggle-dropdown">Products</span> <i className="bi bi-chevron-down toggle-dropdown"></i></a>
             <ul>
 
               <li><a href="https://erp-client-pink.vercel.app/webdesigns">Cloud Web Application</a></li>
               <li><a href="#">Smart Booking</a></li>
                             {/* <li><a href="#">courses</a></li> */}
-                                          <li className="dropdown"><a href="#"><span>ERP</span> <i className="bi bi-chevron-down toggle-dropdown"></i></a>
+                                          <li className="dropdown"><a href="#"><span className="toggle-dropdown">ERP</span> <i className="bi bi-chevron-down toggle-dropdown"></i></a>
                 <ul>
                   <li>
                     <a href="https://payroll-ruby-xi.vercel.app/">Payroll Management</a></li>
@@ -48,6 +57,32 @@ const Header: React.FC = () => {
       <a className="btn-getstarted" href="#about">Get Started</a>
 
     </div>
+<div className="popdown-message">
+
+    {terms && (
+    <div>
+
+
+<p >
+<button onClick={() => setTerms(false)} style={{
+  marginRight:"10px",
+  color:"black",
+  background:"white",
+  fontSize:"20px"
+}}>×</button>
+By continuing, you agree to AI-techlub's{" "}
+  <a href="https://ai-techlub.vercel.app/terms-of-service" target="_blank" rel="noopener noreferrer">
+    Terms of Use
+  </a>{" "}
+  and{" "}
+  <a href="https://ai-techlub.vercel.app/privacy-policy" target="_blank" rel="noopener noreferrer">
+    Privacy Policy
+  </a>.
+ 
+</p>
+</div>    )}
+    </div>
+
   </header>
   );
 };

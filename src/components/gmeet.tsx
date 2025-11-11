@@ -387,6 +387,7 @@ const updateTimesFromSlot = (date: string, slot: string) => {
                 alignItems:"center",
                 justifyContent:"center",
 
+                      cursor: "pointer",
 
                 }}
                 onClick={handleSignIn}
@@ -396,7 +397,6 @@ const updateTimesFromSlot = (date: string, slot: string) => {
   //  disabled={isButtonDisabled}
                     style={{
                       // cursor: isButtonDisabled ? "not-allowed" : "pointer",
-                      cursor: "pointer",
                 background:"#388DA8",
                 color:"white",
                                 borderRadius:"10px"

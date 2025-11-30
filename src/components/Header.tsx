@@ -35,15 +35,15 @@ const Header: React.FC = () => {
           <li className="dropdown"><a href="#"><span className="toggle-dropdown">Products</span> <i className="bi bi-chevron-down toggle-dropdown"></i></a>
             <ul>
 
-              <li><a href="https://erp-client-pink.vercel.app/webdesigns">Cloud Web Application</a></li>
+              <li><a href="https://erp-client-pink.vercel.app/webdesigns" target="_blank" rel="noopener noreferrer">Cloud Web Application</a></li>
               <li><a href="#">Smart Booking</a></li>
                             {/* <li><a href="#">courses</a></li> */}
                                           <li className="dropdown"><a href="#"><span className="toggle-dropdown">ERP</span> <i className="bi bi-chevron-down toggle-dropdown"></i></a>
                 <ul>
                   <li>
-                    <a href="https://payroll-ruby-xi.vercel.app/">Payroll Management</a></li>
+                    <a href="https://payroll-ruby-xi.vercel.app/" target="_blank" rel="noopener noreferrer">Payroll Management</a></li>
                   <li><a href="#">Visitors Management</a></li>
-                  <li><a href="https://erp-management-mu.vercel.app/">Packaging Management</a></li>
+                  <li><a href="https://erp-management-mu.vercel.app/" target="_blank" rel="noopener noreferrer">Packaging Management</a></li>
                 </ul>
               </li>
 

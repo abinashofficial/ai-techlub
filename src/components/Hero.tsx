@@ -28,7 +28,7 @@ const Hero: React.FC = () => {
           <div className="d-flex" data-aos="fade-up" data-aos-delay="200">
             <a href="#about" className="btn-get-started">Get Started</a>
             <a
-              href="https://www.youtube.com/watch?v=Y7f98aduVJ8"
+              href="https://youtu.be/ouNNpUF6pls"
               className="glightbox btn-watch-video d-flex align-items-center"
             >
               <i className="bi bi-play-circle"></i>

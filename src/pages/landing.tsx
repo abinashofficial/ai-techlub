@@ -8,6 +8,7 @@ import Pricing from '../components/Pricing ';
 import Contact from '../components/Contact ';
 import Footer from '../components/Footer ';
 import Faq from '../components/Faq';
+import Product from '../components/Products'
 // import Testimonials from '../components/Testimonials';
 import ClientsSection from '../components/Clients'
 import GoogleReviews from "../components/googlereviews";
@@ -31,6 +32,7 @@ function Landing() {
       <Features />
       <Services />
       <Pricing />
+      <Product/>
       <Faq/>
       {/* <Testimonials/> */}
       <Contact />

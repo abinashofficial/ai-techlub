@@ -314,18 +314,18 @@ import { BsChatRightQuote } from "react-icons/bs";
                 disabled={currentPage === 1}
               className="page-btn"
               >
-                First
+                <span>{"<<"}</span>
               </button>
               <button
                 onClick={() => setCurrentPage((p) => Math.max(p - 1, 1))}
                 disabled={currentPage === 1}
                 className="page-btn"
               >
-                Prev
+                <span>{"<"}</span>
               </button>
               </div>
    
-              <span className="px-3 py-1 text-sm">Page {currentPage} of {totalPages}</span>
+              <span className="px-3 py-1 text-sm"> {currentPage} / {totalPages}</span>
 
               <div style={{
                 display:"flex",
@@ -341,14 +341,14 @@ import { BsChatRightQuote } from "react-icons/bs";
                 disabled={currentPage === totalPages}
                 className="page-btn"
               >
-                Next
+                <span>{">"}</span>
               </button>
               <button
                 onClick={() => setCurrentPage(totalPages)}
                 disabled={currentPage === totalPages}
                 className="page-btn"
               >
-                Last
+                <span>{">>"}</span>
               </button>
               </div>
 

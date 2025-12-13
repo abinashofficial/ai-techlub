@@ -19,9 +19,20 @@ const Header: React.FC = () => {
 
       <a href="#" className="logo d-flex align-items-center me-auto">
         {/* <FaEarlybirds/> */}
-        <h1 style={{
+        <div 
+        
+        >
+                <img
+                style={{
+                  borderRadius:"100px",
+        }}
+        src="./logo.png"
+        alt=""
+      />
+        </div>
+        {/* <h1 style={{
           color:"#388da8",
-        }}>AI-</h1>
+        }}>AI-</h1> */}
         <h1 className="sitename">techlub</h1>
       </a>
 
@@ -32,7 +43,7 @@ const Header: React.FC = () => {
           <li><a href="#features">Features</a></li>
           <li><a href="#services">Services</a></li>
           <li><a href="#pricing">Pricing</a></li>
-          <li className="dropdown"><a href="#"><span className="toggle-dropdown">Products</span> <i className="bi bi-chevron-down toggle-dropdown"></i></a>
+          <li className="dropdown"><a href="#products"><span className="toggle-dropdown">Products</span> <i className="bi bi-chevron-down toggle-dropdown"></i></a>
             <ul>
 
               <li><a href="https://erp-client-pink.vercel.app/webdesigns" target="_blank" rel="noopener noreferrer">Cloud Web Application</a></li>

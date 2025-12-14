@@ -245,3 +245,14 @@
 .popdown-message a:hover {
   text-decoration: underline;
 }
+
+.shindentech-img {
+  width: 150px;
+  border-radius: 100px;
+}
+
+@media (orientation: portrait) {
+  .shindentech-img {
+    width: 130px;
+  }
+}

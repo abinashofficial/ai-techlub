@@ -8,7 +8,7 @@ const PrivacyPolicy: React.FC = () => {
       </h1>
 
       <p>
-        At AI-techlub, we are committed to protecting your privacy and ensuring
+        At shindentech, we are committed to protecting your privacy and ensuring
         that your personal and business information is handled securely and responsibly.
         This Privacy Policy explains how we collect, use, store, and protect data across
         our range of digital services.
@@ -109,9 +109,9 @@ const PrivacyPolicy: React.FC = () => {
       <p>
         For any questions regarding this Privacy Policy or data practices, please contact:
         <br />
-        <strong>Email:</strong> support@aitechlub.in
+        <strong>Email:</strong> shindentechnologies@gmail.com
         <br />
-        <strong>Address:</strong> AI-techlub, Chennai, Tamil Nadu, India
+        <strong>Address:</strong> shindentech, Chennai, Tamil Nadu, India
       </p>
     </div>
   );

@@ -8,7 +8,7 @@ const TermsOfService: React.FC = () => {
       </h1>
 
       <p>
-        Welcome to AI-techlub. By accessing or using our services, including web development,
+        Welcome to shindentech. By accessing or using our services, including web development,
         cloud applications, digital marketing, ERP solutions, booking platforms, and technical
         support, you agree to comply with these Terms of Service (“Terms”). Please read them carefully.
       </p>
@@ -21,7 +21,7 @@ const TermsOfService: React.FC = () => {
 
       <h2>2. Services Provided</h2>
       <p>
-        AI-techlub offers a range of digital services to help businesses grow and operate efficiently:
+        shindentech offers a range of digital services to help businesses grow and operate efficiently:
       </p>
       <ul>
         <li>Web Development: Design, development, and deployment of responsive websites.</li>
@@ -54,8 +54,8 @@ const TermsOfService: React.FC = () => {
 
       <h2>6. Intellectual Property</h2>
       <p>
-        All content, software, designs, trademarks, and logos provided by AI-techlub are the
-        property of AI-techlub or its licensors. You may not reproduce, distribute, or create
+        All content, software, designs, trademarks, and logos provided by shindentech are the
+        property of shindentech or its licensors. You may not reproduce, distribute, or create
         derivative works without prior written consent.
       </p>
 
@@ -74,14 +74,14 @@ const TermsOfService: React.FC = () => {
 
       <h2>9. Limitation of Liability</h2>
       <p>
-        To the maximum extent permitted by law, AI-techlub shall not be liable for any indirect,
+        To the maximum extent permitted by law, shindentech shall not be liable for any indirect,
         incidental, special, consequential, or punitive damages, or any loss of profits or data,
         arising from your use of our services.
       </p>
 
       <h2>10. Indemnification</h2>
       <p>
-        You agree to indemnify and hold AI-techlub, its affiliates, officers, and employees
+        You agree to indemnify and hold shindentech, its affiliates, officers, and employees
         harmless from any claim, demand, or damages, including reasonable legal fees, arising
         out of your violation of these Terms or your misuse of our services.
       </p>
@@ -102,9 +102,9 @@ const TermsOfService: React.FC = () => {
       <p>
         For any questions regarding these Terms of Service, please contact us at:
         <br />
-        <strong>Email:</strong> support@aitechlub.in
+        <strong>Email:</strong> shindentechnologies@gmail.com
         <br />
-        <strong>Address:</strong> AI-techlub, Chennai, Tamil Nadu, India
+        <strong>Address:</strong> shindentech, Chennai, Tamil Nadu, India
       </p>
     </div>
   );

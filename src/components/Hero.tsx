@@ -19,7 +19,7 @@ const Hero: React.FC = () => {
       <div className="container text-center">
         <div className="d-flex flex-column justify-content-center align-items-center">
           <h1 data-aos="fade-up">
-            Welcome to <span>AI-techlub</span>
+            Welcome to <span>震電Tech</span>
           </h1>
           <p data-aos="fade-up" data-aos-delay="100">
             Quickly start your project now and set the stage for success

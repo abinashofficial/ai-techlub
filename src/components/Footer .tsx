@@ -24,7 +24,7 @@ const Footer: React.FC = () => {
           {/* About Section */}
           <div className="col-lg-4 col-md-6 footer-about">
             <a href="#" className="logo d-flex align-items-center">
-              <span className="sitename">AI-techlub</span>
+              <span className="sitename">Shindentech</span>
             </a>
             <div className="footer-contact pt-3">
               <p>W5VJ+953, 2nd St, Veeramani Nagar,</p>
@@ -33,7 +33,7 @@ const Footer: React.FC = () => {
                 <strong>Phone:</strong> <span>+91 9940463927</span>
               </p>
               <p>
-                <strong>Email:</strong> <span>aitechlub@gmail.com</span>
+                <strong>Email:</strong> <span>shindentechnologies@gmail.com</span>
               </p>
             </div>
             <div className="social-links d-flex mt-4">
@@ -44,7 +44,7 @@ const Footer: React.FC = () => {
               <a href="#"><i className="bi bi-facebook"></i></a> */}
               <a href="https://www.instagram.com/aitechlub" target="_blank" rel="noopener noreferrer"><i className="bi bi-instagram"></i></a>
               <a href="https://www.linkedin.com/company/ai-techlub" target="_blank" rel="noopener noreferrer"><i className="bi bi-linkedin"></i></a>
-  <a href="mailto:aitechlub@gmail.com" target="_blank" rel="noopener noreferrer">
+  <a href="mailto:shindentechnologies@gmail.com" target="_blank" rel="noopener noreferrer">
     <i className="bi bi-envelope-fill"></i>
   </a>
             </div>
@@ -93,7 +93,7 @@ const Footer: React.FC = () => {
       {/* Copyright */}
       <div className="container copyright text-center mt-4">
         <p>
-          © <span>Copyright</span> <strong className="px-1 sitename">AI-techlub</strong>
+          © <span>Copyright</span> <strong className="px-1 sitename">Shindentech</strong>
           <span>All Rights Reserved</span>
         </p>
       </div>

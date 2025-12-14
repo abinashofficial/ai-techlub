@@ -38,7 +38,7 @@ const About: React.FC = () => {
             <p className="who-we-are">Who We Are</p>
             <h3>Unleashing Potential with Creative Strategy</h3>
             <p className="fst-italic">
-              At AI-Techlub, we are driven by innovation and a passion for empowering businesses through technology. Our goal is to help organizations unlock their full potential by combining creative strategy with cutting-edge digital solutions.
+              At Shindentech, we are driven by innovation and a passion for empowering businesses through technology. Our goal is to help organizations unlock their full potential by combining creative strategy with cutting-edge digital solutions.
             </p>
             <ul>
               <li><i className="bi bi-check-circle"></i> <span>Boost your online presence with data-driven marketing campaigns that convert.</span></li>

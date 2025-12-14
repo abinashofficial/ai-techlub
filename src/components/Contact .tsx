@@ -86,7 +86,7 @@ const Contact: React.FC = () => {
             >
               <i className="bi bi-envelope"></i>
               <h3>Email Us</h3>
-              <p>aitechlub@gmail.com</p>
+              <p>shindentechnologies@gmail.com</p>
             </div>
           </div>
         </div>

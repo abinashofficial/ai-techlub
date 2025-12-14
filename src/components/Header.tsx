@@ -30,10 +30,15 @@ const Header: React.FC = () => {
         alt=""
       />
         </div>
+
+        <div>
+          <img src="https://res.cloudinary.com/dababspdo/image/upload/v1765700399/shinden3_uwmgje.png" alt="" className="shindentech-img"/>
+        </div>
+
         {/* <h1 style={{
           color:"#388da8",
         }}>AI-</h1> */}
-        <h1 className="sitename">techlub</h1>
+        <h1 className="sitename"></h1>
       </a>
 
       <nav id="navmenu" className="navmenu">

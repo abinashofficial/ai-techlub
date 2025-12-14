@@ -87,7 +87,7 @@ const Features: React.FC = () => {
             <div className="col-lg-6">
               <div className="tab-content" data-aos="fade-up" data-aos-delay="200">
                 <div className="tab-pane fade active show" id="features-tab-1">
-                  <img src="https://res.cloudinary.com/dababspdo/image/upload/v1761371066/ChatGPT_Image_Oct_25_2025_10_33_24_AM_o3rabz.png" alt="Tab 1" className="img-fluid" />
+                  <img src="https://res.cloudinary.com/dababspdo/image/upload/v1765701637/designimage_rqnqgg.png" alt="Tab 1" className="img-fluid" />
                 </div>
 
                 {/* <div className="tab-pane fade" id="features-tab-2">

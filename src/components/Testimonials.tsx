@@ -44,14 +44,14 @@ const testimonials = [
 
   {
     stars: 5,
-    text: "AI-techclub delivered exactly what I needed with professionalism and efficiency. Their team’s expertise and attention to detail made the entire process seamless and reliable. Highly recommended!",
+    text: "Shindentech delivered exactly what I needed with professionalism and efficiency. Their team’s expertise and attention to detail made the entire process seamless and reliable. Highly recommended!",
     img: testimg3,
     name: "Jena Karlis",
     title: "Advocate",
   },
   {
     stars: 5,
-    text: "AI-Techlub provided exceptional support and innovative solutions that helped me achieve my goals efficiently. Their professionalism and expertise made the entire experience seamless and rewarding.",
+    text: "Shindentech provided exceptional support and innovative solutions that helped me achieve my goals efficiently. Their professionalism and expertise made the entire experience seamless and rewarding.",
     img: testimg4,
     name: "Unni Krishnan",
     title: "Freelancer",

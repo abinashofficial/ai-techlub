@@ -251,8 +251,13 @@
   border-radius: 100px;
 }
 
-@media (orientation: portrait) {
+@media (max-width: 768px), (orientation: portrait) {
   .shindentech-img {
     width: 130px;
   }
+
+  .btn-getstarted {
+    display: none;
+  }
 }
+

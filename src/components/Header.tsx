@@ -87,11 +87,11 @@ const Header: React.FC = () => {
   fontSize:"20px"
 }}>×</button>
 By continuing, you agree to ShindenTech's{" "}
-  <a href="https://shindentech.vercel.app/terms-of-service" target="_blank" rel="noopener noreferrer">
+  <a href="/terms-of-service" target="_blank" rel="noopener noreferrer">
     Terms of Use
   </a>{" "}
   and{" "}
-  <a href="https://shindentech.vercel.app/privacy-policy" target="_blank" rel="noopener noreferrer">
+  <a href="/privacy-policy" target="_blank" rel="noopener noreferrer">
     Privacy Policy
   </a>.
  

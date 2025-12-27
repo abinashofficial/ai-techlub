@@ -86,12 +86,12 @@ const Header: React.FC = () => {
   background:"white",
   fontSize:"20px"
 }}>×</button>
-By continuing, you agree to AI-techlub's{" "}
-  <a href="https://ai-techlub.vercel.app/terms-of-service" target="_blank" rel="noopener noreferrer">
+By continuing, you agree to ShindenTech's{" "}
+  <a href="https://shindentech.vercel.app/terms-of-service" target="_blank" rel="noopener noreferrer">
     Terms of Use
   </a>{" "}
   and{" "}
-  <a href="https://ai-techlub.vercel.app/privacy-policy" target="_blank" rel="noopener noreferrer">
+  <a href="https://shindentech.vercel.app/privacy-policy" target="_blank" rel="noopener noreferrer">
     Privacy Policy
   </a>.
  

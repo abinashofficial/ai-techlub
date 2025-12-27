@@ -43,7 +43,7 @@ const Footer: React.FC = () => {
               {/* <a href="#"><i className="bi bi-twitter-x"></i></a>
               <a href="#"><i className="bi bi-facebook"></i></a> */}
               <a href="https://www.instagram.com/aitechlub" target="_blank" rel="noopener noreferrer"><i className="bi bi-instagram"></i></a>
-              <a href="https://www.linkedin.com/company/ai-techlub" target="_blank" rel="noopener noreferrer"><i className="bi bi-linkedin"></i></a>
+              <a href="https://www.linkedin.com/company/shindentech" target="_blank" rel="noopener noreferrer"><i className="bi bi-linkedin"></i></a>
   <a href="mailto:shindentechnologies@gmail.com" target="_blank" rel="noopener noreferrer">
     <i className="bi bi-envelope-fill"></i>
   </a>
@@ -57,8 +57,8 @@ const Footer: React.FC = () => {
               <li><a href="#hero">Home</a></li>
               <li><a href="#about">About us</a></li>
               <li><a href="#services">Services</a></li>
-              <li><a href="https://ai-techlub.vercel.app/terms-of-service">Terms of service</a></li>
-              <li><a href="https://ai-techlub.vercel.app/privacy-policy">Privacy policy</a></li>
+              <li><a href="https://shindentech.vercel.app/terms-of-service">Terms of service</a></li>
+              <li><a href="https://shindentech.vercel.app/privacy-policy">Privacy policy</a></li>
             </ul>
           </div>
 

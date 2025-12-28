@@ -13,8 +13,8 @@ declare global {
   const google: any;
 }
 
-const CLIENT_ID = "631378468215-2suurs5co5noedgj3fifihdn26a6gfqn.apps.googleusercontent.com";
-const API_KEY = "AIzaSyA89RVDizQX0znz0Qt27Vb_K15SUXL0274";
+const CLIENT_ID = "209908503524-eanj5macufu0mj0c1jnkgmlpqbp0gkpp.apps.googleusercontent.com";
+const API_KEY = "AIzaSyDUAPEPsBzYe-2vw1F6MMdHC0zbYhK9Sj4";
 const SCOPES =
   "https://www.googleapis.com/auth/calendar.events.readonly https://www.googleapis.com/auth/calendar.events";
 const DISCOVERY_DOC =

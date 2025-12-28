@@ -207,7 +207,7 @@ useEffect(() => {
     if (!signedIn){
     tokenClient?.requestAccessToken();
     }else{
-      setBook(true);
+          setBook(true);
     }
   };
 
@@ -296,20 +296,20 @@ useEffect(() => {
 
     try {
       const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
-      const startISO = new Date(startTime).toISOString();
-      const endISO = new Date(endTime).toISOString();
+      // const startISO = new Date(startTime).toISOString();
+      // const endISO = new Date(endTime).toISOString();
 
-      if (new Date(endISO) <= new Date(startISO)) {
-        toast.error("End time must be after start time!");
-      setLoading(true);
+      // if (new Date(endISO) <= new Date(startISO)) {
+      //   toast.error("End time must be after start time!");
+      // setLoading(true);
 
-        return;
-      }
+      //   return;
+      // }
 
       const event = {
         summary: title ,
-        start: { dateTime: startISO, timeZone: tz },
-        end: { dateTime: endISO, timeZone: tz },
+        start: { dateTime: startTime, timeZone: tz },
+        end: { dateTime: endTime, timeZone: tz },
         attendees: attendees.split(",").map((email:any) => ({ email: email.trim() })),
         conferenceData: {
           createRequest: {
@@ -358,7 +358,7 @@ const updateTimesFromSlot = (date: string, slot: string) => {
 
   // Combine date + time
   setStartTime(`${date}T${start24}:00`); // append seconds
-  setEndTime(`${date}T${end24}:00`);
+setEndTime(`${date}T${end24}:00`);
 };
 
 

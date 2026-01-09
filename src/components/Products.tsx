@@ -3,6 +3,7 @@ import "bootstrap-icons/font/bootstrap-icons.css";
 
 
 const Products: React.FC = () => {
+
   return (
     <section id="products" className="services section light-background">
       {/* Section Title */}
@@ -38,6 +39,12 @@ Our products are built to meet the evolving needs of modern businesses. Whether 
       />
                                       <button
                 className="page-btn"
+                                 onClick={() => {
+ window.open(
+        "https://erp-client-pink.vercel.app/consumerhub",
+        "_blank",
+        "noopener,noreferrer"
+      )}}
               >
                 <span>{"Consumer Hub"}</span>
               </button>
@@ -65,6 +72,12 @@ Our products are built to meet the evolving needs of modern businesses. Whether 
       />
                                 <button
                 className="page-btn"
+                 onClick={() => {
+ window.open(
+        "https://erp-client-pink.vercel.app/businesshub",
+        "_blank",
+        "noopener,noreferrer"
+      )}}
               >
                 <span>{"business Hub"}</span>
               </button>

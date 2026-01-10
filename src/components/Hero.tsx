@@ -1,13 +1,20 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import AOS from "aos";
 import GLightbox from "glightbox";
 import testimg1 from "../assets/img/hero-bg-light.webp" 
 
 
 const Hero: React.FC = () => {
+          const [terms, setTerms] = useState<Boolean>(true);
+  
   useEffect(() => {
     AOS.init({ duration: 1000, once: true });
     GLightbox({ selector: ".glightbox" });
+                  // Set a timer to hide the message after 15 seconds
+              const timer = setTimeout(() => setTerms(false), 5000);
+          
+              // Cleanup the timer when the component unmounts
+              return () => clearTimeout(timer);
   }, []);
 
   return (
@@ -45,6 +52,34 @@ const Hero: React.FC = () => {
           /> */}
         </div>
       </div>
+      <div className="popdown-message">
+
+    {terms && (
+    <div>
+
+
+<p style={{
+  fontStyle:"italic",
+  fontSize:"14px"
+}}>
+<button onClick={() => setTerms(false)} style={{
+  // marginRight:"10px",
+  color:"black",
+  background:"white",
+  fontSize:"20px"
+}}>×</button>
+By continuing, you agree to ShindenTech's{" "}
+  <a href="/terms-of-service" target="_blank" rel="noopener noreferrer">
+    Terms of Use
+  </a>{" "}
+  and{" "}
+  <a href="/privacy-policy" target="_blank" rel="noopener noreferrer">
+    Privacy Policy
+  </a>.
+ 
+</p>
+</div>    )}
+    </div>
     </section>
   );
 };

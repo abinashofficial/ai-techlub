@@ -7,6 +7,9 @@ import "./App.css";
 import React, { createContext, useState } from "react";
 import TermsOfService from "./pages/termsofservice";
 import PrivacyPolicy from "./pages/privacypolicy";
+import Business from "./pages/businesshub";
+import Consumer from "./pages/consumerhub";
+import ScrollToTop from "./components/scrolltotop";
 
 export const locateContext = createContext<any>({});
 
@@ -33,11 +36,29 @@ const App: React.FC = () => {
           setUser,
         }}
       >
+        <ScrollToTop />
+
         <Routes>
           <Route path="/" element={<Landing />} />
           <Route path="/gmeet" element={<ScheduleGmeet />} />
           <Route path="/terms-of-service" element={<TermsOfService />} />
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+                          <Route 
+            path="/businesshub" 
+            element={
+              //  <ProtectedRoute>
+                    <Business />
+              //  </ProtectedRoute>
+            } 
+        />
+                        <Route 
+            path="/consumerhub" 
+            element={
+              //  <ProtectedRoute>
+                    <Consumer />
+              //  </ProtectedRoute>
+            } 
+        />
         </Routes>
 
         {/* 👇 Mount Tawk.to chat widget */}

@@ -1,8 +1,12 @@
 import React from "react";
 import "bootstrap-icons/font/bootstrap-icons.css";
+import { useNavigate } from "react-router-dom";
+
 
 
 const Products: React.FC = () => {
+            const navigate = useNavigate();
+  
 
   return (
     <section id="products" className="services section light-background">
@@ -39,12 +43,7 @@ Our products are built to meet the evolving needs of modern businesses. Whether 
       />
                                       <button
                 className="page-btn"
-                                 onClick={() => {
- window.open(
-        "https://erp-client-pink.vercel.app/consumerhub",
-        "_blank",
-        "noopener,noreferrer"
-      )}}
+onClick={()=> navigate("/consumerhub")}
               >
                 <span>{"Consumer Hub"}</span>
               </button>
@@ -72,12 +71,7 @@ Our products are built to meet the evolving needs of modern businesses. Whether 
       />
                                 <button
                 className="page-btn"
-                 onClick={() => {
- window.open(
-        "https://erp-client-pink.vercel.app/businesshub",
-        "_blank",
-        "noopener,noreferrer"
-      )}}
+onClick={()=> navigate("/businesshub")}
               >
                 <span>{"business Hub"}</span>
               </button>

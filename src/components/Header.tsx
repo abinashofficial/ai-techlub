@@ -65,14 +65,14 @@ Consumer Hub
                             </a></li>
 
                             {/* <li><a href="#">courses</a></li> */}
-                                          <li className="dropdown"><a href="#"><span className="toggle-dropdown">ERP</span> <i className="bi bi-chevron-down toggle-dropdown"></i></a>
+                                          {/* <li className="dropdown"><a href="#"><span className="toggle-dropdown">ERP</span> <i className="bi bi-chevron-down toggle-dropdown"></i></a>
                 <ul>
                   <li>
                     <a href="https://payroll-ruby-xi.vercel.app/" target="_blank" rel="noopener noreferrer">Payroll Management</a></li>
-                  <li><a href="#">Visitors Management</a></li>
-                  <li><a href="https://erp-management-mu.vercel.app/" target="_blank" rel="noopener noreferrer">Packaging Management</a></li>
+                  <li><a href="#">AI Business ChatBot</a></li>
+                  <li><a href="https://erp-management-mu.vercel.app/" target="_blank" rel="noopener noreferrer">Inventory Management</a></li>
                 </ul>
-              </li>
+              </li> */}
 
             </ul>
           </li>

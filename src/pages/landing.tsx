@@ -38,7 +38,7 @@ function Landing() {
       {/* <Testimonials/> */}
       <Contact />
       <Footer />
-              <TawkToChat />
+<TawkToChat enabled={true} />
       
 
     </div>

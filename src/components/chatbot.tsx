@@ -3,6 +3,8 @@ import { useState, useRef, useEffect } from "react";
 // import type { KeyboardEvent } from "react";
 import { VscSend } from "react-icons/vsc";
 import Lottie from "lottie-react";
+import { useParams } from "react-router-dom";
+
 
 
 
@@ -46,8 +48,9 @@ interface ChatApiResponse {
 }
 
 export default function ChatBot() {
-  const vendorId = "9940";
   const apiUrl = "http://localhost:8000/api/chat";
+    const { vendorId } = useParams(); // Grab vendorId from URL
+  // const [vendorData, setVendorData] = useState(null);
 
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
@@ -113,6 +116,8 @@ export default function ChatBot() {
       text: input,
       time: new Date().toLocaleTimeString(),
     };
+        setInput("");
+
 
     setMessages(prev => [...prev, userMessage]);
     setLoading(true);
@@ -153,7 +158,6 @@ export default function ChatBot() {
       setMessages(prev => [...prev, errorMsg]);
     }
 
-    setInput("");
     setLoading(false);
   };
 
@@ -236,7 +240,7 @@ export default function ChatBot() {
 
       {/* Chat Window */}
       {open && (
-        <div style={styles.chatContainer}>
+        <div className="chat-container">
             <div         style={{
             display:"flex",
             flexDirection:"row",
@@ -250,10 +254,10 @@ export default function ChatBot() {
                 <img
                 style={{
                   borderRadius:"100px",
-                  width:"60px",
+                  width:"50px",
                   marginBottom:"5px"
         }}
-        src="./logo.png"
+        src="https://res.cloudinary.com/dababspdo/image/upload/v1770040421/3dchatbot_mdwwok.png"
         alt=""
       />
         </div>
@@ -301,7 +305,7 @@ export default function ChatBot() {
                         <div 
                                         style={{
                   ...styles.message,
-                  alignSelf: "flex-start",
+                  // alignSelf: "flex-start",
                   background: "#daf1ff",
                 }}
                         >
@@ -312,22 +316,10 @@ export default function ChatBot() {
                         </div>
 
                     ):(
-                                                    <div style={{
-                                                        display:"flex",
-                                                        flexDirection:"row",
-                                                        gap:"5px",
-                                                        alignItems:"start",
-                                                    }}>
-                                                        {/* <div>
-                                <VscRobot size={40} style={{
-                                    // color:"#388DA8"
-                                                                        color:"orange"
-
-                                }}/>
-
-                                                        </div> */}
+                                                    <div >
+    
                                                         <div style={{
-                                                            maxWidth:"40px"
+                                                            width:"50px"
                                                         }}>
 
                                                             <Lottie
@@ -346,9 +338,9 @@ export default function ChatBot() {
                         <div 
                                         style={{
                   ...styles.message,
-                  alignSelf:  "flex-end" ,
+                  // alignSelf:  "flex-start" ,
                   background: "#f1f1f1" ,
-                  width:"90%"
+                  // maxWidth:"85%"
                 }}
                         >
                <div>
@@ -478,6 +470,7 @@ const styles: Record<string, React.CSSProperties> = {
     background: "transparent",
     cursor: "pointer",
     fontSize: 16,
+    color:"blue",
   },
 
   chatBox: {
@@ -487,6 +480,7 @@ const styles: Record<string, React.CSSProperties> = {
     gap: 8,
     overflowY: "auto",
     flex: 1,
+    // boxShadow:"rgba(0, 0, 0, 0.2) 0px 4px 20px"
   },
 
   message: {
@@ -506,6 +500,7 @@ const styles: Record<string, React.CSSProperties> = {
     gap: 8,
     padding: 10,
     borderTop: "1px solid #ccc",
+    boxShadow:"rgba(0, 0, 0, 0.2) 0px 4px 20px"
   },
 
 //   input: {

@@ -1,6 +1,7 @@
 import  { useEffect, useState } from "react";
 import { motion } from 'framer-motion';
 import Lottie from "lottie-react";
+import ChatBot from "./chatbot";
 
 
 
@@ -40,7 +41,7 @@ import { GoArrowRight } from "react-icons/go";
   {
       title: 'AI Chat Bot',
     description: 'AI Business Chatbot is an intelligent, automated assistant designed to handle customer interactions and business queries in real time. It can answer FAQs, assist with bookings, payments, and support requests using natural language understanding. The chatbot integrates with business systems to provide accurate, personalized responses. This improves customer engagement, reduces response time, and lowers support costs.',
-    url:"https://shindentech.vercel.app",
+    url:"/chatbot",
     jsonLink: "https://res.cloudinary.com/dababspdo/raw/upload/v1767037104/Robot-Bot_3D_bhaksb.json",
     jsonName:"chatbot",
   },
@@ -263,7 +264,7 @@ className="project_box"
                                     </div>
 
 
-             
+             <ChatBot/>
 
  </div>
 

@@ -1,6 +1,7 @@
 import  { useEffect, useState } from "react";
 import { motion } from 'framer-motion';
 import Lottie from "lottie-react";
+import ChatBot from "./chatbot";
 
 
 
@@ -33,7 +34,7 @@ import { GoArrowRight } from "react-icons/go";
   {
       title: 'AI Chat Bot',
     description: 'Enhance customer engagement and streamline operations with an intelligent AI-powered business chatbot. Our solution provides instant customer support, answers queries accurately, automates lead qualification, and integrates seamlessly with your business systems. Deliver personalized, 24/7 interactions that improve customer satisfaction, reduce response time, and convert conversations into meaningful business outcomes.',
-    url:"/",
+    url:"/chatbot",
     jsonLink: "https://res.cloudinary.com/dababspdo/raw/upload/v1767037104/Robot-Bot_3D_bhaksb.json",
     jsonName:"chatbot",
   },
@@ -249,7 +250,7 @@ href={service.url}
                       ))}
                                     </div>
 
-
+<ChatBot/>
              
 
  </div>

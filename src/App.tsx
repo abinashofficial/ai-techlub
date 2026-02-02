@@ -1,8 +1,7 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Landing from "./pages/landing";
 import { useUIEffects } from "./hooks/useUIEffects";
-import { TawkToChat } from "./hooks/talktochat";
-import ScheduleGmeet from "./components/gmeet";
+// import { TawkToChat } from "./hooks/talktochat";
 import "./App.css";
 import React, { createContext, useState } from "react";
 import TermsOfService from "./pages/termsofservice";
@@ -10,6 +9,7 @@ import PrivacyPolicy from "./pages/privacypolicy";
 import Business from "./pages/businesshub";
 import Consumer from "./pages/consumerhub";
 import ScrollToTop from "./components/scrolltotop";
+import ChatBot from "./components/chatbot";
 
 export const locateContext = createContext<any>({});
 
@@ -25,6 +25,7 @@ const App: React.FC = () => {
     email: "",
     imageUrl: "",
   });
+    const [chat, setChat] = useState<Boolean>(false);
 
   useUIEffects();
 
@@ -34,15 +35,18 @@ const App: React.FC = () => {
         value={{
           user,
           setUser,
+          chat,
+          setChat
         }}
       >
         <ScrollToTop />
 
         <Routes>
           <Route path="/" element={<Landing />} />
-          <Route path="/gmeet" element={<ScheduleGmeet />} />
           <Route path="/terms-of-service" element={<TermsOfService />} />
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+                    <Route path="/chatbot" element={<ChatBot />} />
+
                           <Route 
             path="/businesshub" 
             element={
@@ -62,7 +66,7 @@ const App: React.FC = () => {
         </Routes>
 
         {/* 👇 Mount Tawk.to chat widget */}
-        <TawkToChat />
+        {/* <TawkToChat /> */}
       </locateContext.Provider>
     </BrowserRouter>
   );

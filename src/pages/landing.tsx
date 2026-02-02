@@ -12,6 +12,7 @@ import Product from '../components/Products'
 // import Testimonials from '../components/Testimonials';
 import ClientsSection from '../components/Clients'
 import GoogleReviews from "../components/googlereviews";
+import { TawkToChat } from "../hooks/talktochat";
 
 
 
@@ -37,6 +38,8 @@ function Landing() {
       {/* <Testimonials/> */}
       <Contact />
       <Footer />
+              <TawkToChat />
+      
 
     </div>
 

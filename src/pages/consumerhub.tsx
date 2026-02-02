@@ -61,13 +61,7 @@ import { GoArrowRight } from "react-icons/go";
     jsonLink: "https://res.cloudinary.com/dababspdo/raw/upload/v1767051918/Online_Payment_iqf0go.json",
     jsonName:"payment_gif",
   },
-  //             {
-  //     title: 'Google Review',
-  //   description: 'Boost your online reputation and customer trust with an automated 5-star rating and Google review solution. Make it easy for customers to share feedback, increase positive reviews, and improve local search visibility. Our system helps businesses build credibility, attract new customers, and stand out with a strong, trusted online presence.',
-  //   url:"",
-  //   jsonLink: "https://res.cloudinary.com/dababspdo/raw/upload/v1767054769/googlereview_zmyr5o.json",
-  //   jsonName:"review_gif",
-  // },
+
                 {
       title: 'Customer Reviews & Ratings',
     description: 'Customer Reviews & Ratings is a platform that collects, manages, and displays feedback from customers about products or services. It allows users to submit ratings, write reviews, and share experiences, while businesses can monitor and respond to feedback. The system provides analytics to track satisfaction trends and identify improvement areas. This enhances customer trust, engagement, and service quality.',
@@ -154,10 +148,10 @@ export default function Consumer() {
 
     <div
 className="project_box"
+            key={index}
+
   >
                              <motion.div
-            key={index}
-            // className="rounded-2xl p-6 bg-white text-gray-900 shadow-2xl transform hover:scale-105 hover:rotate-1 transition-all duration-500 border border-purple-200"
             initial={{ rotateY: 90, opacity: 0 }}
             animate={{ rotateY: 0, opacity: 1 }}
             transition={{ duration: 0.8, delay: index * 0.2 }}
@@ -176,8 +170,6 @@ className="project_box"
       justifyContent: "center",
       alignItems: "center",
       flex: 1, // equal width in row mode, equal height in column mode
-      // width: "100%",
-      // flexDirection: "column",
     }}
   >
 
@@ -197,53 +189,45 @@ className="project_box"
 
 
 
+<div style={{ textAlign: "center" }}>
 
-  <div>
+  {/* Title */}
+  <h3 style={{ color: "#3E5055", marginBottom: "8px" }}>
+    {service.title}
+  </h3>
 
+  {/* Explore link */}
+  <a
+    href={service.url}
+    style={{
+      display: "inline-flex",
+      alignItems: "center",
+      gap: "5px",
+      marginBottom: "10px",
+      color: "#388DA8",
+      cursor: "pointer",
+      textDecoration: "none",
+      fontWeight: 500,
+    }}
+  >
+    Explore <GoArrowRight />
+  </a>
 
-    <p style={{ fontSize:isPortrait ? "" :  "1rem", lineHeight: isPortrait ? "" :"1.2rem", color:"grey" }}>
-     
-                   <div  style={{
-              display:"flex",
-              justifyContent:"center",
-              color:"#3E5055"
-            }}>
-                   <h3 >{service.title}</h3>
-      </div>
-                                                    <a style={{
-                display:"flex",
-                justifyContent:"center",
-                alignItems:"end",
-                flexDirection:"row",
-                cursor:"pointer",
-                // height:"100%",
-                marginBottom:"10px",
-              }}
-href={service.url}
->
+  {/* Description */}
+  <p
+    style={{
+      fontSize: isPortrait ? "0.9rem" : "1rem",
+      lineHeight: isPortrait ? "1.2rem" : "1.4rem",
+      color: "grey",
+      marginTop: "8px",
+    }}
+  >
+    {service.description}
+  </p>
 
-              
-            Explore <div style={{
-              display:"flex",
-              justifyContent:"center",
-              alignItems:"center",
-              marginLeft:"5px",
-            }}>
-              <GoArrowRight/>
-              </div>
-              </a>
-
-      {service.description}
-    </p>
-
-                            </div>
+</div>
 
 
-
-
-              {/* <button type="submit" className="blog-button"> */}
-
-          {/* </button> */}
           </motion.div>
   </div>
 

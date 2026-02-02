@@ -46,25 +46,53 @@ interface ChatApiResponse {
 }
 
 export default function ChatBot() {
-                {/* Welcome message */} 
-
-          const botmessage: Message = {
-      id: Date.now(),
-      role: "bot",
-      text: "Hello 👋 Welcome to Minsway Solutions. How can I help you today?",
-      time: new Date().toLocaleTimeString(),
-    };
-  const [messages, setMessages] = useState<Message[]>([botmessage]);
-  const [input, setInput] = useState<string>("");
-  const [loading, setLoading] = useState<boolean>(false);
-  const [open, setOpen] = useState<boolean>(false); // Chat open/close
-           const [animations, setAnimations] = useState<Animations>({});
-  
-
-  const vendorId = "1020";
+  const vendorId = "9940";
   const apiUrl = "http://localhost:8000/api/chat";
 
+  const [messages, setMessages] = useState<Message[]>([]);
+  const [input, setInput] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [open, setOpen] = useState(false);
+  const [animations, setAnimations] = useState<Animations>({});
+
   const chatBoxRef = useRef<HTMLDivElement>(null);
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
+
+  /* ---------------- FETCH WELCOME ---------------- */
+
+  useEffect(() => {
+    const fetchWelcome = async () => {
+      try {
+        const res = await fetch(apiUrl, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ message: "hi", vendorId }),
+        });
+
+        const data: ChatApiResponse = await res.json();
+
+        setMessages([
+          {
+            id: Date.now(),
+            role: "bot",
+            text: data.response || "Hello 👋 How can I help you today?",
+            time: new Date().toLocaleTimeString(),
+          },
+        ]);
+      } catch {
+        setMessages([
+          {
+            id: Date.now(),
+            role: "bot",
+            text: "Hello 👋 How can I help you today?",
+            time: new Date().toLocaleTimeString(),
+          },
+        ]);
+      }
+    };
+
+    fetchWelcome();
+  }, [apiUrl, vendorId]);
 
   // Scroll to bottom when messages or loading changes
   useEffect(() => {
@@ -95,7 +123,7 @@ export default function ChatBot() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ message: input }),
+        body: JSON.stringify({ message: input, vendorId }),
       });
 
       const data: ChatApiResponse = await res.json();
@@ -129,12 +157,10 @@ export default function ChatBot() {
     setLoading(false);
   };
 
-//   const onEnter = (e: KeyboardEvent<HTMLInputElement>) => {
-//     if (e.key === "Enter") sendMessage();
-//   };
 
 
-  const textareaRef = useRef<HTMLTextAreaElement>(null);
+
+
 
   const MIN_HEIGHT = 40; // min height in px
   const MAX_HEIGHT = 120; // max height in px
@@ -170,29 +196,6 @@ export default function ChatBot() {
       fetchAnimations();
     }, []);
 
-
-//       useEffect(() => {
-//     const fetchWelcome = async () => {
-//       const res = await fetch(apiUrl, {
-//         method: "POST",
-//         headers: { "Content-Type": "application/json" },
-//         body: JSON.stringify({ message: "hi", vendorId }),
-//       });
-
-//       const data: ChatApiResponse = await res.json();
-
-//       setMessages([
-//         {
-//           id: Date.now(),
-//           role: "bot",
-//           text: data.response ?? "Hello 👋",
-//           time: new Date().toLocaleTimeString(),
-//         },
-//       ]);
-//     };
-
-//     fetchWelcome();
-//   }, [apiUrl, vendorId]);
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (e.key === "Enter" && !e.shiftKey) {

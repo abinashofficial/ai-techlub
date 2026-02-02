@@ -164,9 +164,10 @@ export default function Business() {
 
     <div
 className="project_box"
+            key={index}
+
   >
                              <motion.div
-            key={index}
             // className="rounded-2xl p-6 bg-white text-gray-900 shadow-2xl transform hover:scale-105 hover:rotate-1 transition-all duration-500 border border-purple-200"
             initial={{ rotateY: 90, opacity: 0 }}
             animate={{ rotateY: 0, opacity: 1 }}
@@ -206,57 +207,46 @@ className="project_box"
 
 
 
+<div style={{ textAlign: "center" }}>
 
+  {/* Title */}
+  <h3 style={{ color: "#3E5055", marginBottom: "8px" }}>
+    {service.title}
+  </h3>
 
-  <div>
+  {/* Explore link */}
+  <a
+    href={service.url}
+    style={{
+      display: "inline-flex",
+      alignItems: "center",
+      gap: "5px",
+      marginBottom: "10px",
+      color: "#388DA8",
+      cursor: "pointer",
+      textDecoration: "none",
+      fontWeight: 500,
+    }}
+  >
+    Explore <GoArrowRight />
+  </a>
 
+  {/* Description */}
+  <p
+    style={{
+      fontSize: isPortrait ? "0.9rem" : "1rem",
+      lineHeight: isPortrait ? "1.2rem" : "1.4rem",
+      color: "grey",
+      marginTop: "8px",
+    }}
+  >
+    {service.description}
+  </p>
 
-    <p style={{ fontSize:isPortrait ? "" :  "1rem", lineHeight: isPortrait ? "" :"1.2rem", color:"grey" }}>
-     
-                   <div  style={{
-              display:"flex",
-              justifyContent:"center",
-              color:"#3E5055"
-            }}>
-                   <h3 >{service.title}</h3>
-      </div>
-                                                    <div style={{
-                display:"flex",
-                justifyContent:"center",
-                alignItems:"center",
-                flexDirection:"row",
-                cursor:"pointer",
-                // height:"100%",
-                marginBottom:"10px",
-              
-              }}
-              className="explore-button"
-                            onClick={() => window.open(service.url, "_blank")}
-                            
-                            >
-
-              
-            Explore <div style={{
-              display:"flex",
-              justifyContent:"center",
-              alignItems:"center",
-              marginLeft:"5px",
-            }}>
-              <GoArrowRight/>
-              </div>
-              </div>
-
-      {service.description}
-    </p>
-
-                            </div>
+</div>
 
 
 
-
-              {/* <button type="submit" className="blog-button"> */}
-
-          {/* </button> */}
           </motion.div>
   </div>
 

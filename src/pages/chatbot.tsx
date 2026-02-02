@@ -5,12 +5,7 @@ import { VscSend } from "react-icons/vsc";
 import Lottie from "lottie-react";
 
 
-const INITIAL_BOT_MESSAGE: Message = {
-  id: 1,
-  role: "bot",
-  text: "Hello 👋 Welcome to Minsway Solutions. How can I help you today?",
-  time: new Date().toLocaleTimeString(),
-};
+
 
 
 type Role = "user" | "bot";
@@ -51,20 +46,53 @@ interface ChatApiResponse {
 }
 
 export default function ChatBot() {
-                {/* Welcome message */} 
+  const vendorId = "9940";
+  const apiUrl = "http://localhost:8000/api/chat";
 
-  const [messages, setMessages] = useState<Message[]>([INITIAL_BOT_MESSAGE]);
-  const [input, setInput] = useState<string>("");
-  const [loading, setLoading] = useState<boolean>(false);
-  const [open, setOpen] = useState<boolean>(false); // Chat open/close
-           const [animations, setAnimations] = useState<Animations>({});
-           const vendorId = "9940"
-           const apiUrl = "http://localhost:8000/api/chat"
-  
-
-
+  const [messages, setMessages] = useState<Message[]>([]);
+  const [input, setInput] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [open, setOpen] = useState(false);
+  const [animations, setAnimations] = useState<Animations>({});
 
   const chatBoxRef = useRef<HTMLDivElement>(null);
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
+
+  /* ---------------- FETCH WELCOME ---------------- */
+
+  useEffect(() => {
+    const fetchWelcome = async () => {
+      try {
+        const res = await fetch(apiUrl, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ message: "hi", vendorId }),
+        });
+
+        const data: ChatApiResponse = await res.json();
+
+        setMessages([
+          {
+            id: Date.now(),
+            role: "bot",
+            text: data.response || "Hello 👋 How can I help you today?",
+            time: new Date().toLocaleTimeString(),
+          },
+        ]);
+      } catch {
+        setMessages([
+          {
+            id: Date.now(),
+            role: "bot",
+            text: "Hello 👋 How can I help you today?",
+            time: new Date().toLocaleTimeString(),
+          },
+        ]);
+      }
+    };
+
+    fetchWelcome();
+  }, [apiUrl, vendorId]);
 
   // Scroll to bottom when messages or loading changes
   useEffect(() => {
@@ -85,27 +113,18 @@ export default function ChatBot() {
       text: input,
       time: new Date().toLocaleTimeString(),
     };
-        setInput("");
-
-
 
     setMessages(prev => [...prev, userMessage]);
     setLoading(true);
 
     try {
-const controller = new AbortController();
-
-const timeoutId = setTimeout(() => controller.abort(), 10000); // 10 seconds
       const res = await fetch(apiUrl, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ message: input, vendorId  }),
-          signal: controller.signal,
+        body: JSON.stringify({ message: input, vendorId }),
       });
-      clearTimeout(timeoutId);
-
 
       const data: ChatApiResponse = await res.json();
 
@@ -124,18 +143,7 @@ const timeoutId = setTimeout(() => controller.abort(), 10000); // 10 seconds
       };
 
       setMessages(prev => [...prev, botMessage]);
-    } catch (err:any) {
-  if (err instanceof DOMException && err.name === "AbortError") {
-                          const errorMsg: Message = {
-        id: Date.now() + 2,
-        role: "bot",
-        text: "Request timed out",
-        time: new Date().toLocaleTimeString(),
-      };
-      setMessages(prev => [...prev, errorMsg]);
-
-                    // setError("Request timed out");
-                  }else {
+    } catch (err) {
       const errorMsg: Message = {
         id: Date.now() + 2,
         role: "bot",
@@ -143,18 +151,16 @@ const timeoutId = setTimeout(() => controller.abort(), 10000); // 10 seconds
         time: new Date().toLocaleTimeString(),
       };
       setMessages(prev => [...prev, errorMsg]);
-                  }
-
     }
+
+    setInput("");
     setLoading(false);
   };
 
-//   const onEnter = (e: KeyboardEvent<HTMLInputElement>) => {
-//     if (e.key === "Enter") sendMessage();
-//   };
 
 
-  const textareaRef = useRef<HTMLTextAreaElement>(null);
+
+
 
   const MIN_HEIGHT = 40; // min height in px
   const MAX_HEIGHT = 120; // max height in px
@@ -190,46 +196,6 @@ const timeoutId = setTimeout(() => controller.abort(), 10000); // 10 seconds
       fetchAnimations();
     }, []);
 
-// const [botmessage, setBotMessage] = useState<Message>({
-//   id: Date.now(),
-//   role: "bot",
-//   text: "Loading welcome message...", // temporary
-//   time: new Date().toLocaleTimeString(),
-// });
-
-// // Fetch vendor-specific welcome message
-// useEffect(() => {
-//   const fetchWelcome = async () => {
-//     try {
-//       const res = await fetch(apiUrl, {
-//         method: "POST",
-//         headers: { "Content-Type": "application/json" },
-//         body: JSON.stringify({ message: "hi", vendorId }),
-//       });
-//       const data: ChatApiResponse = await res.json();
-//       setBotMessage({
-//         id: Date.now(),
-//         role: "bot",
-//         text: data.response || "Hello 👋 How can I help you today?",
-//         time: new Date().toLocaleTimeString(),
-//       });
-//             setMessages(prev => [...prev, botmessage]);
-
-//     } catch {
-//       setBotMessage({
-//         id: Date.now(),
-//         role: "bot",
-//         text: "Hello 👋 How can I help you today?",
-//         time: new Date().toLocaleTimeString(),
-//       });
-//                   setMessages(prev => [...prev, botmessage]);
-
-//     }
-//   };
-
-//   fetchWelcome();
-// }, [apiUrl, vendorId]);
-
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (e.key === "Enter" && !e.shiftKey) {
@@ -255,14 +221,16 @@ const timeoutId = setTimeout(() => controller.abort(), 10000); // 10 seconds
     }}
   >
 
-{animations["booking_gif"] && (
-  <Lottie
-    animationData={animations["booking_gif"]}
-    loop
-    autoplay
-    style={{ width: "80%", height: "100%" }}
-  />
-)}
+    <Lottie
+      className="lottie-animation"
+      animationData={animations["booking_gif"]}  
+      loop
+      autoplay
+      style={{
+        width:  "80%",
+        height: "100%",
+      }}
+    />
   </div>
       </div>
 

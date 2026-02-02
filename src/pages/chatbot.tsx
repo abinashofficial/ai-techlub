@@ -114,6 +114,12 @@ export default function ChatBot() {
       time: new Date().toLocaleTimeString(),
     };
         setInput("");
+          requestAnimationFrame(() => {
+    if (textareaRef.current) {
+      textareaRef.current.style.height = `${MIN_HEIGHT}px`;
+      textareaRef.current.style.overflowY = "hidden";
+    }
+  });
 
 
     setMessages(prev => [...prev, userMessage]);
@@ -166,18 +172,29 @@ export default function ChatBot() {
   const MIN_HEIGHT = 40; // min height in px
   const MAX_HEIGHT = 120; // max height in px
 
-  // Adjust height on every change
-  useEffect(() => {
-    if (textareaRef.current) {
-      textareaRef.current.style.height = "auto"; // reset to recalc
-      const newHeight = Math.min(
-        Math.max(textareaRef.current.scrollHeight, MIN_HEIGHT),
-        MAX_HEIGHT
-      );
-      textareaRef.current.style.height = `${newHeight}px`;
-    }
-  }, [input]);
-                  useEffect(() => {
+useEffect(() => {
+  const el = textareaRef.current;
+  if (!el) return;
+
+  // Reset height so shrink works
+  el.style.height = "0px";
+
+  // Calculate new height
+  const scrollHeight = el.scrollHeight;
+
+  // Clamp height
+  const newHeight = Math.min(
+    Math.max(scrollHeight, MIN_HEIGHT),
+    MAX_HEIGHT
+  );
+
+  el.style.height = `${newHeight}px`;
+
+  // Enable internal scroll only after max
+  el.style.overflowY = scrollHeight > MAX_HEIGHT ? "auto" : "hidden";
+}, [input]);
+
+    useEffect(() => {
                 // Fetch all JSONs in parallel
                 const fetchAnimations = async () => {
                   const anims  :any ={};
@@ -241,9 +258,9 @@ export default function ChatBot() {
             <div         style={{
             display:"flex",
             flexDirection:"row",
-            justifyContent:"space-between",
+            justifyContent:"space-around",
             alignItems:"center",
-            boxShadow:"rgba(0, 0, 0, 0.2) 0px 4px 20px"
+            boxShadow:"rgba(0, 0, 0, 0.2) 0px 4px 20px",
         }}>
                         <div 
 
@@ -252,7 +269,7 @@ export default function ChatBot() {
                 style={{
                   borderRadius:"100px",
                   width:"50px",
-                  marginBottom:"5px"
+                  marginBottom:"5px",
         }}
         src="https://res.cloudinary.com/dababspdo/image/upload/v1770040421/3dchatbot_mdwwok.png"
         alt=""
@@ -365,6 +382,7 @@ style={{
                                 alignItems:"center",
                                 justifyContent:"center",
                                                 cursor:"pointer",
+                                                alignSelf:"end",
 
 }}
                           onClick={sendMessage}
@@ -471,7 +489,8 @@ const styles: Record<string, React.CSSProperties> = {
     gap: 8,
     padding: 10,
     borderTop: "1px solid #ccc",
-    boxShadow:"rgba(0, 0, 0, 0.2) 0px 4px 20px"
+    boxShadow:"rgba(0, 0, 0, 0.2) 0px 4px 20px",
+    borderRadius:"30px",
   },
 
 //   input: {

@@ -1,10 +1,8 @@
-// import { div } from "framer-motion/client";
+
+import { useParams } from "react-router-dom";
 import { useState, useRef, useEffect } from "react";
-// import type { KeyboardEvent } from "react";
 import { VscSend } from "react-icons/vsc";
 import Lottie from "lottie-react";
-import { useParams } from "react-router-dom";
-
 
 
 
@@ -49,8 +47,8 @@ interface ChatApiResponse {
 
 export default function ChatBot() {
   const apiUrl = "https://chatbot-production-5ad5.up.railway.app/api/chat";
-    const { vendorId } = useParams(); // Grab vendorId from URL
-  // const [vendorData, setVendorData] = useState(null);
+      const { vendorId } = useParams(); // Grab vendorId from URL
+
 
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
@@ -117,6 +115,12 @@ export default function ChatBot() {
       time: new Date().toLocaleTimeString(),
     };
         setInput("");
+          requestAnimationFrame(() => {
+    if (textareaRef.current) {
+      textareaRef.current.style.height = `${MIN_HEIGHT}px`;
+      textareaRef.current.style.overflowY = "hidden";
+    }
+  });
 
 
     setMessages(prev => [...prev, userMessage]);
@@ -169,18 +173,29 @@ export default function ChatBot() {
   const MIN_HEIGHT = 40; // min height in px
   const MAX_HEIGHT = 120; // max height in px
 
-  // Adjust height on every change
-  useEffect(() => {
-    if (textareaRef.current) {
-      textareaRef.current.style.height = "auto"; // reset to recalc
-      const newHeight = Math.min(
-        Math.max(textareaRef.current.scrollHeight, MIN_HEIGHT),
-        MAX_HEIGHT
-      );
-      textareaRef.current.style.height = `${newHeight}px`;
-    }
-  }, [input]);
-                  useEffect(() => {
+useEffect(() => {
+  const el = textareaRef.current;
+  if (!el) return;
+
+  // Reset height so shrink works
+  el.style.height = "0px";
+
+  // Calculate new height
+  const scrollHeight = el.scrollHeight;
+
+  // Clamp height
+  const newHeight = Math.min(
+    Math.max(scrollHeight, MIN_HEIGHT),
+    MAX_HEIGHT
+  );
+
+  el.style.height = `${newHeight}px`;
+
+  // Enable internal scroll only after max
+  el.style.overflowY = scrollHeight > MAX_HEIGHT ? "auto" : "hidden";
+}, [input]);
+
+    useEffect(() => {
                 // Fetch all JSONs in parallel
                 const fetchAnimations = async () => {
                   const anims  :any ={};
@@ -211,7 +226,7 @@ export default function ChatBot() {
     <>
       {/* Floating Chat Icon */}
       <div
-        style={styles.chatIcon}
+      className="chat-icon"
         onClick={() => setOpen(prev => !prev)}
       >
         <div
@@ -244,9 +259,9 @@ export default function ChatBot() {
             <div         style={{
             display:"flex",
             flexDirection:"row",
-            justifyContent:"space-between",
+            justifyContent:"space-around",
             alignItems:"center",
-            boxShadow:"rgba(0, 0, 0, 0.2) 0px 4px 20px"
+            boxShadow:"rgba(0, 0, 0, 0.2) 0px 4px 20px",
         }}>
                         <div 
 
@@ -255,7 +270,7 @@ export default function ChatBot() {
                 style={{
                   borderRadius:"100px",
                   width:"50px",
-                  marginBottom:"5px"
+                  marginBottom:"5px",
         }}
         src="https://res.cloudinary.com/dababspdo/image/upload/v1770040421/3dchatbot_mdwwok.png"
         alt=""
@@ -272,23 +287,10 @@ export default function ChatBot() {
             </div>
 
 
-          <div style={styles.chatBox} ref={chatBoxRef}>
+          <div 
+          className="chat-box"
+          ref={chatBoxRef}>
 
-{/* 
-            {messages.map(msg => (
-
-              <div
-                key={msg.id}
-                style={{
-                  ...styles.message,
-                  alignSelf: msg.role === "user" ? "flex-end" : "flex-start",
-                  background: msg.role === "user" ? "#daf1ff" : "#f1f1f1",
-                }}
-              >
-                {msg.text}
-                <div style={styles.time}>{msg.time}</div>
-              </div>
-            ))} */}
 
 
                         {messages.map(msg => (
@@ -368,20 +370,7 @@ export default function ChatBot() {
       onChange={e => setInput(e.target.value)}
       onKeyDown={handleKeyDown}
       placeholder="Type a message..."
-      style={{
-        width: "100%",
-        minHeight: MIN_HEIGHT,
-        maxHeight: MAX_HEIGHT,
-        resize: "none",
-        padding: "8px 12px",
-        fontSize: 14,
-        borderRadius: 6,
-        border: "1px solid #ccc",
-        overflowY: "auto",
-        boxSizing: "border-box",
-        background:"white",
-        color:"black",
-      }}
+className="chat-textarea"
     />
 
             <div     
@@ -394,6 +383,7 @@ style={{
                                 alignItems:"center",
                                 justifyContent:"center",
                                                 cursor:"pointer",
+                                                alignSelf:"end",
 
 }}
                           onClick={sendMessage}
@@ -500,7 +490,8 @@ const styles: Record<string, React.CSSProperties> = {
     gap: 8,
     padding: 10,
     borderTop: "1px solid #ccc",
-    boxShadow:"rgba(0, 0, 0, 0.2) 0px 4px 20px"
+    boxShadow:"rgba(0, 0, 0, 0.2) 0px 4px 20px",
+    borderRadius:"30px",
   },
 
 //   input: {

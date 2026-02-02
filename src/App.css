@@ -417,17 +417,33 @@
   background: white;
 }
 
-
 .chat-textarea {
+  resize: none;
+  line-height: 20px;        /* 🔥 defines line growth */
+  min-height: 40px;
+  max-height: 120px;
+  overflow-y: hidden;
+  font-size: 16px;          /* iOS zoom fix */
+  box-sizing: border-box;
+}
+.chat-textarea {
+   border: none;          /* 🔥 removes border line */
+  outline: none;         /* removes focus outline */
+  box-shadow: none;      /* just in case */
   flex: 1;
   resize: none;
+  line-height: 20px;        /* 🔥 defines line growth */
+  min-height: 40px;
   max-height: 120px;
   overflow-y: auto;
   font-size: 16px; /* 🔥 prevents iOS zoom */
   padding: 8px;
   color: black;
   background: white;
-  
+  transition: height 0.12s ease;
+  height: 40px;
+
+  /* border-radius: 20px; */
 }
 
 .send-btn {

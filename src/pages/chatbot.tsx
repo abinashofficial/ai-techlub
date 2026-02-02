@@ -208,7 +208,7 @@ export default function ChatBot() {
     <>
       {/* Floating Chat Icon */}
       <div
-        style={styles.chatIcon}
+      className="chat-icon"
         onClick={() => setOpen(prev => !prev)}
       >
         <div
@@ -269,23 +269,10 @@ export default function ChatBot() {
             </div>
 
 
-          <div style={styles.chatBox} ref={chatBoxRef}>
+          <div 
+          className="chat-box"
+          ref={chatBoxRef}>
 
-{/* 
-            {messages.map(msg => (
-
-              <div
-                key={msg.id}
-                style={{
-                  ...styles.message,
-                  alignSelf: msg.role === "user" ? "flex-end" : "flex-start",
-                  background: msg.role === "user" ? "#daf1ff" : "#f1f1f1",
-                }}
-              >
-                {msg.text}
-                <div style={styles.time}>{msg.time}</div>
-              </div>
-            ))} */}
 
 
                         {messages.map(msg => (
@@ -365,20 +352,7 @@ export default function ChatBot() {
       onChange={e => setInput(e.target.value)}
       onKeyDown={handleKeyDown}
       placeholder="Type a message..."
-      style={{
-        width: "100%",
-        minHeight: MIN_HEIGHT,
-        maxHeight: MAX_HEIGHT,
-        resize: "none",
-        padding: "8px 12px",
-        fontSize: 14,
-        borderRadius: 6,
-        border: "1px solid #ccc",
-        overflowY: "auto",
-        boxSizing: "border-box",
-        background:"white",
-        color:"black",
-      }}
+className="chat-textarea"
     />
 
             <div     

@@ -68,7 +68,7 @@ export default function ChatBot() {
         const res = await fetch(apiUrl, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ message: "hi", vendorId }),
+          body: JSON.stringify({ message: "hey", vendorId }),
         });
 
         const data: ChatApiResponse = await res.json();

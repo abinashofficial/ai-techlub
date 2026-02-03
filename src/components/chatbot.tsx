@@ -45,7 +45,7 @@ interface ChatApiResponse {
   confidence?: number;
 }
 
-export default function ChatBot() {
+export default function VendorChatBot() {
   const apiUrl = "https://chatbot-production-5ad5.up.railway.app/api/chat";
       const { vendorId } = useParams(); // Grab vendorId from URL
 

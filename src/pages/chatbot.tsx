@@ -52,6 +52,8 @@ export default function ChatBot() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
+    const [prevMessage, setPrevMessage] = useState("");
+
   const [open, setOpen] = useState(false);
   const [animations, setAnimations] = useState<Animations>({});
 
@@ -106,11 +108,18 @@ export default function ChatBot() {
 
   const sendMessage = async () => {
     if (!input.trim() || loading) return;
+let input_data = input
+    if (input==="yes"){
+      input_data = prevMessage
+    }
+          console.log(input_data)
+
+    
 
     const userMessage: Message = {
       id: Date.now(),
       role: "user",
-      text: input,
+      text: input_data,
       time: new Date().toLocaleTimeString(),
     };
         setInput("");
@@ -126,12 +135,13 @@ export default function ChatBot() {
     setLoading(true);
 
     try {
+      console.log(messages)
       const res = await fetch(apiUrl, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ message: input, vendorId }),
+        body: JSON.stringify({ message: input_data, vendorId }),
       });
 
       const data: ChatApiResponse = await res.json();
@@ -141,6 +151,7 @@ export default function ChatBot() {
         botText = `You have ${data.leave_days} leave days remaining.`;
       } else if (data.response) {
         botText = data.response;
+        setPrevMessage(botText)
       }
 
       const botMessage: Message = {

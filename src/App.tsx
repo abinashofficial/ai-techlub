@@ -9,7 +9,9 @@ import PrivacyPolicy from "./pages/privacypolicy";
 import Business from "./pages/businesshub";
 import Consumer from "./pages/consumerhub";
 import ScrollToTop from "./components/scrolltotop";
-import ChatBot from "./components/chatbot";
+import VendorChatBot from "./components/chatbot";
+import ChatBot from "./pages/chatbot";
+
 
 export const locateContext = createContext<any>({});
 
@@ -45,7 +47,7 @@ const App: React.FC = () => {
           <Route path="/" element={<Landing />} />
           <Route path="/terms-of-service" element={<TermsOfService />} />
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
-        <Route path="/chatbot/:vendorId" element={<ChatBot />} />
+        <Route path="/chatbot/:vendorId" element={<VendorChatBot />} />
 
                           <Route 
             path="/businesshub" 
@@ -67,6 +69,7 @@ const App: React.FC = () => {
 
         {/* 👇 Mount Tawk.to chat widget */}
         {/* <TawkToChat /> */}
+        <ChatBot/>
       </locateContext.Provider>
     </BrowserRouter>
   );

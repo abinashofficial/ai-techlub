@@ -1,5 +1,4 @@
 import { useRef } from "react";
-import ChatBot from "../pages/chatbot";
 
 const DraggableChatHead: React.FC = () => {
   const boxRef = useRef<HTMLDivElement | null>(null);

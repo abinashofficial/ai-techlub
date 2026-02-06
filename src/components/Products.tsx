@@ -33,15 +33,15 @@ Our products are built to meet the evolving needs of modern businesses. Whether 
 
         }}
         >
-                <img
-                style={{
-                  borderRadius:"50px",
-                  width:"80%"
-        }}
-        src="https://res.cloudinary.com/dababspdo/image/upload/v1765667840/B2C_excgg0.png"
-        alt=""
-      />
+<div className="image-wrapper">
+  <img src="https://res.cloudinary.com/dababspdo/image/upload/v1765667840/B2C_excgg0.png" alt="" />
+</div>
+
+
                                       <button
+                                      style={{
+                                        marginTop:"20px",
+                                      }}
                 className="page-btn"
 onClick={()=> navigate("/consumerhub")}
               >
@@ -61,15 +61,16 @@ onClick={()=> navigate("/consumerhub")}
 
         }}
         >
-                <img
-                style={{
-                  borderRadius:"50px",
-                  width:"80%"
-        }}
-        src="https://res.cloudinary.com/dababspdo/image/upload/v1765667896/B2B_henihk.png"
-        alt=""
-      />
+
+                <div className="image-wrapper">
+  <img src="https://res.cloudinary.com/dababspdo/image/upload/v1765667896/B2B_henihk.png" alt="" />
+</div>
+
+
                                 <button
+                                                    style={{
+                                        marginTop:"20px",
+                                      }}
                 className="page-btn"
 onClick={()=> navigate("/businesshub")}
               >

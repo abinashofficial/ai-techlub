@@ -7,7 +7,6 @@ import Lottie from "lottie-react";
 
 
 
-
 type Role = "user" | "bot";
 
   interface Animations {
@@ -59,6 +58,11 @@ export default function ChatBot() {
 
   const chatBoxRef = useRef<HTMLDivElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+
+    const chatIconRef = useRef<HTMLDivElement | null>(null);
+  const draggingRef = useRef(false);
+  const offsetRef = useRef({ x: 0, y: 0 });
+  const movedRef = useRef(false);
 
   /* ---------------- FETCH WELCOME ---------------- */
 
@@ -232,12 +236,106 @@ useEffect(() => {
       sendMessage();
     }
   };
+
+    const onPointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
+    const el = chatIconRef.current;
+    if (!el) return;
+
+    draggingRef.current = true;
+    movedRef.current = false;
+
+    el.setPointerCapture(e.pointerId);
+
+    const rect = el.getBoundingClientRect();
+    offsetRef.current = {
+      x: e.clientX - rect.left,
+      y: e.clientY - rect.top,
+    };
+  };
+
+  const onPointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
+    if (!draggingRef.current) return;
+    const el = chatIconRef.current;
+    if (!el) return;
+
+    movedRef.current = true;
+
+    const rect = el.getBoundingClientRect();
+    const { innerWidth, innerHeight } = window;
+
+    let x = e.clientX - offsetRef.current.x;
+    let y = e.clientY - offsetRef.current.y;
+
+    x = Math.max(0, Math.min(x, innerWidth - rect.width));
+    y = Math.max(0, Math.min(y, innerHeight - rect.height));
+
+    el.style.left = `${x}px`;
+    el.style.top = `${y}px`;
+    el.style.right = "auto";
+    el.style.bottom = "auto";
+  };
+const PADDING = 20; // distance from edges
+
+const onPointerUp = () => {
+  draggingRef.current = false;
+  const el = chatIconRef.current;
+  if (!el) return;
+
+  const rect = el.getBoundingClientRect();
+  const { innerWidth, innerHeight } = window;
+
+  const distances = {
+    left: rect.left,
+    right: innerWidth - rect.right,
+    top: rect.top,
+    bottom: innerHeight - rect.bottom,
+  };
+
+  const nearestEdge = Object.entries(distances).reduce((a, b) =>
+    a[1] < b[1] ? a : b
+  )[0];
+
+  let x = rect.left;
+  let y = rect.top;
+
+  switch (nearestEdge) {
+    case "left":
+      x = 0;
+      break;
+    case "right":
+      x = innerWidth - rect.width - PADDING;
+      break;
+    case "top":
+      y = 0;
+      break;
+    case "bottom":
+      y = innerHeight - rect.height - PADDING;
+      break;
+  }
+
+  el.style.left = `${x}px`;
+  el.style.top = `${y}px`;
+};
+
   return (
     <>
       {/* Floating Chat Icon */}
       <div
-      className="chat-icon"
-        onClick={() => setOpen(prev => !prev)}
+  ref={chatIconRef}
+  className="chat-icon"
+  onPointerDown={onPointerDown}
+  onPointerMove={onPointerMove}
+  onPointerUp={onPointerUp}
+  onPointerCancel={onPointerUp}
+  onClick={() => {
+    if (!movedRef.current) {
+      setOpen(prev => !prev);
+    }
+  }}
+  style={{
+    touchAction: "none",
+    userSelect: "none",
+  }}
       >
         <div
     style={{
@@ -288,12 +386,14 @@ useEffect(() => {
         </div>
             
             <strong>Customer Support</strong>
+
             <button
               style={styles.closeButton}
               onClick={() => setOpen(false)}
             >
               ✖
             </button>
+
             </div>
 
 
@@ -504,18 +604,7 @@ const styles: Record<string, React.CSSProperties> = {
     borderRadius:"30px",
   },
 
-//   input: {
-//     flex: 1,
-//     // padding: 8,
-//     // borderRadius: 6,
-//     // border: "1px solid #ccc",
-//         width: "100%",       // full width of parent container
-//     height: 40,          // fixed height in pixels
-//     padding: "8px 12px", // inner spacing
-//     fontSize: 14,        // text size
-//     borderRadius: 6,
-//     border: "1px solid #ccc",
-//   },
+
 
   button: {
     padding: "8px 12px",

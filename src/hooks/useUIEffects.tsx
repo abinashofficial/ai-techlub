@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import AOS from "aos";
 import GLightbox from "glightbox";
 import Swiper from "swiper";
@@ -7,10 +8,12 @@ import "aos/dist/aos.css";
 import "glightbox/dist/css/glightbox.css";
 
 export const useUIEffects = () => {
+  const location = useLocation();
+
   useEffect(() => {
-    /** Apply .scrolled class on scroll */
+    /** SCROLL EFFECT */
     const toggleScrolled = () => {
-      const body = document.querySelector("body");
+      const body = document.body;
       const header = document.querySelector("#header");
       if (!header) return;
       if (
@@ -20,61 +23,68 @@ export const useUIEffects = () => {
       )
         return;
 
-      if (window.scrollY > 100) body?.classList.add("scrolled");
-      else body?.classList.remove("scrolled");
+      if (window.scrollY > 100) body.classList.add("scrolled");
+      else body.classList.remove("scrolled");
     };
 
     document.addEventListener("scroll", toggleScrolled);
     window.addEventListener("load", toggleScrolled);
 
-    /** Mobile nav toggle */
-    const mobileNavToggleBtn = document.querySelector(".mobile-nav-toggle");
-    const toggleMobileNav = () => {
-      document.body.classList.toggle("mobile-nav-active");
-      mobileNavToggleBtn?.classList.toggle("bi-list");
-      mobileNavToggleBtn?.classList.toggle("bi-x");
-    };
-    mobileNavToggleBtn?.addEventListener("click", toggleMobileNav);
+    /** MOBILE NAV - Event delegation so it works on all pages */
+    const handleClick = (e: Event) => {
+      const target = e.target as HTMLElement;
 
-    /** Hide mobile nav on link click */
-    document.querySelectorAll("#navmenu a").forEach((link) => {
-      link.addEventListener("click", () => {
+      // Mobile nav toggle button
+      if (target.matches(".mobile-nav-toggle") || target.closest(".mobile-nav-toggle")) {
+        document.body.classList.toggle("mobile-nav-active");
+        const btn = document.querySelector(".mobile-nav-toggle");
+        btn?.classList.toggle("bi-list");
+        btn?.classList.toggle("bi-x");
+      }
+
+      // Mobile nav link click
+      if (target.matches("#navmenu a")) {
         if (document.body.classList.contains("mobile-nav-active")) {
-          toggleMobileNav();
+          document.body.classList.remove("mobile-nav-active");
+          const btn = document.querySelector(".mobile-nav-toggle");
+          btn?.classList.add("bi-list");
+          btn?.classList.remove("bi-x");
         }
-      });
-    });
+      }
 
-    /** Toggle mobile dropdowns */
-    document.querySelectorAll(".navmenu .toggle-dropdown").forEach((dropdown) => {
-      dropdown.addEventListener("click", (e) => {
+      // Mobile dropdown toggle
+      if (target.matches(".navmenu .toggle-dropdown")) {
         e.preventDefault();
-        const parent = dropdown.parentElement;
+        const parent = target.parentElement;
         parent?.classList.toggle("active");
         const next = parent?.nextElementSibling as HTMLElement;
         next?.classList.toggle("dropdown-active");
-        e.stopImmediatePropagation();
-      });
-    });
+        e.stopPropagation();
+      }
 
-    /** Preloader */
-    const preloader = document.querySelector("#preloader");
-    if (preloader) {
-      window.addEventListener("load", () => {
-        preloader.remove();
-      });
-    }
-
-    /** Scroll top button */
-    const scrollTop = document.querySelector(".scroll-top");
-    const toggleScrollTop = () => {
-      if (scrollTop) {
-        window.scrollY > 100
-          ? scrollTop.classList.add("active")
-          : scrollTop.classList.remove("active");
+      // FAQ toggle
+      if (
+        target.matches(".faq-item h3") ||
+        target.matches(".faq-item .faq-toggle")
+      ) {
+        target.parentElement?.classList.toggle("faq-active");
       }
     };
 
+    document.addEventListener("click", handleClick);
+
+    /** PRELOADER */
+    const preloader = document.querySelector("#preloader");
+    if (preloader) window.addEventListener("load", () => preloader.remove());
+
+    /** SCROLL TOP BUTTON */
+    const scrollTop = document.querySelector(".scroll-top");
+    const toggleScrollTop = () => {
+      if (!scrollTop) return;
+      window.scrollY > 100
+        ? scrollTop.classList.add("active")
+        : scrollTop.classList.remove("active");
+    };
     scrollTop?.addEventListener("click", (e) => {
       e.preventDefault();
       window.scrollTo({ top: 0, behavior: "smooth" });
@@ -82,7 +92,7 @@ export const useUIEffects = () => {
     window.addEventListener("load", toggleScrollTop);
     document.addEventListener("scroll", toggleScrollTop);
 
-    /** Animation on scroll */
+    /** AOS ANIMATION */
     const aosInit = () => {
       AOS.init({
         duration: 100,
@@ -93,19 +103,10 @@ export const useUIEffects = () => {
     };
     window.addEventListener("load", aosInit);
 
-    /** Init GLightbox */
+    /** INIT GLIGHTBOX */
     GLightbox({ selector: ".glightbox" });
 
-    /** FAQ toggle */
-    document
-      .querySelectorAll(".faq-item h3, .faq-item .faq-toggle")
-      .forEach((faqItem) => {
-        faqItem.addEventListener("click", () => {
-          faqItem.parentElement?.classList.toggle("faq-active");
-        });
-      });
-
-    /** Init Swiper */
+    /** INIT SWIPER */
     const initSwiper = () => {
       document.querySelectorAll(".init-swiper").forEach((swiperElement) => {
         const configEl = swiperElement.querySelector(".swiper-config");
@@ -116,15 +117,17 @@ export const useUIEffects = () => {
     };
     window.addEventListener("load", initSwiper);
 
-    /** Correct scroll on hash links */
+    /** HASH SCROLL CORRECTION */
     window.addEventListener("load", () => {
       if (window.location.hash) {
-        const section :any = document.querySelector(window.location.hash);
+        const section: any = document.querySelector(window.location.hash);
         if (section) {
           setTimeout(() => {
-            const scrollMarginTop = getComputedStyle(section).scrollMarginTop;
+            const scrollMarginTop = parseInt(
+              getComputedStyle(section).scrollMarginTop || "0"
+            );
             window.scrollTo({
-              top: section.offsetTop - parseInt(scrollMarginTop),
+              top: section.offsetTop - scrollMarginTop,
               behavior: "smooth",
             });
           }, 100);
@@ -132,10 +135,10 @@ export const useUIEffects = () => {
       }
     });
 
-    /** Navmenu scrollspy */
-    const navmenulinks = document.querySelectorAll(".navmenu a");
+    /** NAVMENU SCROLLSPY */
+    const navlinks = document.querySelectorAll(".navmenu a");
     const navmenuScrollspy = () => {
-      navmenulinks.forEach((link:any) => {
+      navlinks.forEach((link: any) => {
         if (!link.hash) return;
         const section = document.querySelector(link.hash);
         if (!section) return;
@@ -144,24 +147,24 @@ export const useUIEffects = () => {
           position >= section.offsetTop &&
           position <= section.offsetTop + section.offsetHeight
         ) {
-          document
-            .querySelectorAll(".navmenu a.active")
-            .forEach((l) => l.classList.remove("active"));
+          document.querySelectorAll(".navmenu a.active").forEach((l) => l.classList.remove("active"));
           link.classList.add("active");
         } else {
           link.classList.remove("active");
         }
       });
     };
-
     window.addEventListener("load", navmenuScrollspy);
     document.addEventListener("scroll", navmenuScrollspy);
 
-    /** Cleanup */
+    /** CLEANUP ON UNMOUNT */
     return () => {
       document.removeEventListener("scroll", toggleScrolled);
-      mobileNavToggleBtn?.removeEventListener("click", toggleMobileNav);
+      document.removeEventListener("click", handleClick);
       window.removeEventListener("load", aosInit);
+      window.removeEventListener("load", toggleScrollTop);
+      window.removeEventListener("load", initSwiper);
+      window.removeEventListener("load", navmenuScrollspy);
     };
-  }, []);
+  }, [location]); // <--- rerun on route change
 };

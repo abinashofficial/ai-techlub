@@ -1,7 +1,7 @@
 import  { useEffect, useState } from "react";
 import { motion } from 'framer-motion';
 import Lottie from "lottie-react";
-// import ChatBot from "./chatbot";
+import ChatBot from "./chatbot";
 // import { TawkToChat } from "../hooks/talktochat";
 
 
@@ -237,7 +237,7 @@ className="project_box"
                                     </div>
 {/* <TawkToChat enabled={false} /> */}
 
-{/* <ChatBot/> */}
+<ChatBot/>
              
 
  </div>

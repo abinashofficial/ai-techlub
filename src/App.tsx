@@ -11,7 +11,7 @@ import Business from "./pages/businesshub";
 import Consumer from "./pages/consumerhub";
 import ScrollToTop from "./components/scrolltotop";
 import VendorChatBot from "./components/chatbot";
-import ChatBot from "./pages/chatbot";
+// import ChatBot from "./pages/chatbot";
 
 
 
@@ -54,7 +54,7 @@ const App: React.FC = () => {
             <Route path="/consumerhub" element={<Consumer />} />
           </Routes>
 
-          <ChatBot />
+          {/* <ChatBot /> */}
         </locateContext.Provider>
       </UIEffectsWrapper>
     </BrowserRouter>

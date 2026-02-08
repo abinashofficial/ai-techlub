@@ -3,6 +3,7 @@ import { useState, useRef, useEffect } from "react";
 // import type { KeyboardEvent } from "react";
 import { VscSend } from "react-icons/vsc";
 import Lottie from "lottie-react";
+// import { div } from "framer-motion/client";
 
 
 
@@ -35,18 +36,24 @@ interface Message {
   role: Role;
   text: string;
   time: string;
+  form:any;
+}
+
+interface Response {
+  message:string;
+  form:any;
 }
 
 interface ChatApiResponse {
-  response?: string;
-  leave_days?: number;
+  response?: Response;
   intent?: string;
   confidence?: number;
 }
 
 export default function ChatBot() {
   const vendorId = "9940";
-  const apiUrl = "https://chatbot-production-5ad5.up.railway.app/api/chat";
+  // const apiUrl = "https://chatbot-production-5ad5.up.railway.app/api/chat";
+  const apiUrl = "http://localhost:8000/api/chat";
 
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
@@ -63,42 +70,58 @@ export default function ChatBot() {
   const draggingRef = useRef(false);
   const offsetRef = useRef({ x: 0, y: 0 });
   const movedRef = useRef(false);
+  const hasFetched = useRef(false);
+
+
+
+
+
+
+
 
   /* ---------------- FETCH WELCOME ---------------- */
+    const fetchApi = async (msg: string) => {
+          setLoading(true);
 
-  useEffect(() => {
-    const fetchWelcome = async () => {
       try {
         const res = await fetch(apiUrl, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ message: "hey", vendorId }),
+          body: JSON.stringify({ message: msg, vendorId }),
         });
 
         const data: ChatApiResponse = await res.json();
 
-        setMessages([
-          {
+            const userMessage: Message = {
             id: Date.now(),
             role: "bot",
-            text: data.response || "Hello 👋 How can I help you today?",
+            text: data.response?.message || "Hello 👋 How can I help you today?",
             time: new Date().toLocaleTimeString(),
-          },
-        ]);
-      } catch {
-        setMessages([
-          {
-            id: Date.now(),
-            role: "bot",
-            text: "Hello 👋 How can I help you today?",
-            time: new Date().toLocaleTimeString(),
-          },
-        ]);
+            form:data.response?.form || null,
+    };
+            setMessages(prev => [...prev, userMessage]);
+
+      } catch(err) {
+              const errorMsg: Message = {
+        id: Date.now() + 2,
+        role: "bot",
+        text: "Server error — please try again.",
+        time: new Date().toLocaleTimeString(),
+        form:null,
+      };
+      console.log(err)
+      setMessages(prev => [...prev, errorMsg]);
+
       }
+          setLoading(false);
+
     };
 
-    fetchWelcome();
-  }, [apiUrl, vendorId]);
+  useEffect(() => {
+     if (hasFetched.current) return;
+  hasFetched.current = true;
+    fetchApi("hey");
+  }, []);
 
   // Scroll to bottom when messages or loading changes
   useEffect(() => {
@@ -109,6 +132,7 @@ export default function ChatBot() {
       });
     }
   }, [messages, loading, open]);
+
 
   const sendMessage = async () => {
     if (!input.trim() || loading) return;
@@ -125,6 +149,7 @@ let input_data = input
       role: "user",
       text: input_data,
       time: new Date().toLocaleTimeString(),
+      form:null,
     };
         setInput("");
           requestAnimationFrame(() => {
@@ -151,27 +176,28 @@ let input_data = input
       const data: ChatApiResponse = await res.json();
 
       let botText = "I didn't understand that.";
-      if (data.leave_days !== undefined) {
-        botText = `You have ${data.leave_days} leave days remaining.`;
-      } else if (data.response) {
-        botText = data.response;
+if (data.response) {
+        botText = data.response.message;
         setPrevMessage(botText)
-      }
-
-      const botMessage: Message = {
+              const botMessage: Message = {
         id: Date.now() + 1,
         role: "bot",
         text: botText,
         time: new Date().toLocaleTimeString(),
+        form: data.response?.form,
       };
 
       setMessages(prev => [...prev, botMessage]);
+      }
+
+
     } catch (err) {
       const errorMsg: Message = {
         id: Date.now() + 2,
         role: "bot",
         text: "Server error — please try again.",
         time: new Date().toLocaleTimeString(),
+        form:null,
       };
       setMessages(prev => [...prev, errorMsg]);
     }
@@ -450,13 +476,43 @@ const onPointerUp = () => {
                         <div 
                                         style={{
                   ...styles.message,
-                  // alignSelf:  "flex-start" ,
-                  background: "#f1f1f1" ,
-                  // maxWidth:"85%"
                 }}
                         >
                <div>
-                            {msg.text}
+                {msg.text}
+
+
+                            {msg.form &&(
+                              <div
+                              style={{
+                                display:"flex",
+                                flexDirection:"column",
+                                gap:"10px",
+                              }}
+                              >
+                                {Object.entries(msg.form as Record<string, string>).map(
+  ([key, value]) => (
+    <div key={key}
+className="chat-form"
+onClick={()=>                setMessages(prev => [...prev,   {
+            id: Date.now(),
+            role: "bot",
+            text: value,
+            time: new Date().toLocaleTimeString(),
+            form: null,
+    }])}
+    >
+      {/* <h4>{key}</h4> */}
+                  <strong>{key}</strong>
+
+      {/* <p>{value}</p> */}
+    </div>
+  )
+)}
+
+                                </div>
+
+                            ) }
 
 
                         </div>                        </div>

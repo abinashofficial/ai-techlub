@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import "bootstrap-icons/font/bootstrap-icons.css";
-// import "./faq.css"; // Optional for animation
 
 interface FaqItem {
   question: string;
@@ -41,50 +40,46 @@ const faqData: FaqItem[] = [
 ];
 
 const Faq: React.FC = () => {
-  const [activeIndex, setActiveIndex] = useState<number>(-1); // all collapsed by default
+  const [activeIndex, setActiveIndex] = useState<number | null>(null);
 
   const toggleFaq = (index: number) => {
-    setActiveIndex((prev) => (prev === index ? -1 : index)); // toggle open/close
+    setActiveIndex((prev) => (prev === index ? null : index));
   };
 
   return (
     <section id="faq" className="faq section">
-      <div className="container section-title" data-aos="fade-up">
+      <div className="container section-title">
         <h2>Frequently Asked Questions</h2>
       </div>
 
       <div className="container">
         <div className="row justify-content-center">
-          <div className="col-lg-10" data-aos="fade-up" data-aos-delay="100">
+          <div className="col-lg-10">
             <div className="faq-container">
               {faqData.map((item, index) => {
                 const isActive = activeIndex === index;
                 return (
+                  
                   <div
                     key={index}
                     className={`faq-item ${isActive ? "faq-active" : ""}`}
-                    onClick={() => toggleFaq(index)}
+                    onClick={() => toggleFaq(index)} // entire box clickable
                     style={{ cursor: "pointer" }}
                   >
-                    <h3>{item.question}</h3>
+                    <h3 
+                                        onClick={() => toggleFaq(index)} // entire box clickable
 
-                    {/* Show answer */}
-                    <div
-                      className="faq-content"
-                      style={{
-                        maxHeight: isActive ? "500px" : "0",
-                        overflow: "hidden",
-                        transition: "max-height 0.4s ease",
-                      }}
                     >
-                      {isActive && <p>{item.answer}</p>}
-                    </div>
+                      {item.question}
+                      <i className="faq-toggle bi bi-chevron-right"></i>
+                    </h3>
 
-                    <i
-                      className={`faq-toggle bi ${
-                        isActive ? "bi-chevron-down" : "bi-chevron-right"
-                      }`}
-                    ></i>
+                    <div className="faq-content"
+
+                    >
+                      <p
+                      >{item.answer}</p>
+                    </div>
                   </div>
                 );
               })}

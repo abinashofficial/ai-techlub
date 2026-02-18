@@ -12,6 +12,7 @@ import Consumer from "./pages/consumerhub";
 import ScrollToTop from "./components/scrolltotop";
 import VendorChatBot from "./components/chatbot";
 // import ChatBot from "./pages/chatbot";
+import AudioChunk from "./components/AudioChunks";
 
 
 
@@ -52,6 +53,8 @@ const App: React.FC = () => {
             <Route path="/chatbot/:vendorId" element={<VendorChatBot />} />
             <Route path="/businesshub" element={<Business />} />
             <Route path="/consumerhub" element={<Consumer />} />
+            <Route path="/audiochunk" element={<AudioChunk />} />
+
           </Routes>
 
           {/* <ChatBot /> */}

@@ -37,12 +37,12 @@ const Footer: React.FC = () => {
               </p>
             </div>
             <div className="social-links d-flex mt-4">
-    <a href="https://www.threads.com/@aitechlub" target="_blank" rel="noopener noreferrer"><i className="bi bi-threads"></i></a>
+    <a href="https://www.threads.com/@shindentech" target="_blank" rel="noopener noreferrer"><i className="bi bi-threads"></i></a>
 
     <a href="https://wa.me/+919940463927" target="_blank" rel="noopener noreferrer"><i className="bi bi-whatsapp"></i></a>
               {/* <a href="#"><i className="bi bi-twitter-x"></i></a>
               <a href="#"><i className="bi bi-facebook"></i></a> */}
-              <a href="https://www.instagram.com/aitechlub" target="_blank" rel="noopener noreferrer"><i className="bi bi-instagram"></i></a>
+              <a href="https://www.instagram.com/shindentech" target="_blank" rel="noopener noreferrer"><i className="bi bi-instagram"></i></a>
               <a href="https://www.linkedin.com/company/shindentech" target="_blank" rel="noopener noreferrer"><i className="bi bi-linkedin"></i></a>
   <a href="mailto:shindentechnologies@gmail.com" target="_blank" rel="noopener noreferrer">
     <i className="bi bi-envelope-fill"></i>

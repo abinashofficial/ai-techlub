@@ -43,7 +43,10 @@ const Header: React.FC = () => {
           <li><a href="/#features">Features</a></li>
           <li><a href="/#services">Services</a></li>
           <li><a href="/#pricing">Pricing</a></li>
-          <li className="dropdown"><a href="/#products">Products <i className="bi bi-chevron-down toggle-dropdown"></i></a>
+
+         
+
+                    <li className="dropdown"><a href="/#products">Products <i className="bi bi-chevron-down toggle-dropdown"></i></a>
             <ul>
 
               {/* <li><a href="https://erp-client-pink.vercel.app/webdesigns" target="_blank" rel="noopener noreferrer" >Cloud Web Application 
@@ -76,7 +79,32 @@ Consumer Hub
 
             </ul>
           </li>
+
+
           <li><a href="/#contact">Contact</a></li>
+           <li className="dropdown"><a href="/#career">Career <i className="bi bi-chevron-down toggle-dropdown"></i></a>
+            <ul>
+
+
+              <li><a onClick={()=> navigate("https://erp-client-pink.vercel.app/internship")} style={{
+                              cursor:"pointer",
+                            }}>
+Internship
+                                    <img src="https://res.cloudinary.com/dababspdo/image/upload/v1771563380/Award-Ribbon-Star-1--Streamline-Ultimate_oe03co.svg" alt="logo" />
+
+</a></li>
+                            <li><a onClick={()=> navigate("https://erp-client-pink.vercel.app/fulltime")} style={{
+                              cursor:"pointer",
+                            }}>Full-Time
+                                                                <img src="https://res.cloudinary.com/dababspdo/image/upload/v1771563465/Office-Employee--Streamline-Ultimate_vxpnig.svg" alt="logo" />
+
+                            </a></li>
+
+
+
+            </ul>
+          </li>
+
         </ul>
         <i className="mobile-nav-toggle d-xl-none bi bi-list"></i>
       </nav>

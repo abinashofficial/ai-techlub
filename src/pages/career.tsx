@@ -2,9 +2,8 @@
 import Header from "../components/Header";
 import  {  useState, useEffect } from "react";
 
-import Footer from '../components/Footer ';
-
 import Lottie from "lottie-react";
+import Footer from "../components/Footer ";
 
 
 
@@ -19,10 +18,13 @@ function Career() {
 const [animationData, setAnimationData] = useState<any>(null);
 
 useEffect(() => {
+  const controller = new AbortController();
+
   const fetchAnimation = async () => {
     try {
       const res = await fetch(
-        "https://res.cloudinary.com/dababspdo/raw/upload/v1763230044/webdesignanime_cw2i6e.json"
+        "https://res.cloudinary.com/dababspdo/raw/upload/v1763230044/webdesignanime_cw2i6e.json",
+        { cache: "no-store" } // 👈 important
       );
 
       if (!res.ok) throw new Error("Failed to fetch animation");
@@ -35,6 +37,8 @@ useEffect(() => {
   };
 
   fetchAnimation();
+
+  return () => controller.abort();
 }, []);
 
 
@@ -96,16 +100,18 @@ useEffect(() => {
           }}
         >
       
-          <Lottie
-            className="lottie-animation"
-            animationData={animationData}  
-            loop
-            autoplay
-            style={{
-              width:  "100%",
-              height:  "100%",
-            }}
-          />
+{animationData && (
+  <Lottie
+    className="lottie-animation"
+    animationData={animationData}
+    loop
+    autoplay
+    style={{
+      width: "100%",
+      height: "100%",
+    }}
+  />
+)}
         </div>
           </div>
 

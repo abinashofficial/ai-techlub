@@ -12,7 +12,6 @@ import Footer from "../components/Footer ";
 
 // import { TawkToChat } from "../hooks/talktochat";
 import ChatBot from "./chatbot";
-import { Navigate } from "react-router-dom";
   interface Animations {
   [key: string]: any; // JSON object for each Lottie animation
 }

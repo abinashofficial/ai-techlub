@@ -83,7 +83,7 @@ Consumer Hub
 
           <li><a href="/#contact">Contact</a></li>
         
-           <li className="dropdown"><a href="/career">Career <i className="bi bi-chevron-down toggle-dropdown"></i></a>
+           <li className="dropdown"><a  onClick={()=> navigate("/career")}>Career <i className="bi bi-chevron-down toggle-dropdown"></i></a>
             <ul>
 
 

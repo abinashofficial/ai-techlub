@@ -60,7 +60,7 @@ function Internship() {
 
  <Header />
 
-    <section id="about" className="about section">
+    <section className="about section">
 
       <div className="container">
 

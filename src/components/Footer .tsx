@@ -8,6 +8,7 @@ import "react-toastify/dist/ReactToastify.css";
 
 
 
+
 const Footer: React.FC = () => {
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault(); // prevent page reload
@@ -15,10 +16,12 @@ const Footer: React.FC = () => {
     e.currentTarget.reset(); // optional: clear input
   };
   return (
-    <div >
-      <ToastContainer />
+    <div>
+  
 
-    <footer id="footer" className="footer position-relative light-background">
+    <footer style={{
+      top:125
+    }} id="footer" className="footer position-relative light-background">
       <div className="container footer-top">
         <div className="row gy-4">
           {/* About Section */}
@@ -99,6 +102,7 @@ const Footer: React.FC = () => {
       </div>
     </footer>
       {/* <a href="#" id="scroll-top" className="scroll-top d-flex align-items-center justify-content-center"><i className="bi bi-arrow-up-short"></i></a> */}
+<ToastContainer/>
 
         </div>
 

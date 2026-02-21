@@ -13,6 +13,9 @@ import ScrollToTop from "./components/scrolltotop";
 import VendorChatBot from "./components/chatbot";
 // import ChatBot from "./pages/chatbot";
 import AudioChunk from "./components/AudioChunks";
+import Internship from "./pages/internship";
+import Career from "./pages/career";
+import Fulltime from "./pages/fulltime";
 
 
 
@@ -54,6 +57,9 @@ const App: React.FC = () => {
             <Route path="/businesshub" element={<Business />} />
             <Route path="/consumerhub" element={<Consumer />} />
             <Route path="/audiochunk" element={<AudioChunk />} />
+            <Route path="/career" element={<Career />} />
+            <Route path="/internship" element={<Internship />} />
+            <Route path="/fulltime" element={<Fulltime />} />
 
           </Routes>
 

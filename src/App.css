@@ -19,6 +19,8 @@
   border: 1px solid #ccc;
   border-radius: 5px;
   font-size: 14px;
+    cursor: pointer;
+
 }
 
 /* Input group */
@@ -41,6 +43,8 @@
   border-radius: 5px;
   font-size: 14px;
   background: white;
+    cursor: pointer;
+
 }
 
 .input-group select:focus {
@@ -505,4 +509,43 @@ cursor: pointer;
   border-radius: 50px;
   width: 100%;
   display: block;
+}
+
+.career-input{
+background: white;
+color: black;
+}
+
+
+.internshipimage-wrapper {
+  border-radius: 10px;
+  width: 100%;
+  max-width: 600px;
+  display: block;
+  margin: 0 auto;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.internshipimage-wrapper:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+}
+
+.internshipimage-wrapper img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+@media (max-width: 768px) {
+  .internshipimage-wrapper {
+    max-width: 100%;
+  }
+}
+
+.toast-transparent {
+  background: transparent !important;
+  color: white !important;
+  box-shadow: none !important;
 }

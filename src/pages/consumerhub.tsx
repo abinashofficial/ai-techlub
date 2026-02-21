@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import Lottie from "lottie-react";
 import ChatBot from "./chatbot";
 // import { TawkToChat } from "../hooks/talktochat";
+import Footer from "../components/Footer ";
 
 
 
@@ -238,7 +239,7 @@ className="project_box"
 {/* <TawkToChat enabled={false} /> */}
 
 <ChatBot/>
-             
+       <Footer/>      
 
  </div>
 

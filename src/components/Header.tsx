@@ -83,18 +83,18 @@ Consumer Hub
 
           <li><a href="/#contact">Contact</a></li>
         
-           <li className="dropdown"><a onClick={()=> navigate("https://erp-client-pink.vercel.app/internship")}>Career <i className="bi bi-chevron-down toggle-dropdown"></i></a>
+           <li className="dropdown"><a href="/career">Career <i className="bi bi-chevron-down toggle-dropdown"></i></a>
             <ul>
 
 
-              <li><a onClick={()=> navigate("https://erp-client-pink.vercel.app/internship")} style={{
+              <li><a onClick={()=> navigate("/internship")} style={{
                               cursor:"pointer",
                             }}>
 Internship
                                     <img src="https://res.cloudinary.com/dababspdo/image/upload/v1771563380/Award-Ribbon-Star-1--Streamline-Ultimate_oe03co.svg" alt="logo" />
 
 </a></li>
-                            <li><a onClick={()=> navigate("https://erp-client-pink.vercel.app/fulltime")} style={{
+                            <li><a onClick={()=> navigate("/fulltime")} style={{
                               cursor:"pointer",
                             }}>Full-Time
                                                                 <img src="https://res.cloudinary.com/dababspdo/image/upload/v1771563465/Office-Employee--Streamline-Ultimate_vxpnig.svg" alt="logo" />

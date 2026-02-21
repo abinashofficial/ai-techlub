@@ -544,8 +544,7 @@ color: black;
   }
 }
 
-.toast-transparent {
-  background: transparent !important;
-  color: white !important;
-  box-shadow: none !important;
+.Toastify {
+  padding: 0 !important;
+  scroll-margin-top: 0 !important;
 }

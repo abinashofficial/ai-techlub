@@ -78,6 +78,12 @@ useEffect(() => {
 
 
 
+
+
+
+
+          </div>
+{/* <Internshipform/> */}
           {/* Lottie Section */}
         <div
           style={{
@@ -101,11 +107,6 @@ useEffect(() => {
             }}
           />
         </div>
-
-
-
-          </div>
-{/* <Internshipform/> */}
           </div>
 
 

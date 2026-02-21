@@ -16,6 +16,9 @@ import AudioChunk from "./components/AudioChunks";
 import Internship from "./pages/internship";
 import Career from "./pages/career";
 import Fulltime from "./pages/fulltime";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 
 
 
@@ -48,6 +51,7 @@ const App: React.FC = () => {
           }}
         >
           <ScrollToTop />
+<div>
 
           <Routes>
             <Route path="/" element={<Landing />} />
@@ -62,6 +66,8 @@ const App: React.FC = () => {
             <Route path="/fulltime" element={<Fulltime />} />
 
           </Routes>
+          <ToastContainer/>
+</div>
 
           {/* <ChatBot /> */}
         </locateContext.Provider>

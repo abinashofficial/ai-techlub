@@ -2,7 +2,7 @@ import React from "react";
 import type {FormEvent } from "react";
 
 import "bootstrap-icons/font/bootstrap-icons.css";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 
@@ -19,9 +19,7 @@ const Footer: React.FC = () => {
     <div>
   
 
-    <footer style={{
-      top:125
-    }} id="footer" className="footer position-relative light-background">
+    <footer id="footer" className="footer position-relative light-background">
       <div className="container footer-top">
         <div className="row gy-4">
           {/* About Section */}
@@ -102,7 +100,7 @@ const Footer: React.FC = () => {
       </div>
     </footer>
       {/* <a href="#" id="scroll-top" className="scroll-top d-flex align-items-center justify-content-center"><i className="bi bi-arrow-up-short"></i></a> */}
-<ToastContainer/>
+{/* <ToastContainer/> */}
 
         </div>
 

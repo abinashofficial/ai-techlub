@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { toast } from 'react-toastify';
 import { FaRegIdCard } from "react-icons/fa";
+import { div } from "framer-motion/client";
 
 
 
@@ -21,6 +22,9 @@ export default function Internship() {
   const [file, setFile] = useState<File | null>(null);
   const [edit, setEdit] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
+  const [role, setRole] = useState("")
+    const [program, setProgram] = useState("")
+
 
   const cloudName = "dababspdo"; 
   const uploadPreset = "ml_default"; 
@@ -53,6 +57,11 @@ const createMeet = async (e: React.FormEvent) => {
         setLoading(true);
 
   e.preventDefault();
+  formData.role = program
+
+  if (role){
+formData.role = role
+  }
   const controller = new AbortController();
   const timeoutId = setTimeout(() => controller.abort(), 10000); // 10 sec timeout
 
@@ -93,6 +102,9 @@ const createMeet = async (e: React.FormEvent) => {
   duration:"",
   role:"",
       })
+      setFile(null)
+      setRole("")
+      setEdit(false)
 
     } else if (response.status === 401) {
       alert('This mobile number is already registered.');
@@ -252,7 +264,10 @@ const createMeet = async (e: React.FormEvent) => {
                                           color:"white",
                   
                                         }}
-          onClick={() => setEdit(false)}>
+          onClick={() => {setEdit(false), setFile(null),   setFormData(prev => ({
+    ...prev,
+    photo_url: ""
+  }));}}>
             Re-Upload
           </button>
         </div>
@@ -268,6 +283,9 @@ const createMeet = async (e: React.FormEvent) => {
           <input
             type="file"
             accept="image/*"
+                       name="photo_url"
+            // value={formData.photo_url}
+            required
             onChange={handleFileChange}
           />
 
@@ -285,6 +303,9 @@ const createMeet = async (e: React.FormEvent) => {
       )}
     </div>
 
+    {edit ? (
+<div>
+  
         {/* First Name */}
         <div className="input-group">
           <label>First Name</label>
@@ -407,10 +428,12 @@ style={{
           <select
                               className="career-input"
 
-            name="role"
-            value={formData.role}
-            onChange={handleChange}
-            required
+            name="program"
+            value={program}
+ onChange={(e: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>) => {
+  setProgram(e.target.value);
+}}
+required            
           >
           <option value="">Select Program</option>
           <option value="IT & Technology">IT & Technology</option>
@@ -420,10 +443,29 @@ style={{
                               <option value="Product Management">Product Management</option>
           <option value="Human Resource Management">Human Resource Management</option>
           <option value="Business Administartion">Business Administartion</option>
-                    <option value="Other Roles">Other Roles</option>
+                    <option value="other">Other Roles</option>
 
           </select>
         </div>
+{program ==="other" ? (
+                  <div className="input-group">
+          <label>Other Role</label>
+          <input
+                    className="career-input"
+
+            type="text"
+            name="role"
+            value={role}
+            onChange={(e: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>) => {
+  setRole(e.target.value);
+}}
+            required
+          />
+        </div>
+):(
+<div></div>
+)}
+
 
         {/* Choose Duration */}
         <div className="input-group">
@@ -461,6 +503,11 @@ style={{
             {loading ? "Submitting..." : "Submit Application"}
           </button>
         </div>
+</div>
+    ):(
+      <div></div>
+      )}
+
 
       </form>
     </div>

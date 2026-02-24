@@ -56,8 +56,8 @@ interface ChatApiResponse {
 
 export default function ChatBot() {
   const vendorId = "9940";
-  // const apiUrl = "https://chatbot-production-5ad5.up.railway.app/api/chat";
-  const apiUrl = "http://localhost:8000/api/chat";
+  const apiUrl = "https://chatbot-production-5ad5.up.railway.app/api/chat";
+  // const apiUrl = "http://localhost:8000/api/chat";
 
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");

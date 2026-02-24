@@ -55,8 +55,8 @@ interface ChatApiResponse {
 
 export default function ChatBot() {
   const vendorId = "9940";
-  const apiUrl = "https://chatbot-production-5ad5.up.railway.app/api/chat";
-  // const apiUrl = "http://localhost:8000/api/chat";
+  // const apiUrl = "https://chatbot-production-5ad5.up.railway.app/api/chat";
+  const apiUrl = "http://localhost:8000/api/chat";
 
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
@@ -80,8 +80,8 @@ export default function ChatBot() {
     const audioChunksRef = useRef<Blob[]>([]);
       const [isRecording, setIsRecording] = useState(false);
   
-    // const url = "http://localhost:8000/api/transcribe"
-      const url = "https://chatbot-production-5ad5.up.railway.app/api/transcribe"
+    const url = "http://localhost:8000/api/transcribe"
+      // const url = "https://chatbot-production-5ad5.up.railway.app/api/transcribe"
 
       const MIN_HEIGHT = 40;
 const MAX_HEIGHT = 120;
@@ -141,6 +141,8 @@ const startRecording = async () => {
                   setLoading(false)
 
         }
+                          setLoading(false)
+
 
         // setStatus("Idle");
       } catch (err) {
@@ -179,7 +181,6 @@ if (normalizeText(input_data) === "yes") {
   };
   setMessages(prev => [...prev, userMessage]);
 
-  setLoading(true);
 
   try {
     const res = await fetch(apiUrl, {
@@ -200,7 +201,11 @@ if (normalizeText(input_data) === "yes") {
     };
     setMessages(prev => [...prev, botMessage]);
 
-    if (data.keyword) setPrevMessage(data.keyword);
+    if (data.keyword) {setPrevMessage(data.keyword);
+    setLoading(false)
+
+    }
+    setLoading(false)
   } catch (err) {
     const errorMsg: Message = {
       id: Date.now() + 2,

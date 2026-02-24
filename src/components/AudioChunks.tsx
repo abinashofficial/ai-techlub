@@ -1,4 +1,7 @@
 import React, { useState, useRef } from "react";
+import { FaMicrophoneAltSlash } from "react-icons/fa";
+import { FaMicrophoneAlt } from "react-icons/fa";
+
 
 // const SAMPLE_RATE = 16000;
 
@@ -7,12 +10,16 @@ const AudioChunk: React.FC = () => {
   const [status, setStatus] = useState("Idle");
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
   const audioChunksRef = useRef<Blob[]>([]);
+    const [isRecording, setIsRecording] = useState(false);
+
   // const url = "http://localhost:8000/api/transcribe"
     const url = "https://chatbot-production-5ad5.up.railway.app/api/transcribe"
 
 
   const startRecording = async () => {
     try {
+          setIsRecording(true);
+
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
       const recorder = new MediaRecorder(stream);
       mediaRecorderRef.current = recorder;
@@ -36,7 +43,7 @@ const AudioChunk: React.FC = () => {
         });
 
         const data = await res.json();
-        setTranscript((prev) => prev + " " + data.text);
+        setTranscript(data.text);
         setStatus("Idle");
       };
 
@@ -49,6 +56,8 @@ const AudioChunk: React.FC = () => {
   };
 
   const stopRecording = () => {
+        setIsRecording(false);
+
     mediaRecorderRef.current?.stop();
   };
 
@@ -56,15 +65,24 @@ const AudioChunk: React.FC = () => {
     <div style={{ padding: 20 }}>
       <h2>Push-to-Talk Whisper Backend</h2>
       <p>Status: {status}</p>
-      <button
+      <div
         onMouseDown={startRecording}
         onMouseUp={stopRecording}
-        onTouchStart={startRecording}
-        onTouchEnd={stopRecording}
-        style={{ padding: "10px 20px", marginBottom: 20 }}
+           onMouseLeave={stopRecording}
+        // onTouchStart={startRecording}
+        // onTouchEnd={stopRecording}
+        style={{ padding: "10px 20px", marginBottom: 20,
+          cursor:"pointer",         userSelect: "none"
+
+         }}
       >
-        Hold to Talk
-      </button>
+{isRecording ? (
+        <FaMicrophoneAlt style={{ color: "red" }} />
+      ) : (
+        <FaMicrophoneAltSlash />
+      )}
+      {" "}Hold
+      </div>
       <div
         style={{
           border: "1px solid #ccc",

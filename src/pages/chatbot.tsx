@@ -1,9 +1,11 @@
 // import { div } from "framer-motion/client";
-import { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect } from "react";
 // import type { KeyboardEvent } from "react";
 import { VscSend } from "react-icons/vsc";
 import Lottie from "lottie-react";
 // import { div } from "framer-motion/client";
+import { FaMicrophoneAltSlash } from "react-icons/fa";
+import { FaMicrophoneAlt } from "react-icons/fa";
 
 
 
@@ -74,6 +76,142 @@ export default function ChatBot() {
   const movedRef = useRef(false);
   const hasFetched = useRef(false);
 
+    // const [status, setStatus] = useState("Idle");
+    const mediaRecorderRef = useRef<MediaRecorder | null>(null);
+    const audioChunksRef = useRef<Blob[]>([]);
+      const [isRecording, setIsRecording] = useState(false);
+  
+    // const url = "http://localhost:8000/api/transcribe"
+      const url = "https://chatbot-production-5ad5.up.railway.app/api/transcribe"
+
+      const MIN_HEIGHT = 40;
+const MAX_HEIGHT = 120;
+
+const normalizeText = (text: string) => {
+  return text.replace(/[\s.]/g, "").toLowerCase();
+};
+
+useEffect(() => {
+  const el = textareaRef.current;
+  if (!el) return;
+
+  el.style.height = "0px";
+  const scrollHeight = el.scrollHeight;
+  const newHeight = Math.min(Math.max(scrollHeight, MIN_HEIGHT), MAX_HEIGHT);
+  el.style.height = `${newHeight}px`;
+  el.style.overflowY = scrollHeight > MAX_HEIGHT ? "auto" : "hidden";
+}, [input]);
+  
+  
+const startRecording = async () => {
+  try {
+    setIsRecording(true);
+    // setStatus("Recording...");
+
+    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+    const recorder = new MediaRecorder(stream);
+    mediaRecorderRef.current = recorder;
+    audioChunksRef.current = [];
+
+    recorder.ondataavailable = (e) => {
+      if (e.data.size > 0) audioChunksRef.current.push(e.data);
+    };
+
+    recorder.onstop = async () => {
+      const blob = new Blob(audioChunksRef.current, { type: "audio/webm" });
+      const file = new File([blob], "audio.webm", { type: "audio/webm" });
+
+      // setStatus("Uploading...");
+
+      try {
+        const formData = new FormData();
+        formData.append("file", file);
+
+        const res = await fetch(url, {
+          method: "POST",
+          body: formData,
+        });
+
+        const data = await res.json();
+        const transcription = data.text?.trim() || "";
+
+        if (transcription) {
+          // Directly send the transcription instead of relying on setInput
+          await sendMessageWithText(transcription);
+        }
+
+        // setStatus("Idle");
+      } catch (err) {
+        console.error("Transcription failed:", err);
+        // setStatus("Idle");
+      }
+    };
+
+    recorder.start();
+  } catch (err) {
+    console.error(err);
+    // setStatus("Microphone access denied");
+    setIsRecording(false);
+  }
+};
+
+const stopRecording = () => {
+  setIsRecording(false);
+  mediaRecorderRef.current?.stop();
+};
+
+// Separate send function that accepts a text directly
+const sendMessageWithText = async (text: string) => {
+    if (!text.trim() || loading) return;
+let input_data = text
+if (normalizeText(input_data) === "yes") {
+  input_data = prevMessage;
+}
+  const userMessage: Message = {
+    id: Date.now(),
+    role: "user",
+    text,
+    time: new Date().toLocaleTimeString(),
+    form: null,
+  };
+  setMessages(prev => [...prev, userMessage]);
+
+  setLoading(true);
+
+  try {
+    const res = await fetch(apiUrl, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ message: input_data, vendorId }),
+    });
+
+    const data: ChatApiResponse = await res.json();
+
+    const botText = data.response?.message || "I didn't understand that.";
+    const botMessage: Message = {
+      id: Date.now() + 1,
+      role: "bot",
+      text: botText,
+      time: new Date().toLocaleTimeString(),
+      form: data.response?.form,
+    };
+    setMessages(prev => [...prev, botMessage]);
+
+    if (data.keyword) setPrevMessage(data.keyword);
+  } catch (err) {
+    const errorMsg: Message = {
+      id: Date.now() + 2,
+      role: "bot",
+      text: "Server error — please try again.",
+      time: new Date().toLocaleTimeString(),
+      form: null,
+    };
+    setMessages(prev => [...prev, errorMsg]);
+  }
+
+  setLoading(false);
+};
+
 
 
 
@@ -139,10 +277,9 @@ export default function ChatBot() {
   const sendMessage = async () => {
     if (!input.trim() || loading) return;
 let input_data = input
-    if (input==="yes"){
-      input_data = prevMessage
-    }
-          console.log(input_data)
+if (input.trim().toLowerCase() === "yes"){
+input_data = prevMessage;
+} 
 
     
 
@@ -209,35 +346,6 @@ if (data.response) {
     setLoading(false);
   };
 
-
-
-
-
-
-  const MIN_HEIGHT = 40; // min height in px
-  const MAX_HEIGHT = 120; // max height in px
-
-useEffect(() => {
-  const el = textareaRef.current;
-  if (!el) return;
-
-  // Reset height so shrink works
-  el.style.height = "0px";
-
-  // Calculate new height
-  const scrollHeight = el.scrollHeight;
-
-  // Clamp height
-  const newHeight = Math.min(
-    Math.max(scrollHeight, MIN_HEIGHT),
-    MAX_HEIGHT
-  );
-
-  el.style.height = `${newHeight}px`;
-
-  // Enable internal scroll only after max
-  el.style.overflowY = scrollHeight > MAX_HEIGHT ? "auto" : "hidden";
-}, [input]);
 
     useEffect(() => {
                 // Fetch all JSONs in parallel
@@ -533,44 +641,71 @@ onClick={()=>                setMessages(prev => [...prev,   {
             {loading && <div style={styles.botTyping}>Bot is typing...</div>}
           </div>
 
-          <div style={styles.inputRow}>
- <textarea
-      ref={textareaRef}
-      value={input}
-      onChange={e => setInput(e.target.value)}
-      onKeyDown={handleKeyDown}
-      placeholder="Type a message..."
-className="chat-textarea"
-    />
+         <div style={styles.inputRow}>
+  <textarea
+    ref={textareaRef}
+    value={input}
+    onChange={e => setInput(e.target.value)}
+    onKeyDown={handleKeyDown}
+    placeholder="Type a message..."
+    className="chat-textarea"
+    disabled={isRecording}
+  />
 
-            <div     
-style={{
-                                    background:"#388DA8",
-                                borderRadius:"20px",
-                                height:"40px",
-                                width:"50px",
-                                display:"flex",
-                                alignItems:"center",
-                                justifyContent:"center",
-                                                cursor:"pointer",
-                                                alignSelf:"end",
-
-}}
-                          onClick={sendMessage}
-
-              >
-            <VscSend
-                        style={{
-                color:"white",
-
-
-            }} size={30}
-
-            />
-
-            </div>
-
-          </div>
+  {/* Conditional button */}
+  {input.trim() ? (
+    // Send Button
+    <div
+      style={{
+        background: "#388DA8",
+        borderRadius: "20px",
+        height: "40px",
+        width: "50px",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        cursor: "pointer",
+        alignSelf: "end",
+      }}
+      onClick={sendMessage}
+    >
+      <VscSend style={{ color: "white" }} size={30} />
+    </div>
+  ) : (
+    // Microphone / Hold Button
+<div
+  onMouseDown={startRecording}
+  onMouseUp={stopRecording}
+  onMouseLeave={stopRecording}
+  onTouchStart={startRecording}
+  onTouchEnd={stopRecording}
+  style={{
+    height: "40px",
+    minWidth: "50px",
+    padding: "0 15px",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    cursor: "pointer",
+    userSelect: "none",
+    borderRadius: "20px",
+    background: "#388DA8",
+    color: "white",
+    gap: "5px",
+    transition: "all 0.2s ease",
+  }}
+>
+  {isRecording ? (
+    <>
+      <FaMicrophoneAlt style={{ color: "white" }} />
+      Hold
+    </>
+  ) : (
+    <FaMicrophoneAltSlash />
+  )}
+</div>
+  )}
+</div>
         </div>
       )}
     </>

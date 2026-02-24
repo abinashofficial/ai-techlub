@@ -81,8 +81,8 @@ export default function ChatBot() {
     const audioChunksRef = useRef<Blob[]>([]);
       const [isRecording, setIsRecording] = useState(false);
   
-    const url = "http://localhost:8000/api/transcribe"
-      // const url = "https://chatbot-production-5ad5.up.railway.app/api/transcribe"
+    // const url = "http://localhost:8000/api/transcribe"
+      const url = "https://chatbot-production-5ad5.up.railway.app/api/transcribe"
 
       const MIN_HEIGHT = 40;
 const MAX_HEIGHT = 120;

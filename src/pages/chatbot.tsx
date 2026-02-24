@@ -55,8 +55,8 @@ interface ChatApiResponse {
 
 export default function ChatBot() {
   const vendorId = "9940";
-  // const apiUrl = "https://chatbot-production-5ad5.up.railway.app/api/chat";
-  const apiUrl = "http://localhost:8000/api/chat";
+  const apiUrl = "https://chatbot-production-5ad5.up.railway.app/api/chat";
+  // const apiUrl = "http://localhost:8000/api/chat";
 
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
@@ -80,8 +80,8 @@ export default function ChatBot() {
     const audioChunksRef = useRef<Blob[]>([]);
       const [isRecording, setIsRecording] = useState(false);
   
-    const url = "http://localhost:8000/api/transcribe"
-      // const url = "https://chatbot-production-5ad5.up.railway.app/api/transcribe"
+    // const url = "http://localhost:8000/api/transcribe"
+      const url = "https://chatbot-production-5ad5.up.railway.app/api/transcribe"
 
       const MIN_HEIGHT = 40;
 const MAX_HEIGHT = 120;

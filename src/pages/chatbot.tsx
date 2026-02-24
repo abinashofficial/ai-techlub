@@ -48,12 +48,14 @@ interface ChatApiResponse {
   response?: Response;
   intent?: string;
   confidence?: number;
+    keyword:any;
+
 }
 
 export default function ChatBot() {
   const vendorId = "9940";
-  const apiUrl = "https://chatbot-production-5ad5.up.railway.app/api/chat";
-  // const apiUrl = "http://localhost:8000/api/chat";
+  // const apiUrl = "https://chatbot-production-5ad5.up.railway.app/api/chat";
+  const apiUrl = "http://localhost:8000/api/chat";
 
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
@@ -147,7 +149,7 @@ let input_data = input
     const userMessage: Message = {
       id: Date.now(),
       role: "user",
-      text: input_data,
+      text: input,
       time: new Date().toLocaleTimeString(),
       form:null,
     };
@@ -178,7 +180,6 @@ let input_data = input
       let botText = "I didn't understand that.";
 if (data.response) {
         botText = data.response.message;
-        setPrevMessage(botText)
               const botMessage: Message = {
         id: Date.now() + 1,
         role: "bot",
@@ -188,6 +189,9 @@ if (data.response) {
       };
 
       setMessages(prev => [...prev, botMessage]);
+      }
+      if (data.keyword){
+        setPrevMessage(data.keyword)
       }
 
 

@@ -1,8 +1,6 @@
 import { useState } from "react";
 import { toast } from 'react-toastify';
 import { FaRegIdCard } from "react-icons/fa";
-import { div } from "framer-motion/client";
-
 
 
 interface IntershipFormData {

@@ -35,7 +35,7 @@ const Hero: React.FC = () => {
           <div className="d-flex" data-aos="fade-up" data-aos-delay="200">
             <a href="#about" className="btn-get-started">Get Started</a>
             <a
-              href="https://youtu.be/ouNNpUF6pls"
+              href="https://youtu.be/HFtyWH6oRZk"
               className="glightbox btn-watch-video d-flex align-items-center"
             >
               <i className="bi bi-play-circle"></i>

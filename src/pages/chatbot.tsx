@@ -24,7 +24,7 @@ type Role = "user" | "bot";
     jsonName:"booking_gif",
   },
                     {
-      title: 'Smart Booking',
+      title: 'Live Chat',
     description: 'Simplify scheduling and eliminate manual coordination with an intelligent smart booking system. Our solution enables seamless appointment management, real-time availability, automated confirmations, and calendar integrations. Designed to enhance user convenience and operational efficiency, Smart Booking reduces no-shows, saves time, and ensures a smooth booking experience for both businesses and customers.',
     url:"/#about",
     jsonLink: "https://res.cloudinary.com/dababspdo/raw/upload/v1769988481/Chatbot_typing_florpm.json",
@@ -56,8 +56,8 @@ interface ChatApiResponse {
 
 export default function ChatBot() {
   const vendorId = "9940";
-  const apiUrl = "https://chatbot-production-5ad5.up.railway.app/api/chat";
-  // const apiUrl = "http://localhost:8000/api/chat";
+  // const apiUrl = "https://chatbot-production-5ad5.up.railway.app/api/chat";
+  const apiUrl = "http://localhost:8000/api/chat";
 
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
@@ -81,8 +81,8 @@ export default function ChatBot() {
     const audioChunksRef = useRef<Blob[]>([]);
       const [isRecording, setIsRecording] = useState(false);
   
-    // const url = "http://localhost:8000/api/transcribe"
-      const url = "https://chatbot-production-5ad5.up.railway.app/api/transcribe"
+    const url = "http://localhost:8000/api/transcribe"
+      // const url = "https://chatbot-production-5ad5.up.railway.app/api/transcribe"
 
       const MIN_HEIGHT = 40;
 const MAX_HEIGHT = 120;
@@ -118,6 +118,7 @@ const startRecording = async () => {
     };
 
     recorder.onstop = async () => {
+      setLoading(true)
       const blob = new Blob(audioChunksRef.current, { type: "audio/webm" });
       const file = new File([blob], "audio.webm", { type: "audio/webm" });
 
@@ -138,11 +139,14 @@ const startRecording = async () => {
         if (transcription) {
           // Directly send the transcription instead of relying on setInput
           await sendMessageWithText(transcription);
+                  setLoading(false)
+
         }
 
         // setStatus("Idle");
       } catch (err) {
         console.error("Transcription failed:", err);
+        setLoading(false)
         // setStatus("Idle");
       }
     };
@@ -207,6 +211,8 @@ if (normalizeText(input_data) === "yes") {
       form: null,
     };
     setMessages(prev => [...prev, errorMsg]);
+            setLoading(false)
+    
   }
 
   setLoading(false);

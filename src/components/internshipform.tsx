@@ -71,8 +71,8 @@ formData.role = role
   console.log('Submiting up with', formData);
 
   // API endpoint
-  const apiUrl = 'http://localhost:8080/public/internship';
-  // const apiUrl = 'https://crud-production-a206.up.railway.app/public/internship';
+  // const apiUrl = 'http://localhost:8080/public/internship';
+  const apiUrl = 'https://crud-production-a206.up.railway.app/public/internship';
 
   try {
     const response = await fetch(apiUrl, {

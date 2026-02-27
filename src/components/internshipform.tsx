@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { toast } from 'react-toastify';
 import { FaRegIdCard } from "react-icons/fa";
+import Spinner from "./spinner";
 
 
 interface IntershipFormData {
@@ -14,6 +15,8 @@ interface IntershipFormData {
   country_code:any;
   duration:any;
   role:any;
+  status:any;
+  college_name:any;
 }
 
 export default function Internship() {
@@ -37,6 +40,8 @@ export default function Internship() {
   country_code:"+91",
   duration:"",
   role:"",
+    status:"Pending",
+  college_name:"",
       });
 
 
@@ -66,8 +71,8 @@ formData.role = role
   console.log('Submiting up with', formData);
 
   // API endpoint
-  // const apiUrl = 'http://localhost:8080/public/internship';
-  const apiUrl = 'https://crud-production-a206.up.railway.app/public/internship';
+  const apiUrl = 'http://localhost:8080/public/internship';
+  // const apiUrl = 'https://crud-production-a206.up.railway.app/public/internship';
 
   try {
     const response = await fetch(apiUrl, {
@@ -99,6 +104,8 @@ formData.role = role
   country_code:"+91",
   duration:"",
   role:"",
+  status:"Pending",
+  college_name:"",
       })
       setFile(null)
       setRole("")
@@ -196,6 +203,8 @@ formData.role = role
 
   return (
     <div style={{ padding: 20 }}>
+            <Spinner visible={loading} />
+
       <h2
       style={{
         display:"flex",

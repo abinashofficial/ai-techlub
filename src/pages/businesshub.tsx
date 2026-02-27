@@ -5,6 +5,8 @@ import ChatBot from "./chatbot";
 // import ChatBot from "./chatbot";
 // import { TawkToChat } from "../hooks/talktochat";
 import Footer from "../components/Footer ";
+import { useNavigate } from 'react-router-dom';
+
 
 
 
@@ -37,7 +39,7 @@ import { GoArrowRight } from "react-icons/go";
     {
     title: 'Cybersecurity',
     description: 'Cybersecurity is a comprehensive security framework designed to protect applications, systems, and data from digital threats. It enforces secure access through authentication, authorization, and encryption across users and services. The system monitors, detects, and responds to threats in real time. This ensures data integrity, system availability, and customer trust.',
-        url:"https://shindentech.vercel.app",
+        url:"/",
     jsonLink: "https://res.cloudinary.com/dababspdo/raw/upload/v1767038588/security_qntgz8.json",
         jsonName:"Cyber_gif",
   },
@@ -59,49 +61,49 @@ import { GoArrowRight } from "react-icons/go";
       {
       title: 'Invoice Management',
     description: 'The Invoice Management System (IMS) is a role-based platform that streamlines invoicing operations across roles such as Admin, Finance, Sales, and Customers. Each role has dedicated interfaces to manage invoice creation, approvals, payments, and records efficiently. The system supports end-to-end workflows from invoice generation to delivery, payment tracking, and reconciliation. It ensures accuracy, compliance, traceability, and improved cash-flow management.',
-    url:"https://shindentech.vercel.app",
+    url:"/",
     jsonLink: "https://res.cloudinary.com/dababspdo/raw/upload/v1767051377/Invoice_Template_Preview_vwkycy.json",
     jsonName:"invoice_gif",
   },
         {
       title: 'Ticket Management',
     description: 'Ticket Management is a centralized system for tracking and resolving customer or internal support requests efficiently. It allows users to raise tickets, assigns them to the right teams with defined priorities and SLAs, and tracks progress in real time. The system supports communication, escalation, and resolution workflows. This ensures faster response times, accountability, and improved service quality.',
-    url:"https://shindentech.vercel.app",
+    url:"/",
     jsonLink: "https://res.cloudinary.com/dababspdo/raw/upload/v1763230169/Itsupportanime_t1vdrx.json",
     jsonName:"ticket_gif",
   },
           {
       title: 'Human Resource Management',
     description: 'Human Resource Management is a centralized, role-based platform that manages the complete employee lifecycle within an organization. It handles recruitment, onboarding, attendance, leave, payroll, and performance tracking through dedicated workflows. The system ensures policy compliance, secure data management, and transparent processes. This improves HR efficiency, employee experience, and organizational productivity.',
-    url:"https://shindentech.vercel.app",
+    url:"/",
     jsonLink: "https://res.cloudinary.com/dababspdo/raw/upload/v1767913620/We_are_hiring_jduohm.json",
     jsonName:"hrms_gif",
   },
             {
       title: 'Digital Financial Services',
     description: 'Digital Financial Services is a technology-driven platform that provides secure, online access to banking, payments, lending, and investment services. It enables users to perform transactions, manage accounts, and access financial products seamlessly through web or mobile interfaces. The system ensures real-time processing, compliance, and data security. This enhances financial accessibility, convenience, and customer trust.',
-    url:"https://shindentech.vercel.app",
+    url:"/",
     jsonLink: "https://res.cloudinary.com/dababspdo/raw/upload/v1767914355/money_zbsqe1.json",
     jsonName:"dfs_gif",
   },
               {
       title: 'Attendance Management',
     description: 'Attendance Management is a role-based system that tracks and records employee attendance, leaves, and working hours accurately. It integrates with biometric devices, web portals, or mobile apps to capture real-time data. The system supports approvals, reports, and compliance with organizational policies. This ensures transparency, punctuality, and streamlined HR operations.',
-    url:"https://shindentech.vercel.app",
+    url:"/",
     jsonLink: "https://res.cloudinary.com/dababspdo/raw/upload/v1767915437/attendance_gxx5o5.json",
     jsonName:"attendance_gif",
   },
                 {
       title: 'Customer Analytics',
     description: 'Customer Analytics is a data-driven platform that collects and analyzes customer behavior, preferences, and interactions across channels. It provides insights on buying patterns, engagement, and churn risks to help businesses make informed decisions. The system supports segmentation, personalization, and predictive modeling for targeted strategies. This improves customer experience, retention, and business growth.',
-    url:"https://shindentech.vercel.app",
+    url:"/",
     jsonLink: "https://res.cloudinary.com/dababspdo/raw/upload/v1767037180/Payroll_woz07x.json",
     jsonName:"analytics_gif",
   },
                   {
       title: 'Visitor Management',
     description: 'Visitor Management is a data-driven platform that tracks, records, and analyzes visitor interactions across physical and digital touchpoints. It provides insights into visitor behavior, entry patterns, engagement levels, and visit frequency to help organizations enhance security and improve operational efficiency. The system supports visitor registration, access control, real-time monitoring, and reporting for better decision-making.',
-    url:"https://shindentech.vercel.app/visitor",
+    url:"/visitor",
     jsonLink: "https://res.cloudinary.com/dababspdo/raw/upload/v1772167890/hospital_lobby_hktnzg.json",
     jsonName:"visitor_gif",
   },
@@ -109,6 +111,8 @@ import { GoArrowRight } from "react-icons/go";
 ];
 
 export default function Business() {
+      const navigate = useNavigate();
+
 
    const [isPortrait, setIsPortrait] = useState(window.matchMedia("(orientation: portrait)").matches);
          const [animations, setAnimations] = useState<Animations>({});
@@ -226,7 +230,7 @@ className="project_box"
 
   {/* Explore link */}
   <a
-    href={service.url}
+    onClick={()=> navigate(service.url)}
     style={{
       display: "inline-flex",
       alignItems: "center",

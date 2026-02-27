@@ -6,6 +6,7 @@ import { signInWithPopup } from 'firebase/auth';
 import {auth, googleProvider } from "./firebaseConfig";
 import { useNavigate } from 'react-router-dom';
 import { BsQrCodeScan } from "react-icons/bs";
+import Spinner from "./spinner";
 
 
 
@@ -257,6 +258,7 @@ const createMeet = async (e: React.FormEvent) => {
   return (
     <div style={{ padding: 20
      }}>
+      <Spinner visible={loading} />
       <h2
       style={{
         display:"flex",
@@ -264,13 +266,7 @@ const createMeet = async (e: React.FormEvent) => {
         marginBottom:"40px",
       }}
       >Visitor Hub</h2>
-      <form onSubmit={createMeet}>
-        {loading?(
-            <div className="spinner">
-
-            </div>
-
-        ):(
+    
          <div style={{
             display:"flex",
             alignItems:"center"
@@ -375,7 +371,8 @@ Scan QR Code
 
             {
                 role?(
-                    <div>
+                          <form onSubmit={createMeet}>
+
                                            {formData.photo_url ? (
                                   <div>
               
@@ -563,7 +560,7 @@ Scan QR Code
             {loading ? "Submitting..." : "Submit"}
           </button>
         </div>
-                    </div>
+                    </form>
                 ):(
                     <div>
 
@@ -574,13 +571,11 @@ Scan QR Code
 
  
 </div>
-        )}
 
 
 
 
 
-      </form>
     </div>
   );
 }

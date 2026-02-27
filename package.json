@@ -8,16 +8,18 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-      "deploy": "npm run build && wrangler deploy"
-
+    "deploy": "npm run build && wrangler deploy"
   },
   "dependencies": {
     "aos": "^2.3.4",
     "bootstrap": "^5.3.8",
     "bootstrap-icons": "^1.13.1",
+    "firebase": "^12.9.0",
     "framer-motion": "^12.25.0",
     "gapi-script": "^1.2.0",
     "glightbox": "^3.3.1",
+    "html5-qrcode": "^2.3.8",
+    "jsqr": "^1.4.0",
     "lottie-react": "^2.4.1",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",

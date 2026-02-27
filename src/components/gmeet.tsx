@@ -15,8 +15,10 @@ declare global {
 
 const CLIENT_ID = "209908503524-eanj5macufu0mj0c1jnkgmlpqbp0gkpp.apps.googleusercontent.com";
 const API_KEY = "AIzaSyDUAPEPsBzYe-2vw1F6MMdHC0zbYhK9Sj4";
-const SCOPES =
-  "https://www.googleapis.com/auth/calendar.events.readonly https://www.googleapis.com/auth/calendar.events";
+// const SCOPES =
+//   "https://www.googleapis.com/auth/calendar.events.readonly https://www.googleapis.com/auth/calendar.events";
+  const SCOPES =
+  "openid profile email https://www.googleapis.com/auth/calendar.events https://www.googleapis.com/auth/calendar.events.readonly";
 const DISCOVERY_DOC =
   "https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest";
 

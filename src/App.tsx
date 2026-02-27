@@ -18,6 +18,9 @@ import Career from "./pages/career";
 import Fulltime from "./pages/fulltime";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+// import GoogleSignIn from "./components/google";
+import Visitor from "./pages/visitor";
+import QRScanner from "./pages/qrscan";
 
 
 
@@ -64,6 +67,12 @@ const App: React.FC = () => {
             <Route path="/career" element={<Career />} />
             <Route path="/internship" element={<Internship />} />
             <Route path="/fulltime" element={<Fulltime />} />
+            {/* <Route path="/signin" element={<GoogleSignIn />} /> */}
+            <Route path="/visitor" element={<Visitor />} />
+            <Route path="/qrscan" element={<QRScanner />} />
+
+
+
 
           </Routes>
           <ToastContainer/>

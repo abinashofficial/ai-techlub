@@ -98,6 +98,13 @@ import { GoArrowRight } from "react-icons/go";
     jsonLink: "https://res.cloudinary.com/dababspdo/raw/upload/v1767037180/Payroll_woz07x.json",
     jsonName:"analytics_gif",
   },
+                  {
+      title: 'Visitor Management',
+    description: 'Visitor Management is a data-driven platform that tracks, records, and analyzes visitor interactions across physical and digital touchpoints. It provides insights into visitor behavior, entry patterns, engagement levels, and visit frequency to help organizations enhance security and improve operational efficiency. The system supports visitor registration, access control, real-time monitoring, and reporting for better decision-making.',
+    url:"https://shindentech.vercel.app/visitor",
+    jsonLink: "https://res.cloudinary.com/dababspdo/raw/upload/v1772167890/hospital_lobby_hktnzg.json",
+    jsonName:"visitor_gif",
+  },
 
 ];
 

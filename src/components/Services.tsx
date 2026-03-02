@@ -6,7 +6,7 @@ const Services: React.FC = () => {
   return (
     <section id="services" className="services section light-background">
       {/* Section Title */}
-      <div className="container section-title" data-aos="fade-up">
+      <div className="container section-title">
         <h2>Services</h2>
         <p>
 We offer a comprehensive range of solutions designed to help your business thrive in the digital age. Each service is tailored to deliver measurable results, streamline operations, and enhance customer experiences.        </p>
@@ -17,7 +17,7 @@ We offer a comprehensive range of solutions designed to help your business thriv
         <div className="row g-5">
 
           {/* Service Item 1 */}
-          <div className="col-lg-6" data-aos="fade-up" data-aos-delay="100">
+          <div className="col-lg-6">
             <div className="service-item item-cyan position-relative">
               <i className="bi bi-activity icon"></i>
               <div>
@@ -32,7 +32,7 @@ We create responsive, modern, and scalable websites that reflect your brand and 
           </div>
 
           {/* Service Item 2 */}
-          <div className="col-lg-6" data-aos="fade-up" data-aos-delay="200">
+          <div className="col-lg-6">
             <div className="service-item item-orange position-relative">
               <i className="bi bi-broadcast icon"></i>
               <div>
@@ -47,7 +47,7 @@ Leverage the power of the cloud with our secure and scalable applications. Our s
           </div>
 
           {/* Service Item 3 */}
-          <div className="col-lg-6" data-aos="fade-up" data-aos-delay="300">
+          <div className="col-lg-6">
             <div className="service-item item-teal position-relative">
               <i className="bi bi-easel icon"></i>
               <div>
@@ -62,7 +62,7 @@ Drive engagement and growth with our data-driven marketing strategies. From SEO 
           </div>
 
           {/* Service Item 4 */}
-          <div className="col-lg-6" data-aos="fade-up" data-aos-delay="400">
+          <div className="col-lg-6">
             <div className="service-item item-red position-relative">
               <i className="bi bi-bounding-box-circles icon"></i>
               <div>
@@ -77,7 +77,7 @@ Streamline your business operations with our custom ERP solutions. From finance 
           </div>
 
           {/* Service Item 5 */}
-          <div className="col-lg-6" data-aos="fade-up" data-aos-delay="500">
+          <div className="col-lg-6" >
             <div className="service-item item-indigo position-relative">
               <i className="bi bi-calendar4-week icon"></i>
               <div>
@@ -92,7 +92,7 @@ Simplify scheduling and reservations with our intuitive booking platform. Design
           </div>
 
           {/* Service Item 6 */}
-          <div className="col-lg-6" data-aos="fade-up" data-aos-delay="600">
+          <div className="col-lg-6">
             <div className="service-item item-pink position-relative">
               <i className="bi bi-chat-square-text icon"></i>
               <div>

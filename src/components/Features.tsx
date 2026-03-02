@@ -20,7 +20,7 @@ const Features: React.FC = () => {
       {/* ======= Features Section ======= */}
       <section id="features" className="features section">
         {/* Section Title */}
-        <div className="container section-title" data-aos="fade-up">
+        <div className="container section-title">
           <h2>Features</h2>
           <p>We deliver technology that transforms ideas into impact — helping businesses grow smarter and faster.</p>
         </div>
@@ -29,7 +29,7 @@ const Features: React.FC = () => {
           <div className="row justify-content-between">
             {/* Tab Navigation */}
             <div className="col-lg-5 d-flex align-items-center">
-              <ul className="nav nav-tabs" data-aos="fade-up" data-aos-delay="100">
+              <ul className="nav nav-tabs" >
                 <li className="nav-item">
                   <a
                     className="nav-link active show"
@@ -85,7 +85,7 @@ const Features: React.FC = () => {
 
             {/* Tab Content */}
             <div className="col-lg-6">
-              <div className="tab-content" data-aos="fade-up" data-aos-delay="200">
+              <div className="tab-content">
                 <div className="tab-pane fade active show" id="features-tab-1">
                   <img src="https://res.cloudinary.com/dababspdo/image/upload/v1765701637/designimage_rqnqgg.png" alt="Tab 1" className="img-fluid" />
                 </div>

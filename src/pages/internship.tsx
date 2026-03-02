@@ -72,7 +72,7 @@ function Internship() {
           gap:"20px",
           marginTop:"40px",
         }}>
-          <div className="col-lg-6 content" >
+          <div className="col-lg-6 content">
 
             <p className="who-we-are">Who We Are</p>
             <h3>Unleashing Potential with Creative Strategy</h3>

@@ -28,7 +28,7 @@ const Hero: React.FC = () => {
           <h1 data-aos="fade-up">
             Welcome to <span>震電Tech</span>
           </h1>
-          <p data-aos="fade-up" data-aos-delay="100">
+          <p >
             Quickly start your project now and set the stage for success
           </p>
 

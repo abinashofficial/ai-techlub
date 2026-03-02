@@ -62,12 +62,12 @@ const testimonials = [
 const Testimonials: React.FC = () => {
   return (
     <section id="testimonials" className="testimonials section light-background">
-      <div className="container section-title" data-aos="fade-up">
+      <div className="container section-title">
         <h2>Testimonials</h2>
         <p>Hear from our satisfied clients who have experienced growth and success through our innovative solutions. Their feedback inspires us to keep delivering excellence.</p>
       </div>
 
-      <div className="container" data-aos="fade-up" data-aos-delay="100">
+      <div className="container">
         <Swiper
           modules={[Pagination, Autoplay]}
           loop={true}

@@ -11,7 +11,7 @@ const Products: React.FC = () => {
   return (
     <section id="products" className="services section light-background">
       {/* Section Title */}
-      <div className="container section-title" data-aos="fade-up">
+      <div className="container section-title">
         <h2>Products</h2>
         <p>
 Our products are built to meet the evolving needs of modern businesses. Whether you’re a startup, growing organization, or enterprise, we provide robust, secure, and scalable solutions that simplify workflows and enhance productivity.
@@ -23,7 +23,7 @@ Our products are built to meet the evolving needs of modern businesses. Whether 
         <div className="row g-5">
 
 
-          <div className="col-lg-6" data-aos="fade-up" data-aos-delay="200">
+          <div className="col-lg-6">
         <div 
                 style={{
             display:"flex",
@@ -51,7 +51,7 @@ onClick={()=> navigate("/consumerhub")}
           </div>
 
 
-          <div className="col-lg-6" data-aos="fade-up" data-aos-delay="200">
+          <div className="col-lg-6">
         <div 
         style={{
             display:"flex",

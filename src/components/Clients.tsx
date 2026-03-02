@@ -20,7 +20,7 @@ const ClientsSection: React.FC = () => {
 
   return (
     <section id="clients" className="clients section">
-      <div className="container" data-aos="fade-up">
+      <div className="container" >
         <div className="row gy-4">
           {clients.map((src, index) => (
             <div key={index} className="col-xl-2 col-md-3 col-6 client-logo">

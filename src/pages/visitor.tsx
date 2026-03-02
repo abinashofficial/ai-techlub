@@ -72,7 +72,7 @@ function Visitor() {
           gap:"20px",
           marginTop:"40px",
         }}>
-          <div className="col-lg-6 content" data-aos="fade-up" data-aos-delay="100">
+          <div className="col-lg-6 content">
 
 
 

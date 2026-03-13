@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import AOS from "aos";
 import GLightbox from "glightbox";
-import testimg1 from "../assets/img/hero-bg-light.webp" 
 
 
 const Hero: React.FC = () => {
@@ -20,7 +19,7 @@ const Hero: React.FC = () => {
   return (
     <section id="hero" className="hero section">
       <div className="hero-bg">
-        <img src={testimg1} alt="Background" />
+        <img src={"https://res.cloudinary.com/dababspdo/image/upload/v1773442176/hero-bg-light_rtbccl.webp"} alt="Background" />
       </div>
 
       <div className="container text-center">

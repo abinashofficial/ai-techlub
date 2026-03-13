@@ -1,21 +1,14 @@
 import React from "react";
 
-import img1 from '../assets/img/clients/client-1.png'
-import img2 from '../assets/img/clients/client-2.png'
-import img3 from '../assets/img/clients/client-3.png'
-import img4 from '../assets/img/clients/client-4.png'
-import img5 from '../assets/img/clients/client-5.png'
-import img6 from '../assets/img/clients/client-6.png'
-
 
 const ClientsSection: React.FC = () => {
   const clients = [
-   img1,
-    img2,
-   img3,
-    img4,
-    img5,
-    img6
+   "https://res.cloudinary.com/dababspdo/image/upload/v1773441294/client-1_diaapy.png",
+    "https://res.cloudinary.com/dababspdo/image/upload/v1773441383/client-2_uuwdek.png",
+   "https://res.cloudinary.com/dababspdo/image/upload/v1773441438/client-3_jnawfu.png",
+    "https://res.cloudinary.com/dababspdo/image/upload/v1773441499/client-4_basvxb.png",
+    "https://res.cloudinary.com/dababspdo/image/upload/v1773441536/client-5_gfdqui.png",
+    "https://res.cloudinary.com/dababspdo/image/upload/v1773441576/client-6_lcjaq8.png"
   ];
 
   return (

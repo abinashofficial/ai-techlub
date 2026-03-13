@@ -58,8 +58,8 @@ const Footer: React.FC = () => {
               <li><a href="#hero">Home</a></li>
               <li><a href="#about">About us</a></li>
               <li><a href="#services">Services</a></li>
-              <li><a href="https://shindentech.vercel.app/terms-of-service">Terms of service</a></li>
-              <li><a href="https://shindentech.vercel.app/privacy-policy">Privacy policy</a></li>
+              <li><a href="https://shindentech.com/terms-of-service">Terms of service</a></li>
+              <li><a href="https://shindentech.com/privacy-policy">Privacy policy</a></li>
             </ul>
           </div>
 

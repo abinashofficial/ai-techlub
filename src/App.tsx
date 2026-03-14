@@ -21,6 +21,7 @@ import "react-toastify/dist/ReactToastify.css";
 // import GoogleSignIn from "./components/google";
 import Visitor from "./pages/visitor";
 import QRScanner from "./pages/qrscan";
+import TelegramLogin from "./pages/telegram";
 
 
 
@@ -67,6 +68,8 @@ const App: React.FC = () => {
             <Route path="/career" element={<Career />} />
             <Route path="/internship" element={<Internship />} />
             <Route path="/fulltime" element={<Fulltime />} />
+            <Route path="/telegram" element={<TelegramLogin />} />
+
             {/* <Route path="/signin" element={<GoogleSignIn />} /> */}
             <Route path="/visitor" element={<Visitor />} />
             <Route path="/qrscan" element={<QRScanner />} />

@@ -21,8 +21,8 @@ import "react-toastify/dist/ReactToastify.css";
 // import GoogleSignIn from "./components/google";
 import Visitor from "./pages/visitor";
 import QRScanner from "./pages/qrscan";
-import TelegramLogin from "./pages/telegram";
-
+import TelegramLogin from "./hooks/telegramLogin";
+import Login from "./pages/telegram";
 
 
 
@@ -68,7 +68,8 @@ const App: React.FC = () => {
             <Route path="/career" element={<Career />} />
             <Route path="/internship" element={<Internship />} />
             <Route path="/fulltime" element={<Fulltime />} />
-            <Route path="/telegram" element={<TelegramLogin />} />
+            <Route path="/telegram-login" element={<TelegramLogin />} />
+            <Route path="/telegram" element={<Login />} />
 
             {/* <Route path="/signin" element={<GoogleSignIn />} /> */}
             <Route path="/visitor" element={<Visitor />} />

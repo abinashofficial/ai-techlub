@@ -13,7 +13,7 @@ const AudioChunk: React.FC = () => {
     const [isRecording, setIsRecording] = useState(false);
 
   // const url = "http://localhost:8000/api/transcribe"
-    const url = "https://chatbot-production-5ad5.up.railway.app/api/transcribe"
+    const url = "https://chatbot-n6w7.onrender.com/api/transcribe"
 
 
   const startRecording = async () => {

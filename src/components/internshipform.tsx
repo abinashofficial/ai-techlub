@@ -72,7 +72,7 @@ formData.role = role
 
   // API endpoint
   // const apiUrl = 'http://localhost:8080/public/internship';
-  const apiUrl = 'https://crud-production-a206.up.railway.app/public/internship';
+  const apiUrl = 'https://erp-iliw.onrender.com/public/internship';
 
   try {
     const response = await fetch(apiUrl, {

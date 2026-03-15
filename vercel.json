@@ -1,5 +1,15 @@
 {
-  "rewrites": [
-    { "source": "/(.*)", "destination": "/" }
+  "redirects": [
+    {
+      "source": "/(.*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "shindentech.vercel.app"
+        }
+      ],
+      "destination": "https://shindentech.com/$1",
+      "permanent": true
+    }
   ]
 }

@@ -8,24 +8,21 @@ declare global {
     gapi: any;
     google: any;
   }
-
-  const gapi: any;
-  const google: any;
 }
 
-const CLIENT_ID = "209908503524-eanj5macufu0mj0c1jnkgmlpqbp0gkpp.apps.googleusercontent.com";
+const CLIENT_ID =
+  "209908503524-eanj5macufu0mj0c1jnkgmlpqbp0gkpp.apps.googleusercontent.com";
+
 const API_KEY = "AIzaSyDUAPEPsBzYe-2vw1F6MMdHC0zbYhK9Sj4";
-// const SCOPES =
-//   "https://www.googleapis.com/auth/calendar.events.readonly https://www.googleapis.com/auth/calendar.events";
-  const SCOPES =
-  "openid profile email https://www.googleapis.com/auth/calendar.events https://www.googleapis.com/auth/calendar.events.readonly";
+
+const SCOPES =
+  "openid profile email https://www.googleapis.com/auth/calendar.events";
+
 const DISCOVERY_DOC =
   "https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest";
 
+const CALENDAR_ID = "shindentechnologies@gmail.com";
 
-
-
-// timeSlots predefined
 const timeSlots = [
   "09:00 AM - 10:00 AM",
   "10:00 AM - 11:00 AM",
@@ -38,145 +35,101 @@ const timeSlots = [
   "05:00 PM - 06:00 PM",
 ];
 
-
-// Convert "09:00 AM" → "09:00"
 const convertTo24Hour = (time: string): string => {
   const [t, modifier] = time.split(" ");
   let [hours, minutes] = t.split(":").map(Number);
+
   if (modifier === "PM" && hours !== 12) hours += 12;
   if (modifier === "AM" && hours === 12) hours = 0;
-  return `${String(hours).padStart(2, "0")}:${String(minutes).padStart(2, "0")}`;
+
+  return `${String(hours).padStart(2, "0")}:${String(minutes).padStart(
+    2,
+    "0"
+  )}`;
 };
 
-// Map API events to booked slots
 const parseBookedSlots = (events: any[]): string[] => {
   const booked: string[] = [];
 
-  events.forEach(event => {
-    const start = new Date(event.start.dateTime); // use local time
-    const hours = start.getHours();
-    const minutes = start.getMinutes();
-    const formattedStart = `${String(hours).padStart(2, "0")}:${String(minutes).padStart(2, "0")}`;
+  events.forEach((event) => {
+    if (!event.start?.dateTime) return;
 
-    // find matching slot
-    const slot = timeSlots.find(s => convertTo24Hour(s.split(" - ")[0]) === formattedStart);
+    const start = new Date(event.start.dateTime);
+    const formattedStart = `${String(start.getHours()).padStart(
+      2,
+      "0"
+    )}:${String(start.getMinutes()).padStart(2, "0")}`;
+
+    const slot = timeSlots.find(
+      (s) => convertTo24Hour(s.split(" - ")[0]) === formattedStart
+    );
+
     if (slot) booked.push(slot);
   });
 
   return booked;
 };
 
-// ✅ check if a slot is active (weekday & future & within 9–6)
-const isSlotActive = (date: string, slot: string): boolean => {
-  if (!date) return false;
-
-  const selected = new Date(date);
-  const day = selected.getDay(); // 0=Sun, 6=Sat
-  if (day === 0 || day === 6) return false; // weekends
-
-  const [startLabel] = slot.split(" - ");
-  const start24 = convertTo24Hour(startLabel);
-  const startDateTime = new Date(`${date}T${start24}`);
-  const now = new Date();
-
-  // only future times on same day
-  if (selected.toDateString() === now.toDateString()) {
-    return startDateTime.getTime() > now.getTime();
-  }
-
-  return startDateTime.getTime() > now.getTime();
-};
-
 export default function GoogleCalendarDemo() {
-  const [gapiLoaded, setGapiLoaded] = useState(false);
-  const [tokenClient, setTokenClient] = useState<any>(null);
-  const [signedIn, setSignedIn] = useState(false);
-    const [book, setBook] = useState(false);
-
   const { setUser } = useContext(locateContext);
 
-      const [title, setTitle] = useState("Demo Meeting");
-const [bookedSlots, setBookedSlots] = useState<string[]>([]);
-  const [startDate, setDate] = useState<string>("");
-  const [selectedSlot, setSelectedSlot] = useState<string>("");
-  const [loading, setLoading] = useState(true);
-  const CALENDAR_ID = "shindentechnologies@gmail.com"; // your public calendar ID
-    const [attendees] = useState("shindentechnologies@gmail.com");
-        const [startTime, setStartTime] = useState(() => {
-    const d = new Date();
-    d.setMinutes(d.getMinutes() + 15);
-    return d.toISOString().slice(0, 16);
-  });
-  const [endTime, setEndTime] = useState(() => {
-    const d = new Date();
-    d.setMinutes(d.getMinutes() + 45);
-    return d.toISOString().slice(0, 16);
-  });
+  const [gapiLoaded, setGapiLoaded] = useState(false);
+  const [tokenClient, setTokenClient] = useState<any>(null);
+  const [accessToken, setAccessToken] = useState("");
+  const [signedIn, setSignedIn] = useState(false);
+  const [book, setBook] = useState(false);
 
-  // ✅ Load gapi script dynamically and wait
+  const [title, setTitle] = useState("Demo Meeting");
+  const [startDate, setDate] = useState("");
+  const [selectedSlot, setSelectedSlot] = useState("");
+
+  const [bookedSlots, setBookedSlots] = useState<string[]>([]);
+
+  const [startTime, setStartTime] = useState("");
+  const [endTime, setEndTime] = useState("");
+
   useEffect(() => {
-    const loadScript = (src: string): Promise<void> => {
-      return new Promise((resolve, reject) => {
+    const loadScript = (src: string) =>
+      new Promise<void>((resolve) => {
         const script = document.createElement("script");
         script.src = src;
         script.async = true;
-        script.defer = true;
         script.onload = () => resolve();
-        script.onerror = () => reject();
         document.body.appendChild(script);
       });
-    };
 
-    const initGapi = async () => {
+    const init = async () => {
       await loadScript("https://apis.google.com/js/api.js");
+      await loadScript("https://accounts.google.com/gsi/client");
+
       window.gapi.load("client", async () => {
         await window.gapi.client.init({
           apiKey: API_KEY,
           discoveryDocs: [DISCOVERY_DOC],
         });
+
         setGapiLoaded(true);
       });
     };
 
-    // Also load GIS library
-    loadScript("https://accounts.google.com/gsi/client").then(() => {
-      initGapi();
-    });
+    init();
   }, []);
 
-  // // ✅ Initialize OAuth token client
-  // useEffect(() => {
-  //   if (!gapiLoaded) return;
+  useEffect(() => {
+    if (!gapiLoaded) return;
 
-  //   const client = window.google.accounts.oauth2.initTokenClient({
-  //     client_id: CLIENT_ID,
-  //     scope: SCOPES,
-  //     callback: (resp: any) => {
-  //       if (resp && resp.access_token) {
-  //         setSignedIn(true);
-  //         toast.success("Google Calendar connected!");
-  //       }
-  //     },
-  //   });
+    const client = window.google.accounts.oauth2.initTokenClient({
+      client_id: CLIENT_ID,
+      scope: SCOPES,
 
-  //   setTokenClient(client);
-  // }, [gapiLoaded]);
+      callback: async (resp: any) => {
+        if (resp.access_token) {
+          setAccessToken(resp.access_token);
+          setSignedIn(true);
+          setBook(true);
 
-  // Example useEffect with fetching user info
-useEffect(() => {
-  if (!gapiLoaded) return;
+          toast.success("Google connected!");
 
-  const client = window.google.accounts.oauth2.initTokenClient({
-    client_id: CLIENT_ID,
-    scope: SCOPES, // e.g., "https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email"
-    callback: async (resp: any) => {
-      if (resp && resp.access_token) {
-        setSignedIn(true);
-              setBook(true);
-        toast.success("Google Calendar connected!");
-
-        try {
-          // Fetch user info
           const userRes = await fetch(
             "https://www.googleapis.com/oauth2/v3/userinfo",
             {
@@ -185,344 +138,153 @@ useEffect(() => {
               },
             }
           );
-          const userData = await userRes.json();
-          console.log("Google User Data:", userData);
 
-          // Example: set in context
+          const userData = await userRes.json();
+
           setUser({
             name: userData.name,
             email: userData.email,
             imageUrl: userData.picture,
           });
-        } catch (err) {
-          console.error("Error fetching user info", err);
         }
-      }
-    },
-  });
+      },
+    });
 
-  setTokenClient(client);
-}, [gapiLoaded]);
-
+    setTokenClient(client);
+  }, [gapiLoaded]);
 
   const handleSignIn = () => {
-    if (!signedIn){
     tokenClient?.requestAccessToken();
-    }else{
-          setBook(true);
-    }
   };
 
-  // const handleSignOut = () => {
-  //   window.google.accounts.oauth2.revoke(tokenClient.access_token, () => {
-  //     setSignedIn(false);
-  //     toast.info("Signed out.");
-  //   });
-  // };
-
-  // const listEvents = async () => {
-  //   if (!signedIn) return toast.warn("Please sign in first.");
-
-  //   try {
-  //     const now = new Date().toISOString();
-  //     const response = await window.gapi.client.calendar.events.list({
-  //       calendarId: "primary",
-  //       timeMin: now,
-  //       singleEvents: true,
-  //       orderBy: "startTime",
-  //     });
-
-  //     const events = response.result.items || [];
-  //     console.log("Events:", events);
-  //     toast.success(`${events.length} events found`);
-  //   } catch (err) {
-  //     console.error("Error listing events:", err);
-  //     toast.error("Failed to list events");
-  //   }
-  // };
-
-
-
-
-
   const fetchBookedSlots = async (date: string) => {
-  if (!date) return;
+    if (!accessToken) return;
 
-  const startOfDay = new Date(`${date}T00:00:00+05:30`).toISOString();
-  const endOfDay = new Date(`${date}T23:59:59+05:30`).toISOString();
+    const startOfDay = new Date(`${date}T00:00:00`).toISOString();
+    const endOfDay = new Date(`${date}T23:59:59`).toISOString();
 
-  try {
     const res = await fetch(
       `https://www.googleapis.com/calendar/v3/calendars/${encodeURIComponent(
         CALENDAR_ID
-      )}/events?key=${API_KEY}&timeMin=${startOfDay}&timeMax=${endOfDay}&singleEvents=true&orderBy=startTime`
+      )}/events?timeMin=${startOfDay}&timeMax=${endOfDay}&singleEvents=true&orderBy=startTime`,
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      }
     );
 
     const data = await res.json();
     const booked = parseBookedSlots(data.items || []);
     setBookedSlots(booked);
-  } catch (err) {
-    console.error(err);
-  }
-};
+  };
 
-
-  // ✅ When date changes → fetch booked slots
   useEffect(() => {
-    if (signedIn && startDate) {
+    if (startDate && signedIn) {
       fetchBookedSlots(startDate);
     }
   }, [startDate, signedIn]);
 
-  // combined check → active + not booked
-  const isSlotAvailable = (date: string, slot: string): boolean => {
-    return isSlotActive(date, slot) && !bookedSlots.includes(slot);
+  const updateTimesFromSlot = (date: string, slot: string) => {
+    const [startLabel, endLabel] = slot.split(" - ");
+
+    const start24 = convertTo24Hour(startLabel);
+    const end24 = convertTo24Hour(endLabel);
+
+    setStartTime(`${date}T${start24}:00`);
+    setEndTime(`${date}T${end24}:00`);
   };
 
-  const handleSlotChange = (slot: string) => {
-    const available = isSlotAvailable(startDate, slot);
-    if (!available) {
-      toast.error("This slot is not available!");
-      return;
-    }
-    setSelectedSlot(slot);
-      updateTimesFromSlot(startDate, slot); // ✅ update times
-
-  };
-
-
-  const createMeet = async () => {
-        setLoading(false);
-
-
+  const createMeet = async (e: any) => {
+    e.preventDefault();
 
     try {
       const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
-      // const startISO = new Date(startTime).toISOString();
-      // const endISO = new Date(endTime).toISOString();
-
-      // if (new Date(endISO) <= new Date(startISO)) {
-      //   toast.error("End time must be after start time!");
-      // setLoading(true);
-
-      //   return;
-      // }
 
       const event = {
-        summary: title ,
+        summary: title,
         start: { dateTime: startTime, timeZone: tz },
         end: { dateTime: endTime, timeZone: tz },
-        attendees: attendees.split(",").map((email:any) => ({ email: email.trim() })),
+
+        attendees: [{ email: "shindentechnologies@gmail.com" }],
+
         conferenceData: {
           createRequest: {
             requestId: String(Date.now()),
             conferenceSolutionKey: { type: "hangoutsMeet" },
           },
         },
-        reminders: { useDefault: true },
       };
 
-      const res = await gapi.client.calendar.events.insert({
+      const res = await window.gapi.client.calendar.events.insert({
         calendarId: "primary",
         resource: event,
         conferenceDataVersion: 1,
         sendUpdates: "all",
       });
 
-            setLoading(true);
-            setBook(false);
-            setDate("");
-setSelectedSlot("");
-      toast.success("Demo booked successfully!");
+      toast.success("Demo booked!");
+
       console.log("Meet link:", res.result.hangoutLink);
 
-    //   setTimeout(() => {
-    //     navigate("/blog");
-    //   }, 3000);
+      setDate("");
+      setSelectedSlot("");
     } catch (err) {
-      console.error("Error creating meeting:", err);
-      toast.error("Failed to create meeting.");
-    } finally {
-            setTimeout(() => {
-      setLoading(true);
-      }, 3000);
+      console.error(err);
+      toast.error("Meeting creation failed");
     }
   };
-    // const isButtonDisabled = !startDate || !selectedSlot || !loading;
-const updateTimesFromSlot = (date: string, slot: string) => {
-  if (!date || !slot) return;
-
-  const [startLabel, endLabel] = slot.split(" - ");
-
-  // Convert to 24h format
-  const start24 = convertTo24Hour(startLabel);
-  const end24 = convertTo24Hour(endLabel);
-
-  // Combine date + time
-  setStartTime(`${date}T${start24}:00`); // append seconds
-setEndTime(`${date}T${end24}:00`);
-};
-
 
   return (
     <div style={{ padding: 20 }}>
       <h2>Schedule Demo</h2>
 
       {!book ? (
-        // <button style={{
-        //                   background:"#388DA8",
-        // borderRadius:"10px",
-        // }} onClick={handleSignIn}>
-        //   <div>
-        //     {signedIn ? "Book Demo" : "Sign in with Google"}
-        //   </div>
-          
-        //   </button>
-
-                <div
-                                  
-                style={{ marginTop: "50px" ,
-             background:"#388DA8",
-                color:"white",
-                borderRadius:"10px",
-                display:"flex",
-                alignItems:"center",
-                justifyContent:"center",
-
-                      cursor: "pointer",
-
-                }}
-                onClick={handleSignIn}
-                >
-                  <button
-                  
-  //  disabled={isButtonDisabled}
-                    style={{
+        <button 
+                            style={{
                       // cursor: isButtonDisabled ? "not-allowed" : "pointer",
                 background:"#388DA8",
                 color:"white",
                                 borderRadius:"10px"
 
                     }}
-                  >
-                  Book Demo
-                  </button>
-                  <i className="bi bi-arrow-right"></i>
-                </div>
-
+        onClick={handleSignIn}>Sign in with Google</button>
       ) : (
+        <form onSubmit={createMeet}>
+          <input
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+          />
 
-        <>
-                {loading ? (
-<form onSubmit={createMeet}>
-                   
+          <input
+            type="date"
+            value={startDate}
+            onChange={(e) => setDate(e.target.value)}
+          />
 
-                        <div className="input-group">
-                  <label>Title: </label>
-                  <input
-                    value={title}
-                    onChange={(e) => setTitle(e.target.value)}
-                    style={{
-                        background:"white",
-                        color:"black",
-                    }}
-                  />
-                </div>
+          <select
+            value={selectedSlot}
+            onChange={(e) => {
+              setSelectedSlot(e.target.value);
+              updateTimesFromSlot(startDate, e.target.value);
+            }}
+          >
+            <option>Select slot</option>
 
+            {timeSlots.map((slot) => {
+              const booked = bookedSlots.includes(slot);
 
-          <div  className="input-group">
-            <label htmlFor="date-of-birth">Date</label>
-            <input
-                          id="date-of-birth"
-style={{
-  cursor:"pointer",
-  background:"white",
-  color:"black"
-}}
-              type="date"
-              value={startDate}
-              onChange={(e) => setDate(e.target.value)}
-              min={new Date().toISOString().split("T")[0]}
-                            required
- onClick={(e) => (e.currentTarget as HTMLInputElement).showPicker()}
-            />
-          </div>
+              return (
+                <option key={slot} disabled={booked}>
+                  {booked ? "🔴" : "🟢"} {slot}
+                </option>
+              );
+            })}
+          </select>
 
-
-          <div  className="input-group">
-            <label>Slot: </label>
-            <select
-              value={selectedSlot}
-              onChange={(e) => handleSlotChange(e.target.value)}
-                                          required
-
-              disabled={!startDate}
-              style={{
-  cursor:"pointer",
-  color:"black"
-}}
-            >
-              <option value="">Select a time slot</option>
-              {timeSlots.map((slot, i) => {
-               const available = isSlotAvailable(startDate, slot);
-                return (
-                  <option
-                    key={i}
-                    value={slot}
-                    disabled={!available}
-                    style={{
-                      color: available ? "green" : "red",
-                      fontWeight: available ? "bold" : "normal",
-                    }}
-                  >
-                    {available ? "🟢" : "🔴"} {slot}
-                  </option>
-                );
-              })}
-            </select>
-          </div>
-
-                {/* Book Button */}
-                <div
-                                  
-                style={{ marginTop: "50px" ,
-             background:"#388DA8",
-                color:"white",
-                borderRadius:"10px",
-                display:"flex",
-                alignItems:"center",
-                justifyContent:"center",
-
-
-                }}>
-                  <button
-                  
- type="submit"                  
-  //  disabled={isButtonDisabled}
-                    style={{
-                      // cursor: isButtonDisabled ? "not-allowed" : "pointer",
-                      cursor: "pointer",
-                background:"#388DA8",
-                color:"white",
-                                borderRadius:"10px"
-
-                    }}
-                  >
-                  Book Demo
-                  </button>
-                  <i className="bi bi-arrow-right"></i>
-                </div>
-                   </form>
-        ):(
-<div className="spinner">
-</div>
-        )}
-                    
-        </>
-
+          <button type="submit">Book Demo</button>
+        </form>
       )}
-
-      {/* <ToastContainer /> */}
     </div>
   );
 }

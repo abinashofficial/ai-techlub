@@ -23,6 +23,7 @@ import Visitor from "./pages/visitor";
 import QRScanner from "./pages/qrscan";
 import TelegramLogin from "./hooks/telegramLogin";
 import Login from "./pages/telegram";
+import SignIn from "./pages/sign_in";
 
 
 
@@ -74,6 +75,8 @@ const App: React.FC = () => {
             {/* <Route path="/signin" element={<GoogleSignIn />} /> */}
             <Route path="/visitor" element={<Visitor />} />
             <Route path="/qrscan" element={<QRScanner />} />
+            <Route path="/signin" element={<SignIn />} />
+
 
 
 

@@ -505,8 +505,10 @@ setIsHeart(true)
 
     {touchEmoji && animations["smileEmoji"] ?
      <Lottie
-  onClick={()=> handleClick()}
+  // onClick={()=> handleClick()}
   onMouseEnter={()=> enterTouchEmoji()}
+    onTouchStart={()=> enterTouchEmoji()}
+  onTouchEnd={()=> leaveHeartEmoji()}
   animationData={animations["smileEmoji"]}
   loop
   autoplay
@@ -580,7 +582,7 @@ setIsHeart(true)
                 onClick={() => setShowPassword(!showPassword)}
                 aria-label={showPassword ? "Hide password" : "Show password"}
               >
-                {showPassword ? <FaEyeSlash /> : <FaEye />}
+                {showPassword ?<FaEye />: <FaEyeSlash />}
               </button>
             </div>
           </div>

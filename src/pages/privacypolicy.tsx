@@ -2,7 +2,7 @@ import React from "react";
 
 const PrivacyPolicy: React.FC = () => {
   return (
-    <div style={{ padding: "40px", maxWidth: "900px", margin: "0 auto", lineHeight: 1.7 }}>
+    <div style={{ padding: "40px", margin: "0 auto", lineHeight: 1.7 }}>
       <h1 style={{ textAlign: "center", marginBottom: "30px" }}>
         Privacy Policy
       </h1>
@@ -35,6 +35,7 @@ const PrivacyPolicy: React.FC = () => {
       </ul>
 
       <h2>3. Service-Specific Data Handling</h2>
+
       <h3>Web Development</h3>
       <p>
         We process form submissions, analytics, and user interactions to
@@ -61,8 +62,17 @@ const PrivacyPolicy: React.FC = () => {
 
       <h3>Booking Platform</h3>
       <p>
-        Appointment and booking data are collected strictly to manage scheduling
-        efficiently while maintaining confidentiality.
+        Appointment and booking data are collected strictly to manage scheduling efficiently while maintaining confidentiality.
+        When you choose to book a demo through our platform, we access your Google Calendar (with your explicit consent) to:
+      </p>
+      <ul>
+        <li>Create calendar events for the scheduled meeting.</li>
+        <li>Generate Google Meet links for online meetings.</li>
+        <li>Ensure that selected time slots are available and prevent double-booking.</li>
+      </ul>
+      <p>
+        We do <strong>not</strong> read, modify, or delete other calendar events without your explicit authorization.
+        Your calendar data is used solely for the purpose of scheduling meetings within our app and is <strong>not stored or shared</strong> with third parties.
       </p>
 
       <h3>Technical Support</h3>
@@ -82,6 +92,9 @@ const PrivacyPolicy: React.FC = () => {
       <p>
         We implement industry-standard technical and organizational measures
         to protect data from unauthorized access, alteration, disclosure, or destruction.
+      </p>
+      <p>
+        Calendar event information created through our platform is transmitted securely via Google's APIs and is not stored permanently on our servers. We ensure that all sensitive operations, including creation of events and Meet links, are performed with the user's explicit consent.
       </p>
 
       <h2>6. Your Rights</h2>

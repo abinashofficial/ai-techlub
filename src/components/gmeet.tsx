@@ -93,7 +93,7 @@ export default function GoogleCalendarDemo() {
   const [signedIn, setSignedIn] = useState(false);
     const [book, setBook] = useState(false);
 
-  const { setUser } = useContext(locateContext);
+  const {setUser } = useContext(locateContext);
 
       const [title, setTitle] = useState("Demo Meeting");
 const [bookedSlots, setBookedSlots] = useState<string[]>([]);
@@ -101,8 +101,9 @@ const [bookedSlots, setBookedSlots] = useState<string[]>([]);
   const [selectedSlot, setSelectedSlot] = useState<string>("");
   const [loading, setLoading] = useState(true);
   const CALENDAR_ID = "shindentechnologies@gmail.com"; // your public calendar ID
-    const [attendees] = useState("shindentechnologies@gmail.com");
-        const [startTime, setStartTime] = useState(() => {
+const [attendees, setAttendees] = useState<string[]>([
+  "shindentechnologies@gmail.com",
+]);        const [startTime, setStartTime] = useState(() => {
     const d = new Date();
     d.setMinutes(d.getMinutes() + 15);
     return d.toISOString().slice(0, 16);
@@ -194,6 +195,7 @@ useEffect(() => {
             email: userData.email,
             imageUrl: userData.picture,
           });
+          setAttendees((prev) => [...prev, userData.email]);
         } catch (err) {
           console.error("Error fetching user info", err);
         }
@@ -312,7 +314,7 @@ useEffect(() => {
         summary: title ,
         start: { dateTime: startTime, timeZone: tz },
         end: { dateTime: endTime, timeZone: tz },
-        attendees: attendees.split(",").map((email:any) => ({ email: email.trim() })),
+        attendees: attendees,
         conferenceData: {
           createRequest: {
             requestId: String(Date.now()),

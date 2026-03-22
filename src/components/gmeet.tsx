@@ -18,7 +18,7 @@ const API_KEY = "AIzaSyDUAPEPsBzYe-2vw1F6MMdHC0zbYhK9Sj4";
 // const SCOPES =
 //   "https://www.googleapis.com/auth/calendar.events.readonly https://www.googleapis.com/auth/calendar.events";
   const SCOPES =
-  "openid profile email https://www.googleapis.com/auth/calendar.events";
+"openid profile email https://www.googleapis.com/auth/calendar";
 const DISCOVERY_DOC =
   "https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest";
 
@@ -314,7 +314,7 @@ useEffect(() => {
         summary: title ,
         start: { dateTime: startTime, timeZone: tz },
         end: { dateTime: endTime, timeZone: tz },
-        attendees: attendees,
+        attendees: attendees.map(email => ({ email })), // ✅ FIXED
         conferenceData: {
           createRequest: {
             requestId: String(Date.now()),

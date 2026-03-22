@@ -195,7 +195,9 @@ useEffect(() => {
             email: userData.email,
             imageUrl: userData.picture,
           });
-          setAttendees((prev) => [...prev, userData.email]);
+setAttendees(prev =>
+  [...new Set([...prev, userData.email])]
+);       
         } catch (err) {
           console.error("Error fetching user info", err);
         }
@@ -329,6 +331,8 @@ useEffect(() => {
         resource: event,
         conferenceDataVersion: 1,
         sendUpdates: "all",
+        sendNotifications: true, // ✅ add this
+
       });
 
             setLoading(true);

@@ -10,7 +10,7 @@ import VisitorForm from "../components/visitorform";
 
 
 // import { TawkToChat } from "../hooks/talktochat";
-import ChatBot from "./chatbot";
+// import ChatBot from "./chatbot";
 
   interface Animations {
   [key: string]: any; // JSON object for each Lottie animation
@@ -122,7 +122,7 @@ function Visitor() {
       <Footer />
 {/* <TawkToChat enabled={true} /> */}
       
-<ChatBot/>
+{/* <ChatBot/> */}
     </div>
 
   )

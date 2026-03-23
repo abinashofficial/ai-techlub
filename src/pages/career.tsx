@@ -11,7 +11,7 @@ import Footer from "../components/Footer ";
 
 
 // import { TawkToChat } from "../hooks/talktochat";
-import ChatBot from "./chatbot";
+// import ChatBot from "./chatbot";
   interface Animations {
   [key: string]: any; // JSON object for each Lottie animation
 }
@@ -170,7 +170,7 @@ function Career() {
       <Footer />
 {/* <TawkToChat enabled={true} /> */}
       
-<ChatBot/>
+{/* <ChatBot/> */}
     </div>
 
   )

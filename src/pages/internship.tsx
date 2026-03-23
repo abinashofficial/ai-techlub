@@ -10,7 +10,7 @@ import Lottie from "lottie-react";
 
 
 // import { TawkToChat } from "../hooks/talktochat";
-import ChatBot from "./chatbot";
+// import ChatBot from "./chatbot";
 
   interface Animations {
   [key: string]: any; // JSON object for each Lottie animation
@@ -136,7 +136,7 @@ function Internship() {
       <Footer />
 {/* <TawkToChat enabled={true} /> */}
       
-<ChatBot/>
+{/* <ChatBot/> */}
     </div>
 
   )

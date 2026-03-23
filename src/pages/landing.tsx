@@ -12,8 +12,8 @@ import Product from '../components/Products'
 // import Testimonials from '../components/Testimonials';
 import ClientsSection from '../components/Clients'
 import GoogleReviews from "../components/googlereviews";
-// import { TawkToChat } from "../hooks/talktochat";
-import ChatBot from "./chatbot";
+import { TawkToChat } from "../hooks/talktochat";
+// import ChatBot from "./chatbot";
 
 
 
@@ -39,9 +39,9 @@ function Landing() {
       {/* <Testimonials/> */}
       <Contact />
       <Footer />
-{/* <TawkToChat enabled={true} /> */}
+<TawkToChat enabled={true} />
       
-<ChatBot/>
+{/* <ChatBot/> */}
     </div>
 
   )

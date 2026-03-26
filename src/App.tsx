@@ -24,6 +24,7 @@ import QRScanner from "./pages/qrscan";
 import TelegramLogin from "./hooks/telegramLogin";
 import Login from "./pages/telegram";
 import SignIn from "./pages/sign_in";
+import NoRefundPolicy from "./pages/refundpolicy";
 
 
 
@@ -71,6 +72,7 @@ const App: React.FC = () => {
             <Route path="/fulltime" element={<Fulltime />} />
             <Route path="/telegram-login" element={<TelegramLogin />} />
             <Route path="/telegram" element={<Login />} />
+            <Route path="/refund-policy" element={<NoRefundPolicy />} />
 
             {/* <Route path="/signin" element={<GoogleSignIn />} /> */}
             <Route path="/visitor" element={<Visitor />} />

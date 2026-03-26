@@ -272,7 +272,7 @@ if (normalizeText(input_data) === "yes") {
   useEffect(() => {
      if (hasFetched.current) return;
   hasFetched.current = true;
-    fetchApi("hey");
+    fetchApi("home");
   }, []);
 
   // Scroll to bottom when messages or loading changes
@@ -618,13 +618,7 @@ const onPointerUp = () => {
   ([key, value]) => (
     <div key={key}
 className="chat-form"
-onClick={()=>                setMessages(prev => [...prev,   {
-            id: Date.now(),
-            role: "bot",
-            text: value,
-            time: new Date().toLocaleTimeString(),
-            form: null,
-    }])}
+onClick={()=>   sendMessageWithText(value)}
     >
       {/* <h4>{key}</h4> */}
                   <strong>{key}</strong>

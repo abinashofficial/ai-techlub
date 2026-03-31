@@ -18,7 +18,7 @@ const API_KEY = "AIzaSyDUAPEPsBzYe-2vw1F6MMdHC0zbYhK9Sj4";
 // const SCOPES =
 //   "https://www.googleapis.com/auth/calendar.events.readonly https://www.googleapis.com/auth/calendar.events";
   const SCOPES =
-"openid profile email https://www.googleapis.com/auth/calendar.events";
+"openid profile email https://www.googleapis.com/auth/calendar.app.created https://www.googleapis.com/auth/calendar.events.public.readonly";
 const DISCOVERY_DOC =
   "https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest";
 
@@ -92,6 +92,7 @@ export default function GoogleCalendarDemo() {
   const [tokenClient, setTokenClient] = useState<any>(null);
   const [signedIn, setSignedIn] = useState(false);
     const [book, setBook] = useState(false);
+  const [accessToken, setAccessToken] = useState<string>("");
 
   const {setUser } = useContext(locateContext);
 
@@ -145,25 +146,6 @@ const [attendees, setAttendees] = useState<string[]>([
     });
   }, []);
 
-  // // ✅ Initialize OAuth token client
-  // useEffect(() => {
-  //   if (!gapiLoaded) return;
-
-  //   const client = window.google.accounts.oauth2.initTokenClient({
-  //     client_id: CLIENT_ID,
-  //     scope: SCOPES,
-  //     callback: (resp: any) => {
-  //       if (resp && resp.access_token) {
-  //         setSignedIn(true);
-  //         toast.success("Google Calendar connected!");
-  //       }
-  //     },
-  //   });
-
-  //   setTokenClient(client);
-  // }, [gapiLoaded]);
-
-  // Example useEffect with fetching user info
 useEffect(() => {
   if (!gapiLoaded) return;
 
@@ -174,6 +156,7 @@ useEffect(() => {
       if (resp && resp.access_token) {
         setSignedIn(true);
               setBook(true);
+              setAccessToken(resp.access_token)
         toast.success("Google Calendar connected!");
 
         try {
@@ -326,21 +309,27 @@ setAttendees(prev =>
         reminders: { useDefault: true },
       };
 
-      const res = await gapi.client.calendar.events.insert({
-        calendarId: "primary",
-        resource: event,
-        conferenceDataVersion: 1,
-        sendUpdates: "all",
-        sendNotifications: true, // ✅ add this
+  const res = await fetch(
+    `https://www.googleapis.com/calendar/v3/calendars/${CALENDAR_ID}/events?conferenceDataVersion=1`,
+    {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(event),
+    }
+  );
+    const data = await res.json();
 
-      });
-
+  if (data.hangoutLink) {
+    console.log("Meet link:", data.hangoutLink);
+  }
             setLoading(true);
             setBook(false);
             setDate("");
 setSelectedSlot("");
       toast.success("Demo booked successfully!");
-      console.log("Meet link:", res.result.hangoutLink);
 
     //   setTimeout(() => {
     //     navigate("/blog");

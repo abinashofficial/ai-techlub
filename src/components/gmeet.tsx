@@ -102,7 +102,7 @@ const [bookedSlots, setBookedSlots] = useState<string[]>([]);
   const [selectedSlot, setSelectedSlot] = useState<string>("");
   const [loading, setLoading] = useState(true);
   const CALENDAR_ID = "shindentechnologies@gmail.com"; // your public calendar ID
-const [attendees, setAttendees] = useState<string[]>([
+const [attendees] = useState<string[]>([
   "shindentechnologies@gmail.com",
 ]);        const [startTime, setStartTime] = useState(() => {
     const d = new Date();
@@ -178,9 +178,9 @@ useEffect(() => {
             email: userData.email,
             imageUrl: userData.picture,
           });
-setAttendees(prev =>
-  [...new Set([...prev, userData.email])]
-);       
+// setAttendees(prev =>
+//   [...new Set([...prev, userData.email])]
+// );       
         } catch (err) {
           console.error("Error fetching user info", err);
         }
@@ -295,22 +295,25 @@ setAttendees(prev =>
       //   return;
       // }
 
-      const event = {
-        summary: title ,
-        start: { dateTime: startTime, timeZone: tz },
-        end: { dateTime: endTime, timeZone: tz },
-        attendees: attendees.map(email => ({ email })), // ✅ FIXED
-        conferenceData: {
-          createRequest: {
-            requestId: String(Date.now()),
-            conferenceSolutionKey: { type: "hangoutsMeet" },
-          },
-        },
-        reminders: { useDefault: true },
-      };
+const event = {
+  summary: title,
+  start: { dateTime: startTime, timeZone: tz },
+  end: { dateTime: endTime, timeZone: tz },
+
+  attendees: attendees.map(email => ({ email,       responseStatus: "needsAction"
+ })), // ✅ FIXED
+
+  conferenceData: {
+    createRequest: {
+      requestId: String(Date.now()),
+      conferenceSolutionKey: { type: "hangoutsMeet" },
+    },
+  },
+  reminders: { useDefault: true },
+};
 
   const res = await fetch(
-    `https://www.googleapis.com/calendar/v3/calendars/${"primary"}/events?conferenceDataVersion=1`,
+  `https://www.googleapis.com/calendar/v3/calendars/primary/events?conferenceDataVersion=1&sendUpdates=all`,
     {
       method: "POST",
       headers: {

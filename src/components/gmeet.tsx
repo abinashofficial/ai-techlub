@@ -101,7 +101,7 @@ const [bookedSlots, setBookedSlots] = useState<string[]>([]);
   const [startDate, setDate] = useState<string>("");
   const [selectedSlot, setSelectedSlot] = useState<string>("");
   const [loading, setLoading] = useState(true);
-  const CALENDAR_ID = "shindentechnologies@gmail.com"; // your public calendar ID
+  const CALENDAR_ID = "primary"; // your public calendar ID
 const [attendees, setAttendees] = useState<string[]>([
   "shindentechnologies@gmail.com",
 ]);        const [startTime, setStartTime] = useState(() => {

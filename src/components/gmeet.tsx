@@ -18,7 +18,7 @@ const API_KEY = "AIzaSyDUAPEPsBzYe-2vw1F6MMdHC0zbYhK9Sj4";
 // const SCOPES =
 //   "https://www.googleapis.com/auth/calendar.events.readonly https://www.googleapis.com/auth/calendar.events";
   const SCOPES =
-"openid profile email https://www.googleapis.com/auth/calendar.app.created https://www.googleapis.com/auth/calendar.events.public.readonly";
+"openid profile email https://www.googleapis.com/auth/calendar.events";
 const DISCOVERY_DOC =
   "https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest";
 
@@ -92,7 +92,6 @@ export default function GoogleCalendarDemo() {
   const [tokenClient, setTokenClient] = useState<any>(null);
   const [signedIn, setSignedIn] = useState(false);
     const [book, setBook] = useState(false);
-  const [accessToken, setAccessToken] = useState<string>("");
 
   const {setUser } = useContext(locateContext);
 
@@ -102,10 +101,9 @@ const [bookedSlots, setBookedSlots] = useState<string[]>([]);
   const [selectedSlot, setSelectedSlot] = useState<string>("");
   const [loading, setLoading] = useState(true);
   const CALENDAR_ID = "shindentechnologies@gmail.com"; // your public calendar ID
-// const [attendees] = useState<string[]>([
-//   "shindentechnologies@gmail.com",
-// ]); 
-       const [startTime, setStartTime] = useState(() => {
+const [attendees, setAttendees] = useState<string[]>([
+  "shindentechnologies@gmail.com",
+]);        const [startTime, setStartTime] = useState(() => {
     const d = new Date();
     d.setMinutes(d.getMinutes() + 15);
     return d.toISOString().slice(0, 16);
@@ -147,6 +145,25 @@ const [bookedSlots, setBookedSlots] = useState<string[]>([]);
     });
   }, []);
 
+  // // ✅ Initialize OAuth token client
+  // useEffect(() => {
+  //   if (!gapiLoaded) return;
+
+  //   const client = window.google.accounts.oauth2.initTokenClient({
+  //     client_id: CLIENT_ID,
+  //     scope: SCOPES,
+  //     callback: (resp: any) => {
+  //       if (resp && resp.access_token) {
+  //         setSignedIn(true);
+  //         toast.success("Google Calendar connected!");
+  //       }
+  //     },
+  //   });
+
+  //   setTokenClient(client);
+  // }, [gapiLoaded]);
+
+  // Example useEffect with fetching user info
 useEffect(() => {
   if (!gapiLoaded) return;
 
@@ -157,7 +174,6 @@ useEffect(() => {
       if (resp && resp.access_token) {
         setSignedIn(true);
               setBook(true);
-              setAccessToken(resp.access_token)
         toast.success("Google Calendar connected!");
 
         try {
@@ -179,9 +195,9 @@ useEffect(() => {
             email: userData.email,
             imageUrl: userData.picture,
           });
-// setAttendees(prev =>
-//   [...new Set([...prev, userData.email])]
-// );       
+setAttendees(prev =>
+  [...new Set([...prev, userData.email])]
+);       
         } catch (err) {
           console.error("Error fetching user info", err);
         }
@@ -195,7 +211,7 @@ useEffect(() => {
 
   const handleSignIn = () => {
     if (!signedIn){
-    tokenClient?.requestAccessToken({ prompt: "consent" });
+    tokenClient?.requestAccessToken();
     }else{
           setBook(true);
     }
@@ -233,7 +249,6 @@ useEffect(() => {
 
 
 
-
   const fetchBookedSlots = async (date: string) => {
   if (!date) return;
 
@@ -258,10 +273,10 @@ useEffect(() => {
 
   // ✅ When date changes → fetch booked slots
   useEffect(() => {
-if (signedIn && accessToken && startDate) {
-        fetchBookedSlots(startDate);
+    if (signedIn && startDate) {
+      fetchBookedSlots(startDate);
     }
-  }, [startDate, signedIn, accessToken]);
+  }, [startDate, signedIn]);
 
   // combined check → active + not booked
   const isSlotAvailable = (date: string, slot: string): boolean => {
@@ -279,59 +294,66 @@ if (signedIn && accessToken && startDate) {
 
   };
 
-const createMeet = async () => {
-  if (!accessToken || !startDate || !selectedSlot) return;
 
-  setLoading(false);
+  const createMeet = async () => {
+        setLoading(false);
 
-  try {
-    // 1️⃣ Set token for gapi
-    window.gapi.client.setToken({ access_token: accessToken });
 
-    // 2️⃣ Ensure app-created calendar exists
-    const calendarsRes = await window.gapi.client.calendar.calendarList.list();
-    let appCalendar = calendarsRes.result.items?.find((c:any) => c.summary === "ShindenTech Calendar");
 
-    if (!appCalendar) {
-      const newCal = await window.gapi.client.calendar.calendars.insert({
-        summary: "ShindenTech Calendar",
-        timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+    try {
+      const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+      // const startISO = new Date(startTime).toISOString();
+      // const endISO = new Date(endTime).toISOString();
+
+      // if (new Date(endISO) <= new Date(startISO)) {
+      //   toast.error("End time must be after start time!");
+      // setLoading(true);
+
+      //   return;
+      // }
+
+      const event = {
+        summary: title ,
+        start: { dateTime: startTime, timeZone: tz },
+        end: { dateTime: endTime, timeZone: tz },
+        attendees: attendees.map(email => ({ email })), // ✅ FIXED
+        conferenceData: {
+          createRequest: {
+            requestId: String(Date.now()),
+            conferenceSolutionKey: { type: "hangoutsMeet" },
+          },
+        },
+        reminders: { useDefault: true },
+      };
+
+      const res = await gapi.client.calendar.events.insert({
+        calendarId: "primary",
+        resource: event,
+        conferenceDataVersion: 1,
+        sendUpdates: "all",
+        sendNotifications: true, // ✅ add this
+
       });
-      appCalendar = newCal.result;
-      console.log("Created ShindenTech Calendar:", appCalendar.id);
+
+            setLoading(true);
+            setBook(false);
+            setDate("");
+setSelectedSlot("");
+      toast.success("Demo booked successfully!");
+      console.log("Meet link:", res.result.hangoutLink);
+
+    //   setTimeout(() => {
+    //     navigate("/blog");
+    //   }, 3000);
+    } catch (err) {
+      console.error("Error creating meeting:", err);
+      toast.error("Failed to create meeting.");
+    } finally {
+            setTimeout(() => {
+      setLoading(true);
+      }, 3000);
     }
-
-    // 3️⃣ Prepare event
-    const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
-    const event = {
-      summary: title,
-      start: { dateTime: startTime, timeZone: tz },
-      end: { dateTime: endTime, timeZone: tz },
-      attendees: [{ email: "shindentechnologies@gmail.com" }],
-      reminders: { useDefault: true },
-    };
-
-    // 4️⃣ Insert event into app-created calendar
-    const created = await window.gapi.client.calendar.events.insert({
-      calendarId: appCalendar.id,
-      resource: event,
-      sendUpdates: "all",
-    });
-
-    console.log("Event created in app calendar:", created.result);
-
-    toast.success("Demo booked successfully!");
-    setBook(false);
-    setDate("");
-    setSelectedSlot("");
-
-  } catch (err) {
-    console.error("Error creating event:", err);
-    toast.error("Failed to create demo. Check console.");
-  } finally {
-    setLoading(true);
-  }
-};
+  };
     // const isButtonDisabled = !startDate || !selectedSlot || !loading;
 const updateTimesFromSlot = (date: string, slot: string) => {
   if (!date || !slot) return;
@@ -414,34 +436,23 @@ setEndTime(`${date}T${end24}:00`);
                 </div>
 
 
-<div className="input-group">
-  <label htmlFor="date-of-birth">Date</label>
-  <input
-    id="date-of-birth"
-    type={startDate ? "date" : "text"}
-    value={startDate || ""}
-    placeholder="Select a date"
-    style={{
-      cursor: "pointer",
-      background: "white",
-      color: "black"
-    }}
-    onFocus={(e) => {
-      e.target.type = "date";
-    }}
-    onBlur={(e) => {
-      if (!startDate) {
-        e.target.type = "text";
-      }
-    }}
-        onClick={(e) => {
-      e.currentTarget.showPicker?.();
-    }}
-    onChange={(e) => setDate(e.target.value)}
+          <div  className="input-group">
+            <label htmlFor="date-of-birth">Date</label>
+            <input
+                          id="date-of-birth"
+style={{
+  cursor:"pointer",
+  background:"white",
+  color:"black"
+}}
+              type="date"
+              value={startDate}
+              onChange={(e) => setDate(e.target.value)}
               min={new Date().toISOString().split("T")[0]}
-    required
-  />
-</div>
+                            required
+ onClick={(e) => (e.currentTarget as HTMLInputElement).showPicker()}
+            />
+          </div>
 
 
           <div  className="input-group">

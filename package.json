@@ -11,6 +11,7 @@
     "deploy": "npm run build && wrangler deploy"
   },
   "dependencies": {
+    "@azure/msal-browser": "^5.6.2",
     "aos": "^2.3.4",
     "bootstrap": "^5.3.8",
     "bootstrap-icons": "^1.13.1",

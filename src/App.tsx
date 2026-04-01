@@ -25,6 +25,8 @@ import TelegramLogin from "./hooks/telegramLogin";
 import Login from "./pages/telegram";
 import SignIn from "./pages/sign_in";
 import NoRefundPolicy from "./pages/refundpolicy";
+import TeamsDemo from "./pages/teamsmeet";
+import CalendarBookingApp from "./pages/calendarbook";
 
 
 
@@ -78,6 +80,9 @@ const App: React.FC = () => {
             <Route path="/visitor" element={<Visitor />} />
             <Route path="/qrscan" element={<QRScanner />} />
             <Route path="/signin" element={<SignIn />} />
+                        <Route path="/teams" element={<TeamsDemo />} />
+
+                        <Route path="/calendar" element={<CalendarBookingApp />} />
 
 
 

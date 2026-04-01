@@ -101,7 +101,7 @@ const [bookedSlots, setBookedSlots] = useState<string[]>([]);
   const [startDate, setDate] = useState<string>("");
   const [selectedSlot, setSelectedSlot] = useState<string>("");
   const [loading, setLoading] = useState(true);
-  // const CALENDAR_ID = "shindentechnologies@gmail.com"; // your public calendar ID
+  const CALENDAR_ID = "shindentechnologies@gmail.com"; // your public calendar ID
 const [attendees] = useState<string[]>([
   "shindentechnologies@gmail.com",
 ]);        const [startTime, setStartTime] = useState(() => {
@@ -194,7 +194,7 @@ useEffect(() => {
 
   const handleSignIn = () => {
     if (!signedIn){
-    tokenClient?.requestAccessToken();
+    tokenClient?.requestAccessToken({ prompt: "consent" });
     }else{
           setBook(true);
     }
@@ -232,20 +232,18 @@ useEffect(() => {
 
 
 
-const fetchBookedSlots = async (date: string) => {
-  if (!date || !accessToken) return;
+
+  const fetchBookedSlots = async (date: string) => {
+  if (!date) return;
 
   const startOfDay = new Date(`${date}T00:00:00+05:30`).toISOString();
   const endOfDay = new Date(`${date}T23:59:59+05:30`).toISOString();
 
   try {
     const res = await fetch(
-      `https://www.googleapis.com/calendar/v3/calendars/primary/events?timeMin=${startOfDay}&timeMax=${endOfDay}&singleEvents=true&orderBy=startTime`,
-      {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      }
+      `https://www.googleapis.com/calendar/v3/calendars/${encodeURIComponent(
+        CALENDAR_ID
+      )}/events?key=${API_KEY}&timeMin=${startOfDay}&timeMax=${endOfDay}&singleEvents=true&orderBy=startTime`
     );
 
     const data = await res.json();
@@ -315,17 +313,19 @@ const event = {
   reminders: { useDefault: true },
 };
 
-  const res = await fetch(
-  `https://www.googleapis.com/calendar/v3/calendars/primary/events?conferenceDataVersion=1&sendUpdates=all`,
-    {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(event),
-    }
-  );
+const res = await fetch(
+  `https://www.googleapis.com/calendar/v3/calendars/${encodeURIComponent(
+    CALENDAR_ID
+  )}/events?conferenceDataVersion=1&sendUpdates=all`,
+  {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(event),
+  }
+);
     const data = await res.json();
 
   if (data.hangoutLink) {

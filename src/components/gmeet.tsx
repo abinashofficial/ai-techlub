@@ -90,7 +90,7 @@ const isSlotActive = (date: string, slot: string): boolean => {
 export default function GoogleCalendarDemo() {
   const [gapiLoaded, setGapiLoaded] = useState(false);
   const [tokenClient, setTokenClient] = useState<any>(null);
-  const [signedIn, setSignedIn] = useState(false);
+  const [signedIn, setSignedIn] = useState(true);
     const [book, setBook] = useState(false);
   const [accessToken, setAccessToken] = useState<string>("");
 
@@ -428,23 +428,34 @@ setEndTime(`${date}T${end24}:00`);
                 </div>
 
 
-          <div  className="input-group">
-            <label htmlFor="date-of-birth">Date</label>
-            <input
-                          id="date-of-birth"
-style={{
-  cursor:"pointer",
-  background:"white",
-  color:"black"
-}}
-              type="date"
-              value={startDate}
-              onChange={(e) => setDate(e.target.value)}
+<div className="input-group">
+  <label htmlFor="date-of-birth">Date</label>
+  <input
+    id="date-of-birth"
+    type={startDate ? "date" : "text"}
+    value={startDate || ""}
+    placeholder="Select a date"
+    style={{
+      cursor: "pointer",
+      background: "white",
+      color: "black"
+    }}
+    onFocus={(e) => {
+      e.target.type = "date";
+    }}
+    onBlur={(e) => {
+      if (!startDate) {
+        e.target.type = "text";
+      }
+    }}
+        onClick={(e) => {
+      e.currentTarget.showPicker?.();
+    }}
+    onChange={(e) => setDate(e.target.value)}
               min={new Date().toISOString().split("T")[0]}
-                            required
- onClick={(e) => (e.currentTarget as HTMLInputElement).showPicker()}
-            />
-          </div>
+    required
+  />
+</div>
 
 
           <div  className="input-group">

@@ -90,7 +90,7 @@ const isSlotActive = (date: string, slot: string): boolean => {
 export default function GoogleCalendarDemo() {
   const [gapiLoaded, setGapiLoaded] = useState(false);
   const [tokenClient, setTokenClient] = useState<any>(null);
-  const [signedIn, setSignedIn] = useState(true);
+  const [signedIn, setSignedIn] = useState(false);
     const [book, setBook] = useState(false);
   const [accessToken, setAccessToken] = useState<string>("");
 

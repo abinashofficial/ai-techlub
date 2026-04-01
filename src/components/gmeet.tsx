@@ -286,43 +286,53 @@ const createMeet = async () => {
   setLoading(false);
 
   try {
-    const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    // 1️⃣ Initialize gapi client with access token
+    await window.gapi.client.init({
+      apiKey: API_KEY,
+      discoveryDocs: [DISCOVERY_DOC],
+    });
+    window.gapi.client.setToken({ access_token: accessToken });
 
+    // 2️⃣ Get or create an "App Demo Calendar"
+    const calendarListRes = await window.gapi.client.calendar.calendarList.list();
+    let appCalendar = calendarListRes.result.items?.find(
+      (cal: any) => cal.summary === "ShindenTech Calendar"
+    );
+
+    if (!appCalendar) {
+      const newCalRes = await window.gapi.client.calendar.calendars.insert({
+        summary: "ShindenTech Calendar",
+        timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+      });
+      appCalendar = newCalRes.result;
+    }
+
+    const calendarId = appCalendar.id;
+
+    // 3️⃣ Prepare event
+    const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
     const event = {
       summary: title,
       start: { dateTime: startTime, timeZone: tz },
       end: { dateTime: endTime, timeZone: tz },
-
-      // Add shindentechnologies@gmail.com as attendee
-      attendees: [
-        { email: "shindentechnologies@gmail.com", responseStatus: "needsAction" },
-      ],
-
+      attendees: [{ email: "shindentechnologies@gmail.com", responseStatus: "needsAction" }],
       conferenceData: {
-        createRequest: {
-          requestId: String(Date.now()),
-          conferenceSolutionKey: { type: "hangoutsMeet" },
-        },
+        createRequest: { requestId: String(Date.now()), conferenceSolutionKey: { type: "hangoutsMeet" } },
       },
       reminders: { useDefault: true },
     };
 
-    const res = await fetch(
-      `https://www.googleapis.com/calendar/v3/calendars/primary/events?conferenceDataVersion=1&sendUpdates=all`,
-      {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(event),
-      }
-    );
+    // 4️⃣ Insert event into app calendar
+    const createdEvent = await window.gapi.client.calendar.events.insert({
+      calendarId,
+      resource: event,
+      conferenceDataVersion: 1,
+      sendUpdates: "all",
+    });
 
-    const data = await res.json();
-
-    if (data.hangoutLink) {
-      console.log("Meet link:", data.hangoutLink);
+    console.log("Event created:", createdEvent.result);
+    if (createdEvent.result.hangoutLink) {
+      console.log("Meet link:", createdEvent.result.hangoutLink);
     }
 
     setLoading(true);
@@ -335,9 +345,7 @@ const createMeet = async () => {
     console.error("Error creating meeting:", err);
     toast.error("Failed to create meeting.");
   } finally {
-    setTimeout(() => {
-      setLoading(true);
-    }, 3000);
+    setTimeout(() => setLoading(true), 3000);
   }
 };
     // const isButtonDisabled = !startDate || !selectedSlot || !loading;

@@ -102,9 +102,10 @@ const [bookedSlots, setBookedSlots] = useState<string[]>([]);
   const [selectedSlot, setSelectedSlot] = useState<string>("");
   const [loading, setLoading] = useState(true);
   const CALENDAR_ID = "shindentechnologies@gmail.com"; // your public calendar ID
-const [attendees] = useState<string[]>([
-  "shindentechnologies@gmail.com",
-]);        const [startTime, setStartTime] = useState(() => {
+// const [attendees] = useState<string[]>([
+//   "shindentechnologies@gmail.com",
+// ]); 
+       const [startTime, setStartTime] = useState(() => {
     const d = new Date();
     d.setMinutes(d.getMinutes() + 15);
     return d.toISOString().slice(0, 16);
@@ -279,76 +280,66 @@ if (signedIn && accessToken && startDate) {
   };
 
 
-  const createMeet = async () => {
-        setLoading(false);
+const createMeet = async () => {
+  if (!accessToken) return;
 
+  setLoading(false);
 
+  try {
+    const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
-    try {
-      const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
-      // const startISO = new Date(startTime).toISOString();
-      // const endISO = new Date(endTime).toISOString();
+    const event = {
+      summary: title,
+      start: { dateTime: startTime, timeZone: tz },
+      end: { dateTime: endTime, timeZone: tz },
 
-      // if (new Date(endISO) <= new Date(startISO)) {
-      //   toast.error("End time must be after start time!");
-      // setLoading(true);
+      // Add shindentechnologies@gmail.com as attendee
+      attendees: [
+        { email: "shindentechnologies@gmail.com", responseStatus: "needsAction" },
+      ],
 
-      //   return;
-      // }
+      conferenceData: {
+        createRequest: {
+          requestId: String(Date.now()),
+          conferenceSolutionKey: { type: "hangoutsMeet" },
+        },
+      },
+      reminders: { useDefault: true },
+    };
 
-const event = {
-  summary: title,
-  start: { dateTime: startTime, timeZone: tz },
-  end: { dateTime: endTime, timeZone: tz },
+    const res = await fetch(
+      `https://www.googleapis.com/calendar/v3/calendars/primary/events?conferenceDataVersion=1&sendUpdates=all`,
+      {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(event),
+      }
+    );
 
-  attendees: attendees.map(email => ({ email,       responseStatus: "needsAction"
- })), // ✅ FIXED
-
-  conferenceData: {
-    createRequest: {
-      requestId: String(Date.now()),
-      conferenceSolutionKey: { type: "hangoutsMeet" },
-    },
-  },
-  reminders: { useDefault: true },
-};
-
-const res = await fetch(
-  `https://www.googleapis.com/calendar/v3/calendars/${encodeURIComponent(
-    CALENDAR_ID
-  )}/events?conferenceDataVersion=1&sendUpdates=all`,
-  {
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${accessToken}`,
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(event),
-  }
-);
     const data = await res.json();
 
-  if (data.hangoutLink) {
-    console.log("Meet link:", data.hangoutLink);
-  }
-            setLoading(true);
-            setBook(false);
-            setDate("");
-setSelectedSlot("");
-      toast.success("Demo booked successfully!");
-
-    //   setTimeout(() => {
-    //     navigate("/blog");
-    //   }, 3000);
-    } catch (err) {
-      console.error("Error creating meeting:", err);
-      toast.error("Failed to create meeting.");
-    } finally {
-            setTimeout(() => {
-      setLoading(true);
-      }, 3000);
+    if (data.hangoutLink) {
+      console.log("Meet link:", data.hangoutLink);
     }
-  };
+
+    setLoading(true);
+    setBook(false);
+    setDate("");
+    setSelectedSlot("");
+    toast.success("Demo booked successfully!");
+
+  } catch (err) {
+    console.error("Error creating meeting:", err);
+    toast.error("Failed to create meeting.");
+  } finally {
+    setTimeout(() => {
+      setLoading(true);
+    }, 3000);
+  }
+};
     // const isButtonDisabled = !startDate || !selectedSlot || !loading;
 const updateTimesFromSlot = (date: string, slot: string) => {
   if (!date || !slot) return;

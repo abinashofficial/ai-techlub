@@ -307,8 +307,6 @@ const createMeet = async () => {
       appCalendar = newCalRes.result;
     }
 
-    const calendarId = appCalendar.id;
-
     // 3️⃣ Prepare event
     const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
     const event = {
@@ -316,24 +314,24 @@ const createMeet = async () => {
       start: { dateTime: startTime, timeZone: tz },
       end: { dateTime: endTime, timeZone: tz },
       attendees: [{ email: "shindentechnologies@gmail.com", responseStatus: "needsAction" }],
-      conferenceData: {
-        createRequest: { requestId: String(Date.now()), conferenceSolutionKey: { type: "hangoutsMeet" } },
-      },
-      reminders: { useDefault: true },
+      // conferenceData: {
+      //   createRequest: { requestId: String(Date.now()), conferenceSolutionKey: { type: "hangoutsMeet" } },
+      // },
+      // reminders: { useDefault: true },
     };
 
     // 4️⃣ Insert event into app calendar
     const createdEvent = await window.gapi.client.calendar.events.insert({
-      calendarId,
+      calendarId: appCalendar.id,
       resource: event,
-      conferenceDataVersion: 1,
+      // conferenceDataVersion: 1,
       sendUpdates: "all",
     });
 
     console.log("Event created:", createdEvent.result);
-    if (createdEvent.result.hangoutLink) {
-      console.log("Meet link:", createdEvent.result.hangoutLink);
-    }
+    // if (createdEvent.result.hangoutLink) {
+    //   console.log("Meet link:", createdEvent.result.hangoutLink);
+    // }
 
     setLoading(true);
     setBook(false);

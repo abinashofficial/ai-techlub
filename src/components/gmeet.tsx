@@ -101,7 +101,7 @@ const [bookedSlots, setBookedSlots] = useState<string[]>([]);
   const [startDate, setDate] = useState<string>("");
   const [selectedSlot, setSelectedSlot] = useState<string>("");
   const [loading, setLoading] = useState(true);
-  const CALENDAR_ID = "shindentechnologies@gmail.com"; // your public calendar ID
+  // const CALENDAR_ID = "shindentechnologies@gmail.com"; // your public calendar ID
 const [attendees] = useState<string[]>([
   "shindentechnologies@gmail.com",
 ]);        const [startTime, setStartTime] = useState(() => {
@@ -232,17 +232,20 @@ useEffect(() => {
 
 
 
-  const fetchBookedSlots = async (date: string) => {
-  if (!date) return;
+const fetchBookedSlots = async (date: string) => {
+  if (!date || !accessToken) return;
 
   const startOfDay = new Date(`${date}T00:00:00+05:30`).toISOString();
   const endOfDay = new Date(`${date}T23:59:59+05:30`).toISOString();
 
   try {
     const res = await fetch(
-      `https://www.googleapis.com/calendar/v3/calendars/${encodeURIComponent(
-        CALENDAR_ID
-      )}/events?key=${API_KEY}&timeMin=${startOfDay}&timeMax=${endOfDay}&singleEvents=true&orderBy=startTime`
+      `https://www.googleapis.com/calendar/v3/calendars/primary/events?timeMin=${startOfDay}&timeMax=${endOfDay}&singleEvents=true&orderBy=startTime`,
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      }
     );
 
     const data = await res.json();
@@ -256,10 +259,10 @@ useEffect(() => {
 
   // ✅ When date changes → fetch booked slots
   useEffect(() => {
-    if (signedIn && startDate) {
-      fetchBookedSlots(startDate);
+if (signedIn && accessToken && startDate) {
+        fetchBookedSlots(startDate);
     }
-  }, [startDate, signedIn]);
+  }, [startDate, signedIn, accessToken]);
 
   // combined check → active + not booked
   const isSlotAvailable = (date: string, slot: string): boolean => {

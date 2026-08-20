@@ -4,7 +4,7 @@ import  {  useState, useEffect } from "react";
 
 import Footer from '../components/Footer ';
 import Lottie from "lottie-react";
-import Fulltimeform from "../components/fulltimeform";
+import Fulltimeform from "../components/dummyfulltimeform";
 
 
 

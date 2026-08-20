@@ -187,81 +187,81 @@ formData.role = role
 };
 
   
-const createMeet = async (e: React.FormEvent) => {
-        setLoading(true);
+// const createMeet = async (e: React.FormEvent) => {
+//         setLoading(true);
 
-  e.preventDefault();
-  formData.role = program
+//   e.preventDefault();
+//   formData.role = program
 
-  if (role){
-formData.role = role
-  }
-  const controller = new AbortController();
-  const timeoutId = setTimeout(() => controller.abort(), 10000); // 10 sec timeout
+//   if (role){
+// formData.role = role
+//   }
+//   const controller = new AbortController();
+//   const timeoutId = setTimeout(() => controller.abort(), 10000); // 10 sec timeout
 
-  console.log('Submiting up with', formData);
+//   console.log('Submiting up with', formData);
 
-  // API endpoint
-  // const apiUrl = 'http://localhost:8080/public/internship';
-  const apiUrl = 'https://erp-iliw.onrender.com/public/internship';
+//   // API endpoint
+//   // const apiUrl = 'http://localhost:8080/public/internship';
+//   const apiUrl = 'https://erp-iliw.onrender.com/public/internship';
 
-  try {
-    const response = await fetch(apiUrl, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        ...formData,
-        created_at: new Date().toISOString(), // current timestamp
-      }),
-      signal: controller.signal,
-    });
+//   try {
+//     const response = await fetch(apiUrl, {
+//       method: 'POST',
+//       headers: {
+//         'Content-Type': 'application/json',
+//       },
+//       body: JSON.stringify({
+//         ...formData,
+//         created_at: new Date().toISOString(), // current timestamp
+//       }),
+//       signal: controller.signal,
+//     });
 
-    const result = await response.json();
-    console.log('Result:', result);
+//     const result = await response.json();
+//     console.log('Result:', result);
 
-    if (response.ok) {
-      toast.success('Submitted successfully');
+//     if (response.ok) {
+//       toast.success('Submitted successfully');
 
-        setFormData({
-  full_name: "",
-  mobile_number: "",
-  email: "",
-  date_of_birth: "",
-  gender: "",
-  photo_url:"",
-  country_code:"+91",
-  duration:"",
-  role:"",
-  status:"Pending",
-  college_name:"",
-      })
-      setFile(null)
-      setRole("")
-      setEdit(false)
+//         setFormData({
+//   full_name: "",
+//   mobile_number: "",
+//   email: "",
+//   date_of_birth: "",
+//   gender: "",
+//   photo_url:"",
+//   country_code:"+91",
+//   duration:"",
+//   role:"",
+//   status:"Pending",
+//   college_name:"",
+//       })
+//       setFile(null)
+//       setRole("")
+//       setEdit(false)
 
-    } else if (response.status === 401) {
-      alert('This mobile number is already registered.');
-    } else if (response.status === 400) {
-      alert('This Email is already registered.');
-    } else {
-      console.error('Signup failed:', response);
-      alert('Internal server error');
-    }
-  } catch (error: any) {
-    if (error.name === 'AbortError') {
-      alert('Request timed out');
-    } else {
-      console.error('Internal server error:', error);
-      alert('Internal server error');
-    }
-  } finally {
-    clearTimeout(timeoutId); // clean up timeout
-        setLoading(false);
+//     } else if (response.status === 401) {
+//       alert('This mobile number is already registered.');
+//     } else if (response.status === 400) {
+//       alert('This Email is already registered.');
+//     } else {
+//       console.error('Signup failed:', response);
+//       alert('Internal server error');
+//     }
+//   } catch (error: any) {
+//     if (error.name === 'AbortError') {
+//       alert('Request timed out');
+//     } else {
+//       console.error('Internal server error:', error);
+//       alert('Internal server error');
+//     }
+//   } finally {
+//     clearTimeout(timeoutId); // clean up timeout
+//         setLoading(false);
 
-  }
-};
+//   }
+// };
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files[0]) {

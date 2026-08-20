@@ -1,12 +1,11 @@
-import { useState } from "react";
+import { useState, type FormEvent } from "react";
 import { toast } from 'react-toastify';
 import { FaRegIdCard } from "react-icons/fa";
 import Spinner from "./spinner";
 
 
 interface IntershipFormData {
-  first_name: any;
-  last_name: any;
+  full_name: any;
   mobile_number: any;
   email: any;
   date_of_birth: any;
@@ -19,9 +18,26 @@ interface IntershipFormData {
   college_name:any;
 }
 
+ interface SubmitReview {
+  created_at: any;
+  full_name: any;
+  mobile_number: any;
+  email: any;
+  date_of_birth: any;
+  gender: any;
+  photo_url:any;
+  country_code:any;
+  duration:any;
+  role:any;
+  status:any;
+  college_name:any;
+  }
+
+
+
 export default function Internship() {
   const [file, setFile] = useState<File | null>(null);
-  const [edit, setEdit] = useState<boolean>(false);
+  const [edit, setEdit] = useState<boolean>(true);
   const [loading, setLoading] = useState<boolean>(false);
   const [role, setRole] = useState("")
     const [program, setProgram] = useState("")
@@ -30,8 +46,7 @@ export default function Internship() {
   const cloudName = "dababspdo"; 
   const uploadPreset = "ml_default"; 
         const [formData, setFormData] = useState<IntershipFormData>({
-  first_name: "",
-  last_name: "",
+  full_name: "",
   mobile_number: "",
   email: "",
   date_of_birth: "",
@@ -53,7 +68,123 @@ export default function Internship() {
   };
 
 
+    const handleSubmit = (e: React.FormEvent)  => {
+        e.preventDefault();
 
+       setLoading(true);
+
+  formData.role = program
+
+  if (role){
+formData.role = role
+  }
+
+
+  console.log('Submiting up with', formData);
+
+      const submitEntry: SubmitReview = {
+        created_at: new Date().toISOString(),
+  full_name: formData.full_name,
+  mobile_number: formData.mobile_number,
+  email: formData.email,
+  date_of_birth: formData.date_of_birth,
+  gender: formData.gender,
+  photo_url:formData.photo_url,
+  country_code:formData.country_code,
+  duration:formData.duration,
+  role:formData.role,
+  status:formData.status,
+  college_name:formData.college_name,
+      };
+      submitGoogleForm(submitEntry)
+             };
+
+
+      const submitGoogleForm = async (newEntry: SubmitReview ) => {
+          const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), 10000); // 10 sec timeout
+      console.log(newEntry, "newEntry")
+    const formUrl =
+      "https://docs.google.com/forms/d/e/1FAIpQLSe1LmgwB4TSs2ied9IGplB9mYcPPk3NOdMaGJvcHhOzxoKydQ/formResponse";
+
+    // Replace entry.X with your form field IDs
+    const formData = new URLSearchParams();
+    formData.append("entry.1818639581", newEntry.created_at); // example
+    formData.append("entry.134765405", newEntry.full_name);
+    formData.append("entry.616753163", newEntry.mobile_number);
+    formData.append("entry.1752930458", newEntry.email); // replace with actual field ID
+    formData.append("entry.1280640628", newEntry.date_of_birth); // replace with actual field ID
+    formData.append("entry.1930614142", newEntry.gender); // replace
+    formData.append("entry.1250632136", newEntry.photo_url); // replace
+    formData.append("entry.1057040138", newEntry.country_code); // replace
+    formData.append("entry.1513162611", newEntry.duration); // replace
+    formData.append("entry.430032299", newEntry.role); // replace
+    formData.append("entry.307837371", newEntry.status); // replace
+    formData.append("entry.577876774", newEntry.college_name); // replace
+
+
+    try {
+      const response = await fetch(formUrl, {
+        method: "POST",
+        body: formData,
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+      });
+        const result = await response.json();
+    console.log('Result:', result);
+
+      if (result.ok) {
+        console.log("Form submitted successfully!");
+              toast.success('Submitted successfully');
+
+        setFormData({
+  full_name: "",
+  mobile_number: "",
+  email: "",
+  date_of_birth: "",
+  gender: "",
+  photo_url:"",
+  country_code:"+91",
+  duration:"",
+  role:"",
+  status:"Pending",
+  college_name:"",
+      })
+      setFile(null)
+      setRole("")
+      setEdit(false)
+      } else {
+        console.error("Failed to submit form", response.status);
+        alert("Failed to submit form. Please try again.");
+      }
+    } catch (err) {
+      console.error("Error submitting form", err);
+        if (err instanceof TypeError && err.message === "Failed to fetch") {
+              toast.success('Submitted successfully');
+                     setFormData({
+  full_name: "",
+  mobile_number: "",
+  email: "",
+  date_of_birth: "",
+  gender: "",
+  photo_url:"",
+  country_code:"+91",
+  duration:"",
+  role:"",
+  status:"Pending",
+  college_name:"",
+      })
+      setFile(null)
+      setRole("")
+      setEdit(false)
+  }
+    }finally {
+          clearTimeout(timeoutId); // clean up timeout
+
+        setLoading(false);
+  }
+};
 
   
 const createMeet = async (e: React.FormEvent) => {
@@ -91,11 +222,10 @@ formData.role = role
     console.log('Result:', result);
 
     if (response.ok) {
-      toast.success('Registered successfully');
+      toast.success('Submitted successfully');
 
         setFormData({
-  first_name: "",
-  last_name: "",
+  full_name: "",
   mobile_number: "",
   email: "",
   date_of_birth: "",
@@ -212,7 +342,7 @@ formData.role = role
         marginBottom:"40px",
       }}
       >Internship Form</h2>
-      <form onSubmit={createMeet}>
+      <form onSubmit={handleSubmit}>
 
                                   {formData.photo_url ? (
                                   <div>
@@ -250,7 +380,7 @@ formData.role = role
                           
                           
                                       }}>
-                                                          <h5>College ID Card</h5>
+                                                          <h5>College / Any ID Card</h5>
 
                                         
                                       < FaRegIdCard />
@@ -313,33 +443,21 @@ formData.role = role
     {edit ? (
 <div>
   
-        {/* First Name */}
+        {/* Full Name */}
         <div className="input-group">
-          <label>First Name</label>
+          <label>Full Name</label>
           <input
                     className="career-input"
 
             type="text"
-            name="first_name"
-            value={formData.first_name}
+            name="full_name"
+            value={formData.full_name}
             onChange={handleChange}
             required
           />
         </div>
 
-        {/* Last Name */}
-        <div className="input-group">
-          <label>Last Name</label>
-          <input
-                    className="career-input"
 
-            type="text"
-            name="last_name"
-            value={formData.last_name}
-            onChange={handleChange}
-            required
-          />
-        </div>
 
         {/* Gender */}
         <div className="input-group">
@@ -429,6 +547,19 @@ style={{
           </div>
         </div>
 
+                {/* College Name */}
+        <div className="input-group">
+          <label>College Name</label>
+          <input
+                    className="career-input"
+            type="text"
+            name="college_name"
+            value={formData.college_name}
+            onChange={handleChange}
+            required
+          />
+        </div>
+
         {/* Choose Course */}
         <div className="input-group">
           <label>Choose Program</label>
@@ -486,8 +617,8 @@ required
             required
           >
           <option value="">Select Duration</option>
-          <option value="Week">1 Week</option>
-          <option value="Weeks">2 Weeks</option>
+          <option value="1 Week">1 Week</option>
+          <option value="2 Weeks">2 Weeks</option>
                     <option value="1 Month">1 Month</option>
             <option value="2 Months">2 Months</option>
                     <option value="3 Months">3 Months</option>

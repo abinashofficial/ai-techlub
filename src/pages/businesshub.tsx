@@ -5,7 +5,7 @@ import ChatBot from "./chatbot";
 // import ChatBot from "./chatbot";
 // import { TawkToChat } from "../hooks/talktochat";
 import Footer from "../components/Footer ";
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 
 
 
@@ -111,7 +111,7 @@ import { GoArrowRight } from "react-icons/go";
 ];
 
 export default function Business() {
-      const navigate = useNavigate();
+      // const navigate = useNavigate();
 
 
    const [isPortrait, setIsPortrait] = useState(window.matchMedia("(orientation: portrait)").matches);
@@ -230,7 +230,13 @@ className="project_box"
 
   {/* Explore link */}
   <a
-    onClick={()=> navigate(service.url)}
+    onClick={()=> 
+          window.open(
+      service.url,
+      "_blank",
+      "noopener,noreferrer"
+    )
+  }
     style={{
       display: "inline-flex",
       alignItems: "center",

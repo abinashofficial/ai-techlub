@@ -60,11 +60,41 @@ const Contact: React.FC = () => {
             >
               <i className="bi bi-geo-alt"></i>
               <h3>Address</h3>
+               <div
+               style={{
+                textAlign: "center",
+                wordWrap: "break-word",
+                maxWidth: "100%",
+              }}
+               >
               <p>W5VJ+953, 2nd St, Veeramani Nagar, Kovilambakkam, Chennai, Tamil Nadu 600129</p>
-            </div>
+
+               </div>
+                           </div>
           </div>
 
-          <div className="col-lg-3 col-md-6">
+
+
+           <div className="col-lg-6">
+            <div
+              className="info-item d-flex flex-column justify-content-center align-items-center"
+            >
+              <i className="bi bi-envelope"></i>
+         <h3>Email Us</h3>
+                            <div
+               style={{
+                textAlign: "center",
+                wordWrap: "break-word",
+                maxWidth: "100%",
+              }}
+               >
+              <p>info@shindentech.com</p> 
+
+               </div>
+                           </div>
+          </div>
+
+          {/* <div className="col-lg-3 col-md-6">
             <div
               className="info-item d-flex flex-column justify-content-center align-items-center"
             >
@@ -72,17 +102,37 @@ const Contact: React.FC = () => {
               <h3>Call Us</h3>
               <p>+91 9940463927</p>
             </div>
-          </div>
+          </div> */}
+                    {/* <div className="col-lg-3 col-md-6">
+            <div
+              className="info-item d-flex flex-column justify-content-center align-items-center"
+            >
+              <i className="bi bi-telephone"></i>
+               <h3>Address</h3>
+               
+               <div
+               style={{
+                textAlign: "center",
+                wordWrap: "break-word",
+                maxWidth: "100%",
+              }}
+               >
+              <p>W5VJ+953, 2nd St, Veeramani Nagar, Kovilambakkam, Chennai, Tamil Nadu 600129</p>
 
-          <div className="col-lg-3 col-md-6">
+               </div>
+
+            </div>
+          </div> */}
+
+          {/* <div className="col-lg-3 col-md-6">
             <div
               className="info-item d-flex flex-column justify-content-center align-items-center"
             >
               <i className="bi bi-envelope"></i>
               <h3>Email Us</h3>
-              <p>shindentechnologies@gmail.com</p>
+              <p>info@shindentech.com</p>
             </div>
-          </div>
+          </div> */}
         </div>
 
         <div className="row gy-4 mt-1">

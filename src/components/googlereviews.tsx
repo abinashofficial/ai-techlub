@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 
 
 
@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 
     export default function GoogleReviews() {
 
-  const navigate = useNavigate()
+  // const navigate = useNavigate()
                               
 
 
@@ -56,7 +56,13 @@ import { useNavigate } from 'react-router-dom';
                                           borderRadius:"10px",
                                           color:"white",
                                         }}
-                                         onClick={()=> navigate("https://g.page/r/CfmKvuW__k4OEBE/review")}>
+                                         onClick={() => {
+  window.open(
+    "https://g.page/r/CfmKvuW__k4OEBE/review",
+    "_blank",
+    "noopener,noreferrer"
+  );
+}}>
                         Write review
 
               </button>
@@ -69,7 +75,15 @@ import { useNavigate } from 'react-router-dom';
 
                       <div className='link' style={{
                   margin:"10px",
-                }} onClick={()=>navigate("https://share.google/TnUNFUyF8PvSCA614")} >
+                }} onClick={() => {
+  window.open(
+    "https://share.google/TnUNFUyF8PvSCA614",
+    "_blank",
+    "noopener,noreferrer"
+  );
+}}
+                
+              >
   All reviews
       </div> 
 

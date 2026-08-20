@@ -30,22 +30,22 @@ const Footer: React.FC = () => {
             <div className="footer-contact pt-3">
               <p>W5VJ+953, 2nd St, Veeramani Nagar,</p>
               <p>  Kovilambakkam, Chennai, Tamil Nadu 600129</p>
-              <p className="mt-3">
+              {/* <p className="mt-3">
                 <strong>Phone:</strong> <span>+91 9940463927</span>
-              </p>
+              </p> */}
               <p>
-                <strong>Email:</strong> <span>shindentechnologies@gmail.com</span>
+                <strong>Email:</strong> <span>info@shindentech.com</span>
               </p>
             </div>
             <div className="social-links d-flex mt-4">
     <a href="https://www.threads.com/@shindentech" target="_blank" rel="noopener noreferrer"><i className="bi bi-threads"></i></a>
 
-    <a href="https://wa.me/+919940463927" target="_blank" rel="noopener noreferrer"><i className="bi bi-whatsapp"></i></a>
+    {/* <a href="https://wa.me/+919940463927" target="_blank" rel="noopener noreferrer"><i className="bi bi-whatsapp"></i></a> */}
               {/* <a href="#"><i className="bi bi-twitter-x"></i></a>
               <a href="#"><i className="bi bi-facebook"></i></a> */}
               <a href="https://www.instagram.com/shindentech" target="_blank" rel="noopener noreferrer"><i className="bi bi-instagram"></i></a>
               <a href="https://www.linkedin.com/company/shindentech" target="_blank" rel="noopener noreferrer"><i className="bi bi-linkedin"></i></a>
-  <a href="mailto:shindentechnologies@gmail.com" target="_blank" rel="noopener noreferrer">
+  <a href="mailto:info@shindentech.com" target="_blank" rel="noopener noreferrer">
     <i className="bi bi-envelope-fill"></i>
   </a>
             </div>

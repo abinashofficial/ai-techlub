@@ -1,4 +1,4 @@
-import { useState, type FormEvent } from "react";
+import { useState } from "react";
 import { toast } from 'react-toastify';
 import { FaRegIdCard } from "react-icons/fa";
 import Spinner from "./spinner";
@@ -37,7 +37,7 @@ interface IntershipFormData {
 
 export default function Internship() {
   const [file, setFile] = useState<File | null>(null);
-  const [edit, setEdit] = useState<boolean>(true);
+  const [edit, setEdit] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
   const [role, setRole] = useState("")
     const [program, setProgram] = useState("")

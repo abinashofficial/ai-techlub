@@ -85,9 +85,7 @@ const { vendorId } = useParams(); // Grab vendorId from URL
       const MIN_HEIGHT = 40;
 const MAX_HEIGHT = 120;
 
-const normalizeText = (text: string) => {
-  return text.replace(/[\s.]/g, "").toLowerCase();
-};
+
 
 useEffect(() => {
   const el = textareaRef.current;

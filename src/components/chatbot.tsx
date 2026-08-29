@@ -79,13 +79,8 @@ const { vendorId } = useParams(); // Grab vendorId from URL
   const movedRef = useRef(false);
   const hasFetched = useRef(false);
 
-    // const [status, setStatus] = useState("Idle");
-    const mediaRecorderRef = useRef<MediaRecorder | null>(null);
-    const audioChunksRef = useRef<Blob[]>([]);
       const [isRecording, setIsRecording] = useState(false);
-  
-    // const url = "http://localhost:8000/api/transcribe"
-      const url = "https://chatbot-n6w7.onrender.com/api/transcribe"
+      const recognitionRef = useRef<any>(null);
 
       const MIN_HEIGHT = 40;
 const MAX_HEIGHT = 120;
@@ -105,115 +100,7 @@ useEffect(() => {
   el.style.overflowY = scrollHeight > MAX_HEIGHT ? "auto" : "hidden";
 }, [input]);
   
-  
-const startRecording = async () => {
-  try {
-    setIsRecording(true);
-    // setStatus("Recording...");
 
-    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-    const recorder = new MediaRecorder(stream);
-    mediaRecorderRef.current = recorder;
-    audioChunksRef.current = [];
-
-    recorder.ondataavailable = (e) => {
-      if (e.data.size > 0) audioChunksRef.current.push(e.data);
-    };
-
-    recorder.onstop = async () => {
-      const blob = new Blob(audioChunksRef.current, { type: "audio/webm" });
-      const file = new File([blob], "audio.webm", { type: "audio/webm" });
-
-      // setStatus("Uploading...");
-
-      try {
-        const formData = new FormData();
-        formData.append("file", file);
-
-        const res = await fetch(url, {
-          method: "POST",
-          body: formData,
-        });
-
-        const data = await res.json();
-        const transcription = data.text?.trim() || "";
-
-        if (transcription) {
-          // Directly send the transcription instead of relying on setInput
-          await sendMessageWithText(transcription);
-        }
-
-        // setStatus("Idle");
-      } catch (err) {
-        console.error("Transcription failed:", err);
-        // setStatus("Idle");
-      }
-    };
-
-    recorder.start();
-  } catch (err) {
-    console.error(err);
-    // setStatus("Microphone access denied");
-    setIsRecording(false);
-  }
-};
-
-const stopRecording = () => {
-  setIsRecording(false);
-  mediaRecorderRef.current?.stop();
-};
-
-// Separate send function that accepts a text directly
-const sendMessageWithText = async (text: string) => {
-    if (!text.trim() || loading) return;
-let input_data = text
-if (normalizeText(input_data) === "yes") {
-  input_data = prevMessage;
-}
-  const userMessage: Message = {
-    id: Date.now(),
-    role: "user",
-    text,
-    time: new Date().toLocaleTimeString(),
-    form: null,
-  };
-  setMessages(prev => [...prev, userMessage]);
-
-  setLoading(true);
-
-  try {
-    const res = await fetch(apiUrl, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ message: input_data, vendorId }),
-    });
-
-    const data: ChatApiResponse = await res.json();
-
-    const botText = data.response?.message || "I didn't understand that.";
-    const botMessage: Message = {
-      id: Date.now() + 1,
-      role: "bot",
-      text: botText,
-      time: new Date().toLocaleTimeString(),
-      form: data.response?.form,
-    };
-    setMessages(prev => [...prev, botMessage]);
-
-    if (data.keyword) setPrevMessage(data.keyword);
-  } catch (err) {
-    const errorMsg: Message = {
-      id: Date.now() + 2,
-      role: "bot",
-      text: "Server error — please try again.",
-      time: new Date().toLocaleTimeString(),
-      form: null,
-    };
-    setMessages(prev => [...prev, errorMsg]);
-  }
-
-  setLoading(false);
-};
 
 
 
@@ -458,6 +345,98 @@ const onPointerUp = () => {
   el.style.top = `${y}px`;
 };
 
+const startListening = () => {
+  const SpeechRecognition =
+    (window as any).SpeechRecognition ||
+    (window as any).webkitSpeechRecognition;
+
+  if (!SpeechRecognition) {
+    alert("Speech recognition is not supported in this browser.");
+    return;
+  }
+
+  // Prevent multiple instances
+  if (recognitionRef.current) {
+    return;
+  }
+
+  const recognition = new SpeechRecognition();
+
+  // English only
+  recognition.lang = "en-US";
+
+  // Keep listening while the button is held
+  recognition.continuous = true;
+
+  // Don't show partial words
+  recognition.interimResults = false;
+
+  recognition.onstart = () => {
+    setIsRecording(true);
+  };
+
+  recognition.onresult = (event: any) => {
+    let transcript = "";
+
+    for (
+      let i = event.resultIndex;
+      i < event.results.length;
+      i++
+    ) {
+      if (event.results[i].isFinal) {
+        transcript += event.results[i][0].transcript;
+      }
+    }
+
+    if (transcript.trim()) {
+      setInput((prev) => {
+        const separator = prev.trim() ? " " : "";
+        return prev + separator + transcript.trim();
+      });
+    }
+  };
+
+  recognition.onerror = (event: any) => {
+    console.error("Speech recognition error:", event.error);
+
+    setIsRecording(false);
+    recognitionRef.current = null;
+  };
+
+  recognition.onend = () => {
+    setIsRecording(false);
+    recognitionRef.current = null;
+  };
+
+  recognitionRef.current = recognition;
+
+  try {
+    recognition.start();
+  } catch (error) {
+    console.error("Failed to start speech recognition:", error);
+
+    recognitionRef.current = null;
+    setIsRecording(false);
+  }
+};
+
+const stopRecording = () => {
+  const recognition = recognitionRef.current;
+
+  if (recognition) {
+    recognitionRef.current = null;
+
+    try {
+      recognition.stop();
+    } catch (error) {
+      console.error("Failed to stop speech recognition:", error);
+    }
+  }
+
+  setIsRecording(false);
+};
+
+
   return (
     <>
       {/* Floating Chat Icon */}
@@ -652,7 +631,7 @@ onClick={()=>                setMessages(prev => [...prev,   {
     onKeyDown={handleKeyDown}
     placeholder="Type a message..."
     className="chat-textarea"
-    disabled={isRecording}
+    // disabled={isRecording}
   />
 
   {/* Conditional button */}
@@ -677,11 +656,20 @@ onClick={()=>                setMessages(prev => [...prev,   {
   ) : (
     // Microphone / Hold Button
 <div
-  onMouseDown={startRecording}
-  onMouseUp={stopRecording}
-  onMouseLeave={stopRecording}
-  onTouchStart={startRecording}
-  onTouchEnd={stopRecording}
+onPointerDown={(e) => {
+  e.preventDefault();
+  startListening();
+}}
+onPointerUp={(e) => {
+  e.preventDefault();
+  stopRecording();
+}}
+onPointerCancel={stopRecording}
+onPointerLeave={(e) => {
+  if (e.pointerType === "mouse") {
+    stopRecording();
+  }
+}}
   style={{
     height: "40px",
     minWidth: "50px",

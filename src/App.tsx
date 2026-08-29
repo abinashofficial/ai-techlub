@@ -28,6 +28,7 @@ import NoRefundPolicy from "./pages/refundpolicy";
 import TeamsDemo from "./pages/teamsmeet";
 import CalendarBookingApp from "./pages/calendarbook";
 import GoogleReviews from "./pages/reviewRating";
+import VoiceToText from "./components/voicetxt";
 
 
 
@@ -85,6 +86,8 @@ const App: React.FC = () => {
 
                         <Route path="/calendar" element={<CalendarBookingApp />} />
               <Route path="/googlereviews" element={<GoogleReviews />} />
+                            <Route path="/voicetotext" element={<VoiceToText />} />
+
 
 
 

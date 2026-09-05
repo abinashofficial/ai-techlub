@@ -41,7 +41,7 @@ const About: React.FC = () => {
               At Shindentech, we are driven by innovation and a passion for empowering businesses through technology. Our goal is to help organizations unlock their full potential by combining creative strategy with cutting-edge digital solutions.
             </p>
             <ul>
-              <li><i className="bi bi-check-circle"></i> <span>Boost your online presence with data-driven marketing campaigns that convert.</span></li>
+              <li><i className="bi bi-check-circle"></i> <span>Custom Software • SaaS • AI Automation • Cloud Solutions</span></li>
               <li><i className="bi bi-check-circle"></i> <span>Build modern, responsive, and scalable websites that reflect your brand’s identity.</span></li>
               <li><i className="bi bi-check-circle"></i> <span>Ensure seamless performance and reliability with 24/7 expert support.</span></li>
               

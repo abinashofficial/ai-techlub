@@ -16,7 +16,9 @@ const Footer: React.FC = () => {
     e.currentTarget.reset(); // optional: clear input
   };
   return (
-    <div>
+    <div style={{
+      margin:"10px"
+    }}>
   
 
     <footer id="footer" className="footer position-relative light-background">
@@ -67,10 +69,12 @@ const Footer: React.FC = () => {
           <div className="col-lg-2 col-md-3 footer-links">
             <h4>Our Services</h4>
             <ul>
-              <li><a href="#">Digital Marketing</a></li>
-              <li><a href="#">Web Development</a></li>
-              <li><a href="#">Enterprise Resource Platform</a></li>
-              <li><a href="#">Cloud Application</a></li>
+              <li><a href="#">AI Automation</a></li>
+              <li><a href="#">SaaS Solutions</a></li>
+                            <li><a href="#">Cloud Solutions</a></li>
+                                          <li><a href="#">Custom Software</a></li>
+
+
                             <li><a href="#">Technical Support</a></li>
 
 
@@ -92,12 +96,14 @@ const Footer: React.FC = () => {
       </div>
 
       {/* Copyright */}
-      <div className="container copyright text-center mt-4">
+      <div className="container copyright text-center mt-4"
+      >
         <p>
           © <span>Copyright</span> <strong className="px-1 sitename">Shindentech</strong>
           <span>All Rights Reserved</span>
         </p>
       </div>
+      
     </footer>
       {/* <a href="#" id="scroll-top" className="scroll-top d-flex align-items-center justify-content-center"><i className="bi bi-arrow-up-short"></i></a> */}
 {/* <ToastContainer/> */}

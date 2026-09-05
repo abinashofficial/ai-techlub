@@ -467,6 +467,8 @@ Scan QR Code
           >
             <option value="">Select Branch</option>
             <option value= "Chennai">Chennai</option>
+                        <option value= "Others">Others</option>
+
           </select>
 
         </div>

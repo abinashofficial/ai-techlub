@@ -16,14 +16,15 @@ We offer a comprehensive range of solutions designed to help your business thriv
       <div className="container">
         <div className="row g-5">
 
-          {/* Service Item 1 */}
+                                        {/* Service Item 1 */}
           <div className="col-lg-6">
-            <div className="service-item item-cyan position-relative">
-              <i className="bi bi-activity icon"></i>
+            <div className="service-item item-red position-relative">
+              <i className="bi bi-robot icon"></i>
               <div>
-                <h3>Web Development</h3>
+                <h3>AI Automation</h3>
                 <p>
-We create responsive, modern, and scalable websites that reflect your brand and drive engagement. Our solutions are tailored to meet your business goals while providing seamless user experiences.                </p>
+Automate repetitive tasks with intelligent AI solutions that improve efficiency, reduce costs, and accelerate business growth.
+                </p>
                 <a href="#" className="read-more stretched-link">
                   Learn More <i className="bi bi-arrow-right"></i>
                 </a>
@@ -31,14 +32,15 @@ We create responsive, modern, and scalable websites that reflect your brand and 
             </div>
           </div>
 
-          {/* Service Item 2 */}
+                    {/* Service Item 2 */}
           <div className="col-lg-6">
-            <div className="service-item item-orange position-relative">
-              <i className="bi bi-broadcast icon"></i>
+            <div className="service-item item-indigo position-relative">
+              <i className="bi bi-bounding-box-circles icon"></i>
               <div>
-                <h3>Cloud Application</h3>
+                <h3>SaaS</h3>
                 <p>
-Leverage the power of the cloud with our secure and scalable applications. Our solutions ensure seamless performance, accessibility, and flexibility, helping your business operate efficiently from anywhere.                </p>
+Deliver powerful SaaS solutions that simplify operations, automate workflows, and scale effortlessly with your business.
+                </p>
                 <a href="#" className="read-more stretched-link">
                   Learn More <i className="bi bi-arrow-right"></i>
                 </a>
@@ -48,12 +50,13 @@ Leverage the power of the cloud with our secure and scalable applications. Our s
 
           {/* Service Item 3 */}
           <div className="col-lg-6">
-            <div className="service-item item-teal position-relative">
-              <i className="bi bi-easel icon"></i>
+            <div className="service-item item-cyan position-relative">
+              <i className="bi bi-person-workspace icon"></i>
               <div>
-                <h3>Digital Marketing</h3>
+                <h3>Custom Software</h3>
                 <p>
-Drive engagement and growth with our data-driven marketing strategies. From SEO and social media campaigns to content marketing, we help your brand reach the right audience and achieve measurable results.                </p>
+Build tailored software solutions designed around your unique business needs. Our scalable applications streamline processes, improve productivity, and drive growth.
+                </p>
                 <a href="#" className="read-more stretched-link">
                   Learn More <i className="bi bi-arrow-right"></i>
                 </a>
@@ -63,12 +66,12 @@ Drive engagement and growth with our data-driven marketing strategies. From SEO 
 
           {/* Service Item 4 */}
           <div className="col-lg-6">
-            <div className="service-item item-red position-relative">
-              <i className="bi bi-bounding-box-circles icon"></i>
+            <div className="service-item item-teal position-relative">
+              <i className="bi bi-cloud-arrow-up-fill icon"></i>
               <div>
-                <h3>Enterprise Resource Platform</h3>
+                <h3>Cloud Solutions</h3>
                 <p>
-Streamline your business operations with our custom ERP solutions. From finance to inventory and HR management, our platforms optimize workflows, improve efficiency, and support data-driven decision-making.                </p>
+Leverage secure, scalable cloud applications for seamless performance, flexibility, and access from anywhere.        </p>
                 <a href="#" className="read-more stretched-link">
                   Learn More <i className="bi bi-arrow-right"></i>
                 </a>
@@ -76,35 +79,98 @@ Streamline your business operations with our custom ERP solutions. From finance 
             </div>
           </div>
 
+
+
           {/* Service Item 5 */}
-          <div className="col-lg-6" >
-            <div className="service-item item-indigo position-relative">
-              <i className="bi bi-calendar4-week icon"></i>
+          <div className="col-lg-6">
+            <div className="service-item item-orange position-relative">
+              <i className="bi bi-easel icon"></i>
               <div>
-                <h3>Booking Platform</h3>
+                <h3>Digital Marketing</h3>
                 <p>
-Simplify scheduling and reservations with our intuitive booking platform. Designed for efficiency and user-friendliness, it helps your business manage appointments seamlessly while enhancing customer experience.                </p>
+Grow your online presence with strategic digital marketing that attracts customers, builds your brand, and drives measurable results.
+              </p>
                 <a href="#" className="read-more stretched-link">
                   Learn More <i className="bi bi-arrow-right"></i>
                 </a>
               </div>
             </div>
           </div>
+
+
+
+
 
           {/* Service Item 6 */}
           <div className="col-lg-6">
-            <div className="service-item item-pink position-relative">
+            <div className="service-item item-indigo position-relative">
               <i className="bi bi-chat-square-text icon"></i>
               <div>
                 <h3>Technical Support</h3>
                 <p>
-Ensure uninterrupted operations with our reliable 24/7 technical support. Our expert team quickly resolves issues, optimizes performance, and keeps your business running smoothly.                </p>
+Get reliable technical support to resolve issues quickly, maintain performance, and keep your systems running smoothly.
+               </p>
                 <a href="#" className="read-more stretched-link">
                   Learn More <i className="bi bi-arrow-right"></i>
                 </a>
               </div>
             </div>
           </div>
+
+                    {/* Service Item 7 */}
+          <div className="col-lg-6">
+            <div className="service-item item-teal position-relative">
+              <i className="bi bi-phone icon"></i>
+              <div>
+                <h3>Mobile App Development</h3>
+                <p>
+Build powerful mobile applications for Android and iOS with seamless performance, intuitive experiences, and scalable solutions.
+                </p>
+                <a href="#" className="read-more stretched-link">
+                  Learn More <i className="bi bi-arrow-right"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+
+
+
+                    {/* Service Item 8 */}
+          <div className="col-lg-6">
+            <div className="service-item item-indigo position-relative">
+
+    <div style={{
+      // display:"flex",
+      marginRight:"20px"
+          }}>
+           <img 
+                    style={{
+                width:"80px",
+              }}
+                    src="https://res.cloudinary.com/dababspdo/image/upload/v1765337719/Analytics-Pie-2--Streamline-Ultimate_hptcej.svg" alt="logo" />
+    </div>
+         
+
+
+
+
+              {/* <i className="bi bi-chat-square-text icon"></i> */}
+              <div>
+                <h3>UI/UX Design & Web Development</h3>
+                <p>
+Create engaging UI/UX designs and responsive websites that deliver seamless experiences, strong performance, and lasting impact.
+               </p>
+                <a href="#" className="read-more stretched-link">
+                  Learn More <i className="bi bi-arrow-right"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+
+
+
+
+
 
         </div>
       </div>

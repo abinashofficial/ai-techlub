@@ -30,8 +30,11 @@ Our products are built to meet the evolving needs of modern businesses. Whether 
             alignItems:"center",
             justifyContent:"center",
                         flexDirection:"column",
+                        cursor:"pointer",
 
         }}
+        onClick={()=> navigate("/consumerhub")}
+
         >
 <div className="image-wrapper">
   <img src="https://res.cloudinary.com/dababspdo/image/upload/v1765667840/B2C_excgg0.png" alt="" />
@@ -58,8 +61,12 @@ onClick={()=> navigate("/consumerhub")}
             alignItems:"center",
             justifyContent:"center",
             flexDirection:"column",
+                                    cursor:"pointer",
+
 
         }}
+        onClick={()=> navigate("/businesshub")}
+
         >
 
                 <div className="image-wrapper">

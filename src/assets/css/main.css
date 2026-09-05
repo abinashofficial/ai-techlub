@@ -513,7 +513,7 @@ h6 {
   color: var(--default-color);
   background-color: var(--background-color);
   font-size: 14px;
-  padding-bottom: 50px;
+  /* padding-bottom: 50px; */
   position: relative;
 }
 
@@ -1188,7 +1188,7 @@ section,
 }
 
 .features .nav-link.active {
-  background: color-mix(in srgb, var(--accent-color), transparent 96%);
+  /* background: color-mix(in srgb, var(--accent-color), transparent 96%); */
   color: var(--default-color);
 }
 

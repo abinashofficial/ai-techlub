@@ -10,7 +10,7 @@ import Footer from '../components/Footer ';
 import Faq from '../components/Faq';
 import Product from '../components/Products'
 // import Testimonials from '../components/Testimonials';
-import ClientsSection from '../components/Clients'
+// import ClientsSection from '../components/Clients'
 import GoogleReviews from "../components/googlereviews";
 import { TawkToChat } from "../hooks/talktochat";
 // import ChatBot from "./chatbot";

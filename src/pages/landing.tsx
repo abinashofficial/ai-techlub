@@ -30,7 +30,7 @@ function Landing() {
       <Hero />
       <About />
       <GoogleReviews/>
-      <ClientsSection/>
+      {/* <ClientsSection/> */}
       <Features />
       <Services />
       <Pricing />

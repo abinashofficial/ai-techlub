@@ -19,7 +19,7 @@ const Hero: React.FC = () => {
   return (
     <section id="hero" className="hero section">
       <div className="hero-bg">
-        <img src={"https://res.cloudinary.com/dababspdo/image/upload/v1773442176/hero-bg-light_rtbccl.webp"} alt="Background" />
+        <img src={"https://res.cloudinary.com/dababspdo/image/upload/v1789762582/ChatGPT_Image_Sep_19_2026_01_46_11_AM_sxeagw.png"} alt="Background" />
       </div>
 
       <div className="container text-center">

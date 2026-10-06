@@ -87,7 +87,7 @@ export default function ConsumerGMeet() {
 
   const {setUser } = useContext(locateContext);
 
-      const [title, setTitle] = useState("Book a Meeting");
+      const [title, setTitle] = useState("Legal Advisory Meeting");
 const [bookedSlots, setBookedSlots] = useState<string[]>([]);
   const [startDate, setDate] = useState<string>("");
   const [selectedSlot, setSelectedSlot] = useState<string>("");

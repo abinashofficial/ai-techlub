@@ -29,6 +29,7 @@ import TeamsDemo from "./pages/teamsmeet";
 import CalendarBookingApp from "./pages/calendarbook";
 import GoogleReviews from "./pages/reviewRating";
 import VoiceToText from "./components/voicetxt";
+import GoogleCalendarBook from "./pages/googlecalendarbook";
 
 
 
@@ -85,6 +86,8 @@ const App: React.FC = () => {
                         <Route path="/teams" element={<TeamsDemo />} />
 
                         <Route path="/calendar" element={<CalendarBookingApp />} />
+                                                <Route path="/book/:vendorId" element={<GoogleCalendarBook />} />
+
               <Route path="/googlereviews" element={<GoogleReviews />} />
                             <Route path="/voicetotext" element={<VoiceToText />} />
 

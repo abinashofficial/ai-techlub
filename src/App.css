@@ -693,3 +693,18 @@ color: black;
   justify-content: space-around;
   background: rgb(239, 250, 239);
 }
+
+
+.advocate-image {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 15%;
+  height: auto;
+}
+
+@media (max-width: 768px) {
+  .advocate-image {
+    width: 50%;
+  }
+}

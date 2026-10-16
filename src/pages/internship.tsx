@@ -70,7 +70,7 @@ function Internship() {
           justifyContent:"space-around",
           flexWrap:"wrap",
           gap:"20px",
-          marginTop:"40px",
+          marginTop:"70px",
         }}>
           <div className="col-lg-6 content">
 

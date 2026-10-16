@@ -61,13 +61,24 @@ const Hero: React.FC = () => {
   fontStyle:"italic",
   fontSize:"14px"
 }}>
-<button onClick={() => setTerms(false)} style={{
+  <div style={{
+    display:"flex",
+    justifyContent:"center",
+    alignItems:"center"
+      }}>
+      <button onClick={() => setTerms(false)} style={{
   // marginRight:"10px",
   color:"black",
   background:"white",
   fontSize:"20px"
 }}>×</button>
+<div>
 By continuing, you agree to ShindenTech's{" "}
+</div>
+  </div>
+
+
+<div>
   <a href="/terms-of-service" target="_blank" rel="noopener noreferrer">
     Terms of Use
   </a>{" "}
@@ -75,6 +86,8 @@ By continuing, you agree to ShindenTech's{" "}
   <a href="/privacy-policy" target="_blank" rel="noopener noreferrer">
     Privacy Policy
   </a>.
+</div>
+
  
 </p>
 </div>    )}

@@ -5,7 +5,7 @@ const Pricing: React.FC = () => {
   return (
     <section id="pricing" className="pricing section">
       {/* Section Title */}
-      <div className="container section-title" data-aos="fade-up">
+      <div className="container section-title">
         <h2>Pricing</h2>
         <p>
 We offer flexible pricing plans designed to fit businesses of all sizes. Whether you’re a startup, growing company, or enterprise, our packages provide value-driven solutions with transparent costs and no hidden fees.        </p>
@@ -16,7 +16,7 @@ We offer flexible pricing plans designed to fit businesses of all sizes. Whether
         <div className="row gy-4">
 
           {/* Pricing Item 1 - Free Plan */}
-          <div className="col-lg-4" data-aos="zoom-in" data-aos-delay="100">
+          <div className="col-lg-4" >
             <div className="pricing-item">
               <h3>Free Plan</h3>
               <p className="description">
@@ -39,7 +39,7 @@ Perfect for individuals or small teams looking to try our services.             
           </div>
 
           {/* Pricing Item 2 - Business Plan */}
-          <div className="col-lg-4" data-aos="zoom-in" data-aos-delay="200">
+          <div className="col-lg-4">
             <div className="pricing-item featured">
               <p className="popular">Popular</p>
               <h3>Business Plan</h3>
@@ -63,7 +63,7 @@ Ideal for small to medium businesses looking to scale their operations efficient
           </div>
 
           {/* Pricing Item 3 - Developer Plan */}
-          <div className="col-lg-4" data-aos="zoom-in" data-aos-delay="300">
+          <div className="col-lg-4" >
             <div className="pricing-item">
               <h3>Developer Plan</h3>
               <p className="description">

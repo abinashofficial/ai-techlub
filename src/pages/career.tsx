@@ -72,7 +72,7 @@ function Career() {
           justifyContent:"space-around",
           flexWrap:"wrap",
           gap:"20px",
-          marginTop:"40px",
+          marginTop:"70px",
         }}>
 
                     

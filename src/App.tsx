@@ -30,6 +30,12 @@ import CalendarBookingApp from "./pages/calendarbook";
 import GoogleReviews from "./pages/reviewRating";
 import VoiceToText from "./components/voicetxt";
 import GoogleCalendarBook from "./pages/googlecalendarbook";
+import AboutPage from "./pages/about";
+import FeaturesPage from "./pages/feutures";
+import ServicesPage from "./pages/servicepage";
+import PricingPage from "./pages/price";
+import ContactPage from "./pages/contact";
+import ProductsPage from "./pages/product";
 
 
 
@@ -66,6 +72,12 @@ const App: React.FC = () => {
 
           <Routes>
             <Route path="/" element={<Landing />} />
+            <Route path="/about" element={<AboutPage />} />
+            <Route path="/features" element={<FeaturesPage />} />
+            <Route path="/services" element={<ServicesPage />} />
+            <Route path="/pricing" element={<PricingPage />} />
+            <Route path="/products" element={<ProductsPage />} />
+            <Route path="/contact" element={<ContactPage />} />
             <Route path="/terms-of-service" element={<TermsOfService />} />
             <Route path="/privacy-policy" element={<PrivacyPolicy />} />
             <Route path="/chatbot/:vendorId" element={<VendorChatBot />} />

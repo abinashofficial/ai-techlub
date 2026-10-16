@@ -1,18 +1,18 @@
 
-import Header from "../components/Header";
 import Hero from '../components/Hero';
 import About from '../components/About';
 import Features from '../components/Features';
 import Services from '../components/Services';
 import Pricing from '../components/Pricing ';
 import Contact from '../components/Contact ';
-import Footer from '../components/Footer ';
 import Faq from '../components/Faq';
 import Product from '../components/Products'
 // import Testimonials from '../components/Testimonials';
 // import ClientsSection from '../components/Clients'
 import GoogleReviews from "../components/googlereviews";
 import { TawkToChat } from "../hooks/talktochat";
+import HomeHeader from "../components/HomeHeader";
+import HomeFooter from "../components/HomeFooter";
 // import ChatBot from "./chatbot";
 
 
@@ -25,7 +25,7 @@ function Landing() {
     }}>
 
 
- <Header />
+ <HomeHeader />
 
       <Hero />
       <About />
@@ -38,7 +38,7 @@ function Landing() {
       <Faq/>
       {/* <Testimonials/> */}
       <Contact />
-      <Footer />
+      <HomeFooter />
 <TawkToChat enabled={true} />
       
 {/* <ChatBot/> */}

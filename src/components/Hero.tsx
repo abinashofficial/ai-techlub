@@ -3,8 +3,11 @@ import AOS from "aos";
 import GLightbox from "glightbox";
 
 
+
+
+
 const Hero: React.FC = () => {
-          const [terms, setTerms] = useState<Boolean>(true);
+const [terms, setTerms] = useState(false);
   
   useEffect(() => {
     AOS.init({ duration: 1000, once: true });
@@ -15,6 +18,26 @@ const Hero: React.FC = () => {
               // Cleanup the timer when the component unmounts
               return () => clearTimeout(timer);
   }, []);
+
+  useEffect(() => {
+  const dismissed = localStorage.getItem("termsNoticeDismissed");
+
+  if (dismissed) return;
+
+  setTerms(true);
+
+  const timer = window.setTimeout(() => {
+    setTerms(false);
+    localStorage.setItem("termsNoticeDismissed", "true");
+  }, 5000);
+
+  return () => window.clearTimeout(timer);
+}, []);
+
+const closeTerms = () => {
+  setTerms(false);
+  localStorage.setItem("termsNoticeDismissed", "true");
+};
 
   return (
     <section id="hero" className="hero section">
@@ -53,44 +76,47 @@ const Hero: React.FC = () => {
       </div>
       <div className="popdown-message">
 
-    {terms && (
-    <div>
+   {terms && (
+  <div>
+    <p
+      style={{
+        fontStyle: "italic",
+        fontSize: "14px",
+      }}
+    >
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <button
+          onClick={closeTerms}
+          style={{
+            color: "black",
+            background: "white",
+            fontSize: "20px",
+          }}
+        >
+          ×
+        </button>
 
+        <div>By continuing, you agree to ShindenTech's</div>
+      </div>
 
-<p style={{
-  fontStyle:"italic",
-  fontSize:"14px"
-}}>
-  <div style={{
-    display:"flex",
-    justifyContent:"center",
-    alignItems:"center"
-      }}>
-      <button onClick={() => setTerms(false)} style={{
-  // marginRight:"10px",
-  color:"black",
-  background:"white",
-  fontSize:"20px"
-}}>×</button>
-<div>
-By continuing, you agree to ShindenTech's{" "}
-</div>
+      <div>
+        <a href="/terms-of-service" target="_blank" rel="noopener noreferrer">
+          Terms of Use
+        </a>{" "}
+        and{" "}
+        <a href="/privacy-policy" target="_blank" rel="noopener noreferrer">
+          Privacy Policy
+        </a>.
+      </div>
+    </p>
   </div>
-
-
-<div>
-  <a href="/terms-of-service" target="_blank" rel="noopener noreferrer">
-    Terms of Use
-  </a>{" "}
-  and{" "}
-  <a href="/privacy-policy" target="_blank" rel="noopener noreferrer">
-    Privacy Policy
-  </a>.
-</div>
-
- 
-</p>
-</div>    )}
+)}
     </div>
     </section>
   );

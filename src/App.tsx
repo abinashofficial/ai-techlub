@@ -1,7 +1,7 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Landing from "./pages/landing";
 // import { useUIEffects } from "./hooks/useUIEffects";
-// import { TawkToChat } from "./hooks/talktochat";
+import { TawkToChat } from "./hooks/talktochat";
 import { UIEffectsWrapper } from "./utility/UIEffectsWrapper";
 import "./App.css";
 import React, { createContext, useState } from "react";
@@ -58,6 +58,8 @@ const App: React.FC = () => {
   return (
     <BrowserRouter>
       {/* Now we are inside Router, safe to use useLocation */}
+                <TawkToChat />
+
       <UIEffectsWrapper>
         <locateContext.Provider
           value={{
@@ -116,6 +118,7 @@ const App: React.FC = () => {
           {/* <ChatBot /> */}
         </locateContext.Provider>
       </UIEffectsWrapper>
+
     </BrowserRouter>
   );
 };

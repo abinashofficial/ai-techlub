@@ -28,7 +28,6 @@ function AboutPage() {
         </div>
       <GoogleReviews/>
       {/* <ClientsSection/> */}
-      <Features />
       <Footer />
       
     </div>

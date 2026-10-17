@@ -1,4 +1,3 @@
-
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 
@@ -11,15 +10,27 @@ export const TawkToChat = ({
 }: TawkToChatProps) => {
   const { pathname } = useLocation();
 
+  // Pages where the chat widget should be displayed
+  const allowedPages = [
+    "/",
+    "/about",
+    "/features",
+    "/services",
+    "/pricing",
+     "/contact",
+     "/products"
+  ];
+
+  const shouldShowChat = allowedPages.includes(pathname);
+
   useEffect(() => {
     if (!enabled) return;
 
-    const isLandingPage = pathname === "/";
     const tawk = (window as any).Tawk_API;
 
-    // If Tawk.to is already initialized, just show or hide it
+    // Show or hide if Tawk.to is already initialized
     if (tawk && typeof tawk.showWidget === "function") {
-      if (isLandingPage) {
+      if (shouldShowChat) {
         tawk.showWidget();
       } else {
         tawk.hideWidget();
@@ -27,8 +38,8 @@ export const TawkToChat = ({
       return;
     }
 
-    // Don't load the script on other routes
-    if (!isLandingPage) return;
+    // Load the script only on allowed pages
+    if (!shouldShowChat) return;
 
     // Prevent duplicate script loading
     if (document.getElementById("tawk-script")) return;
@@ -55,21 +66,21 @@ export const TawkToChat = ({
     return () => {
       window.clearTimeout(timer);
     };
-  }, [enabled, pathname]);
+  }, [enabled, pathname, shouldShowChat]);
 
-  // Control visibility after Tawk.to finishes loading
+  // Update widget visibility when the route changes
   useEffect(() => {
     if (!enabled) return;
 
     const tawk = (window as any).Tawk_API;
     if (!tawk) return;
 
-    if (pathname === "/") {
+    if (shouldShowChat) {
       tawk.showWidget?.();
     } else {
       tawk.hideWidget?.();
     }
-  }, [enabled, pathname]);
+  }, [enabled, pathname, shouldShowChat]);
 
   return null;
 };
